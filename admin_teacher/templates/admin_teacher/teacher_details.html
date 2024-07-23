@@ -1,0 +1,79 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+
+<style>
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .btn {
+            font-size: 0.8rem; /* Réduit la taille de la police des boutons */
+            padding: 0.5rem 1rem; /* Réduit le padding des boutons */
+        }
+
+        .row {
+            margin-bottom: 1rem; /* Ajoute un espace entre les lignes */
+        }
+
+        .img-thumbnail {
+            max-width: 100%;
+            height: auto; /* Maintient les proportions de l'image */
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <h3 class="text-center">Informations personnelles</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <h3>{{ teacher.user.get_full_name }}</h3>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p><strong>Matière :</strong> {{ teacher.matiere }}</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p><strong>Date de naissance :</strong> {{ teacher.date_naissance|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p><strong>Année d'entrée :</strong> {{ teacher.annee_entree }}</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p><strong>Téléphone :</strong> {{ teacher.telephone }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p><strong>Classes enseignées :</strong>
+                                {% for classe in teacher.classes.all %}
+                                    {{ classe }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 text-center">
+                    {% if teacher.photo_profile %}
+                        <img src="{{ teacher.photo_profile.url }}" alt="Photo de profil" class="img-thumbnail mb-3" style="max-width: 150px;">
+                    {% else %}
+                        <p>Aucune photo disponible.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mt-4 d-flex flex-wrap justify-content-between">
+                <a href="#" class="btn btn-outline-warning mb-2 mb-md-0"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'admin-to-unique-teacher' teacher.id %}" class="btn btn-outline-primary mb-2 mb-md-0"><i class="fas fa-pen"></i></a>
+                <a href="#" class="btn btn-outline-danger mb-2 mb-md-0"><i class="fas fa-trash-alt"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

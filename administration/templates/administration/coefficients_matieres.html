@@ -1,0 +1,39 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .title h4 {
+            font-size: 17px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <h3 class="display-5 text-center">Gestion des Coefficients des Matières</h3>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0 text-center">Sélectionnez une classe</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.school_class.label_tag }}
+                            {{ form.school_class }}
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Valider la classe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .col-md-9.ml-sm-auto.col-lg-12.px-md-4 {
+            padding: 10px;
+        }
+        .d-flex.justify-content-between.align-items-center.mb-4.text-left {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .list-group-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .list-group-item .d-flex.w-100.justify-content-between {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .list-group-item .mb-1 {
+            font-size: 18px; /* Taille de la police de l'objet pour petits écrans */
+        }
+        .list-group-item .small {
+            font-size: 12px; /* Taille de la police des détails pour petits écrans */
+        }
+        #new-message-btn {
+            width: 50%;
+            margin-bottom: 10px;
+        }
+        #message-form form {
+            margin-top: 10px;
+        }
+        #message-form .btn {
+            width: 100%;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 text-left">
+        <button id="new-message-btn" class="btn btn-primary"> Nouveau message
+        </button>
+    </div>
+    <div id="message-form" style="display: none;">
+        <h3 class="w-100 text-center" style="font-size: 20px;">Votre message sera transmis automatiquement à l'administration</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 15px;">Envoyer</button>
+        </form>
+    </div>
+    <h3 class="mt-1 text-center">Messages envoyés</h3>
+    <div class="list-group">
+        {% for message in sent_messages %}
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ message.subject }}</h5>
+                <small>{{ message.timestamp|date:"d/m/Y H:i" }}</small>
+            </div>
+            <p class="mb-1">{{ message.body|truncatewords:20 }}</p>
+            {% if message.file %}
+            <small class="text-muted">Fichier joint: {{ message.file.name }}</small>
+            {% endif %}
+            <small class="text-muted">
+                {% if message.is_read %}
+                    <i class="fas fa-check-circle text-success"></i> Lu
+                {% else %}
+                    <i class="fas fa-times-circle text-danger"></i> Non Lu
+                {% endif %}
+            </small>
+        </a>
+        {% empty %}
+        <p class="text-center">Aucun message envoyé.</p>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const newMessageBtn = document.getElementById('new-message-btn');
+        const messageForm = document.getElementById('message-form');
+
+        newMessageBtn.addEventListener('click', function() {
+            messageForm.style.display = messageForm.style.display === 'none' ? 'block' : 'none';
+        });
+
+        const fileInput = document.querySelector('.form-control[type="file"]');
+        if (fileInput) {
+            const fileLabel = document.createElement('label');
+            fileLabel.textContent = 'Choisir un fichier';
+            fileLabel.setAttribute('for', fileInput.id);
+            fileLabel.classList.add('btn', 'btn-outline-secondary', 'mt-2');
+            fileInput.insertAdjacentElement('beforebegin', fileLabel);
+
+            fileInput.style.display = 'none';
+
+            fileInput.addEventListener('change', function() {
+                const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Aucun fichier choisi';
+                fileLabel.textContent = fileName;
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,28 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title text-center">Modification de note</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Valider la modification</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

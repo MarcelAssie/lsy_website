@@ -1,0 +1,50 @@
+{% extends 'base_parent.html' %}
+{% block content %}
+<style>
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInUp {
+  animation: fadeInUp 1.5s ease-out;
+}
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h2 class="text-center">Tableau de Bord</h2>
+                </div>
+                <div class="card-body">
+                    <div class="welcome-message mb-4">
+                        <h3 class="fadeInUp">Bienvenue, {{ user.first_name }} {{ user.last_name }} !</h3>
+                    </div>
+                    <div class="school-info mb-4">
+                        <h4>Informations Importantes de l'École</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, ipsum urna laoreet mi, nec lacinia urna lorem ut justo.</p>
+                    </div>
+                    <div class="student-id-form">
+                        <h4 class="mb-3">Veuillez saisir l'identifiant de votre enfant pour voir ses informations</h4>
+                        <form method="post" action="{% url 'children-details' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="student_id"></label>
+                                <input type="text" name="student_id" id="student_id" class="form-control" required placeholder="Tapez ici...">
+                            </div>
+                            <button type="submit" class="btn btn-success">Valider</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .text-container p {
+        text-align: justify;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<section class="py-2">
+    <div class="container">
+        <h2 class="text-center">{{ evenement.titre }}</h2>
+        <div class="content-container text-container">
+            <img src="{{ evenement.image.url }}" alt="{{ evenement.titre }}" class="img-fluid">
+            <p class="content-description">{{ evenement.description }}</p>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'events' %}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

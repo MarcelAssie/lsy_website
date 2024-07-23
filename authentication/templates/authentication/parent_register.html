@@ -1,0 +1,63 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .capitalize h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header custum-form capitalize">
+                    <h2 class="text-center">ENREGISTREMENT PARENT</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="signup-form">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_last_name">{{ form.fields.last_name.label }}</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_first_name">{{ form.fields.first_name.label }}</label>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_email">{{ form.fields.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_ville">{{ form.fields.ville.label }}</label>
+                                {{ form.ville }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_pays">{{ form.fields.pays.label }}</label>
+                                {{ form.pays }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_telephone">{{ form.fields.telephone.label }}</label>
+                                {{ form.telephone }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_contact">{{ form.fields.contact.label }}</label>
+                                {{ form.contact }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

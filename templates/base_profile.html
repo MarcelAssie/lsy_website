@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon portail | {{ user.first_name }} {{ user.last_name }}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/lsy_icon.png' %}">
+    <link rel="stylesheet" href="{% static 'student/style_profil.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Javascript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Navbar horizontale -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <button class="navbar-toggler sidebar-toggle" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <img src="{% static 'images/lsy_icon.png' %}" alt="" class="mr-3" style="width: 40px; height: 40px; border-radius: 50%;">
+        <a class="navbar-brand" href="#">Portail {% if user.is_student %}Élève{% elif user.is_teacher %}Enseignant{% endif %}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Saisissez un mot..." aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="">
+                    <ul class="nav flex-column">
+                        <li class="nav-item my-3 text-center">
+                            {% if user.is_student %}<i class="fas fa-user-graduate fa-5x text-success"></i>{% endif %}
+                            {% if user.is_teacher %}<i class="fas fa-chalkboard-teacher fa-5x text-info"></i>{% endif %}
+                        </li>
+                        {% if user.is_student %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-profile' %}">
+                                <i class="fas fa-id-badge"></i> Mon profil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-notes' student_id=user.student.id %}">
+                                <i class="fas fa-file-alt"></i> Voir mes notes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-absences' %}">
+                                <i class="fas fa-clock"></i> Absences
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-schedule' %}">
+                                <i class="fas fa-calendar-alt"></i> Emploi du temps
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-to-admin' %}">
+                                <i class="fas fa-envelope"></i> Messages
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-notifications' %}">
+                                <i class="fas fa-bell"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-change-password' %}">
+                                <i class="fas fa-key"></i> Mot de passe
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_teacher %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-profile' %}">
+                                <i class="fas fa-home"></i> Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-classes' %}">
+                                <i class="fas fa-users"></i> Mes élèves
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-schedule' %}">
+                                <i class="fas fa-calendar-alt"></i> Emploi du temps
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-to-admin' %}">
+                                <i class="fas fa-pen"></i> Message
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-sent-messages' %}">
+                                <i class="fas fa-paper-plane"></i> Messages envoyés
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-notifications' %}">
+                                <i class="fas fa-bell"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'teacher-change-password' %}">
+                                <i class="fas fa-key"></i> Mot de passe
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <hr class="sidebar-divider">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger text-center" href="{% url 'logout' %}">Se déconnecter</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('.sidebar-toggle').click(function(){
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

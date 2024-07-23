@@ -1,0 +1,27 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-12 px-md-4 title">
+    <h3 class="text-center"><strong>Mes classes</strong></h3>
+    <div class="container">
+        <div class="row">
+            {% for classe in classes %}
+                <div class="col-md-6 mb-3 d-flex justify-content-center">
+                    <a href="{% url 'teacher-class-students' class_id=classe.id %}" class="list-group-item list-group-item-action text-center">
+                        {{ classe.get_name_display }}
+                    </a>
+                </div>
+                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                    </div><div class="row">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

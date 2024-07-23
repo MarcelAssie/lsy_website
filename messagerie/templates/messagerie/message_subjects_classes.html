@@ -1,0 +1,94 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    .subject-link, .classe-link {
+        text-decoration: none;
+        color: #000; /* Couleur de texte par défaut */
+        transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur de fond */
+    }
+
+    .subject-link:hover, .classe-link:hover {
+        text-decoration: none;
+        background-color: #f0f0f0; /* Couleur de fond au survol */
+    }
+
+    .subject-link.clicked, .classe-link.clicked {
+        text-decoration: none;
+        background-color: #ccc; /* Couleur de fond lorsqu'il est cliqué */
+    }
+    .divider {
+        border-top: 2px solid rgba(0, 0, 0, 0.8);
+        margin: 2rem 0;
+        margin-bottom: 0;
+    }
+    @media (max-width: 768px) {
+        .title h5 {
+            font-size: 16px;
+        }
+        .title h6 {
+            font-size: 14px;
+        }
+        .divider {
+            border-top: 1px solid rgba(0, 0, 0, 0.8);
+            margin: 2rem 0;
+            margin-bottom: 0;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <h5 class="mb-4 text-center">À quel catégorie d'enseignants souhaitez vous envoyer votre message ?</h5>
+    <!-- Section pour les matières -->
+    <h6 class="mb-3">Par Matières</h6>
+    <div class="row">
+        {% for subject in subjects %}
+            {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+                </div><div class="row mt-3">
+            {% endif %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body text-center p-0">
+                        <a href="{% url 'admin-teachers-subject' subject_id=subject.id %}" class="subject-link d-block p-2">
+                            {{ subject }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        Aucune matière disponible pour le moment !
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+<div class="divider"></div>
+    <!-- Section pour les classes -->
+    <h6 class="mt-3 mb-3">Par Classes</h6>
+    <div class="row">
+        {% for classe in classes %}
+            {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+                </div><div class="row mt-3">
+            {% endif %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body text-center p-0">
+                        <a href="{% url 'admin-teachers-classe' classe_id=classe.id %}" class="classe-link d-block p-2">
+                            {{ classe }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        Aucune classe disponible pour le moment !
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

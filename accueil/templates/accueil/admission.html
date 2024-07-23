@@ -1,0 +1,81 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<style>
+    .table-container {
+        margin-top: 2rem;
+        overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+    }
+    .table {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    .table thead th {
+        background-color: #343a40;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    .table tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+    .table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+</style>
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Modalités d'admission</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Section</th>
+                        <th scope="col" class="text-center">Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Critères d'Admission</td>
+                        <td>
+                            Les candidats doivent avoir un dossier scolaire exemplaire et réussir un examen d'entrée. Les critères incluent les performances académiques, le comportement et les recommandations des enseignants.
+                            <a href="{% url 'criteres-admission' %}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Voir +</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Procédure de Candidature</td>
+                        <td>
+                            Les candidats doivent soumettre un formulaire de candidature, accompagné des documents requis, tels que les relevés de notes, une lettre de motivation et des recommandations.
+                            <a href="{% url 'procedure-candidature' %}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Voir +</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dates Importantes</td>
+                        <td>Les dates des examens d'entrée, des entretiens et des décisions d'admission seront publiées sur notre site web. Veuillez consulter régulièrement pour rester informé.</td>
+                    </tr>
+                    <tr>
+                        <td>Frais de Scolarité</td>
+                        <td>Les frais de scolarité doivent être réglés avant le début de chaque trimestre. Des plans de paiement et des bourses sont disponibles pour les familles éligibles.</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td>Pour toute question concernant l'admission, veuillez contacter <a href="{% url 'contact' %}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">en remplissant ce formulaire.</a> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Ajouter les scripts Bootstrap si ce n'est pas déjà inclus dans 'base_accueil.html' -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

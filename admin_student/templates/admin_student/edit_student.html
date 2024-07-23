@@ -1,0 +1,83 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .capitalize h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header custum-form capitalize">
+                    <h2 class="text-center">ENREGISTREMENT ELEVE</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="signup-form">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_last_name">{{ form.fields.last_name.label }}</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_first_name">{{ form.fields.first_name.label }}</label>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_email">{{ form.fields.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_class">{{ form.fields.classe.label }}</label>
+                                {{ form.classe }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_date_naissance">{{ form.fields.date_naissance.label }}</label>
+                                {{ form.date_naissance }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_annee_admission">{{ form.fields.annee_admission.label }}</label>
+                                {{ form.annee_admission }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_pays_origine">{{ form.fields.pays_origine.label }}</label>
+                                {{ form.pays_origine }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_ville_origine">{{ form.fields.ville_origine.label }}</label>
+                                {{ form.ville_origine }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_telephone">{{ form.fields.telephone.label }}</label>
+                                {{ form.telephone }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_lycee_provenance">{{ form.fields.lycee_provenance.label }}</label>
+                                {{ form.lycee_provenance }}
+                            </div>
+                        </div>
+                         <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_photo_profile">{{ form.fields.photo_profile.label }}</label>
+                                {{ form.photo_profile }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

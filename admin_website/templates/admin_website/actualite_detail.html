@@ -1,0 +1,25 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+    .text-container p {
+        text-align: justify;
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <h3 class="text-center">{{ actualite.titre }}</h3>
+    <img src="{{ actualite.image.url }}" alt="{{ actualite.titre }}" class="img-fluid">
+    <div class="text-container">
+        <p>{{ actualite.description }}</p>
+    </div>
+    <a href="{% url 'actualites' %}" class="btn btn-secondary">Retour</a>
+</main>
+{% endblock %}

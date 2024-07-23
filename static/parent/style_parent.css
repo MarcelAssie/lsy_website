@@ -1,0 +1,229 @@
+body {
+    background-color: #f8f9fa; /* Couleur de fond */
+    font-family: 'Arial', sans-serif; /* Police de caractères */
+}
+.main-content {
+    background-color: #f8f9fa; /* Couleur de fond */
+    padding: 20px;
+}
+.card {
+    border: none; /* Pas de bordure sur les cartes */
+}
+.card-header {
+    background-color: #28a745; /* Couleur de l'en-tête */
+}
+.welcome-message h3 {
+    font-size: 45px;
+    color: #333;
+}
+.school-info {
+    border-left: 4px solid #218838; /* Bordure gauche */
+    padding-left: 10px;
+}
+.student-id-form {
+    background-color: #fff; /* Fond blanc pour le formulaire */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Ombre légère */
+}
+.student-id-form label {
+    font-weight: bold;
+    color: #333;
+}
+.student-id-form input[type="text"] {
+    border: 1px solid #ced4da; /* Bordure du champ de saisie */
+}
+.student-id-form button[type="submit"] {
+    background-color: #218838; /* Couleur de fond du bouton Soumettre */
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+.student-id-form button[type="submit"]:hover {
+    background-color: #1e7e34; /* Changement de couleur au survol */
+}
+#sidebar {
+    position: fixed;
+    margin-top: -30px;
+    height: 100vh;
+    width: 250px;
+    background: rgba(38, 38, 38, 1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+#sidebar.active {
+    left: 0; /* Montrer la sidebar */
+}
+#sidebar .nav-item {
+    margin-bottom: 15px;
+}
+#sidebar .nav-link {
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: left;
+}
+#sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #229399;
+    background-width: 100%;
+    border-radius: 4px;
+}
+#sidebar .nav-link i {
+    margin-right: 10px;
+}
+#sidebar .nav-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+}
+.sidebar-divider {
+    border: 1px solid #ddd;
+    margin-top: 70%;
+    width: 100%;
+}
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar-nav .nav-item .nav-link {
+    color: #333;
+    font-size: 16px;
+}
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        left: -250px;
+        transition: left 0.3s ease;
+        height: auto;
+    }
+    #sidebar.active {
+        left: 0;
+    }
+     #sidebar.mobile {
+        height: 70vh;
+    }
+    .navbar img {
+        margin-left: 50px;
+    }
+    .card {
+        font-size: 11px;
+    }
+}
+
+/* MOT DE PASSE */
+
+.custom-container {
+    max-width: 400px;
+}
+
+.custom-container h2{
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+.change-password-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.change-password-form label {
+    margin-bottom: 0;
+
+}
+
+.change-password-form .form-group {
+    margin-bottom: 20px;
+}
+
+.change-password-form  input[type="password"] {
+    border: none;
+    margin-bottom: 30px;
+    width: 100%;
+    border-bottom: 1px solid #b1b1b1; /* Couleur de la bordure inférieure */
+    background-color: transparent; /* Fond transparent */
+    border-radius: 0; /* Ajustement des coins */
+    padding: 8px 15px; /* Ajustement du padding */
+}
+
+.change-password-form input[type="password"]:focus {
+    outline: none; /* Supprimer l'outline au focus */
+    border-bottom-color: #009300; /* Vert */
+}
+
+.change-password-form .btn-primary {
+    width: 100%;
+}
+
+/* Pour les messages d'erreur */
+.errorlist {
+  color: red;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.errorlist li {
+  margin-bottom: 5px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+}
+
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+
+.table-bordered td:nth-child(1),
+.table-bordered td:nth-child(4) {
+    font-weight: bold;
+    color: black;
+}
+
+.table-bordered td:nth-child(4) {
+    color: red;
+}
+
+tfoot td:last-child {
+    font-size: 1.3em;
+    background-color: rgba(34, 97, 136, 0.5);
+    font-weight: bold;
+}
+
+.table-footer td {
+    font-size: 1.3em;
+}

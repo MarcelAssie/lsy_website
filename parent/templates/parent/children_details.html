@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+{% extends 'base_parent.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .card-custom {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 0;
+        height: 250px;
+    }
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 0.5rem;
+    }
+    .card-header {
+        background-color: #009300;
+        padding: 8px 2px;
+    }
+    .custom-card-body {
+        overflow-y: auto;
+        max-height: 180px;
+    }
+    .general-average {
+        background-color: transparent;
+        padding: 10px;
+        color: green;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid green;
+        margin: 0 0 20px;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+    }
+    .moyenne {
+        color: #1c3d7a;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .img-thumbnail {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .list-group-item .btn {
+        margin-top: 5px;
+    }
+    .notes-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Espace entre les cartes */
+    }
+    .subject-card {
+        flex: 1 1 calc(50% - 20px); /* Deux cartes par ligne avec espace */
+        box-sizing: border-box;
+    }
+    @media (max-width: 768px) {
+        .card-custom {
+            height: auto;
+        }
+        .subject-card {
+            flex: 1 1 100%; /* Une carte par ligne sur petits écrans */
+        }
+        .general-average h4{
+            font-size: 19px;
+        }
+        .btn {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .list-group-item {
+            flex-direction: column;
+            text-align: center;
+        }
+        .list-group-item .badge,
+        .list-group-item .btn {
+            margin-top: 10px;
+        }
+        .performance-notes-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .performance-notes-container > div {
+            flex: 1;
+            margin: 10px;
+        }
+        .card {
+            width: 100%;
+        }
+        .test h1 {
+            font-size: 25px;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4 test">
+    <h1 class="text-center">Informations de mon enfant</h1>
+    <div class="card card-custom">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3>{{ student.user.get_full_name }}</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Classe :</strong> {{ student.classe }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Date de naissance :</strong> {{ student.date_naissance|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Année d'admission :</strong> {{ student.annee_admission }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Pays d'origine :</strong> {{ student.get_pays_origine_display }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Ville d'origine :</strong> {{ student.ville_origine }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Téléphone :</strong> {{ student.telephone }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><strong>Lycée de provenance :</strong> {{ student.lycee_provenance }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    {% if student.photo_profile %}
+                        <img src="{{ student.photo_profile.url }}" alt="Photo de profil" class="img-thumbnail">
+                    {% else %}
+                        <p>Aucune photo disponible.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 text-center mt-4 d-flex justify-content-between align-items-center flex-column flex-md-row">
+        <h1 class="mt-5">Notes</h1>
+        <div class="mt-3 mt-md-0">
+            <a href="{% url 'children-performance' student.id %}" class="btn btn-outline-success"><i class="fas fa-chart-line"></i> Performances</a>
+        </div>
+    </div>
+    <div class="performance-notes-container mt-4">
+    <div class="notes-grid">
+        {% if grouped_notes %}
+        {% for subject_name, notes in grouped_notes.items %}
+        <div class="card mb-4 subject-card">
+            <div class="card-header text-white text-center">
+                <h3 class="card-title">{{ subject_name }}</h3>
+            </div>
+            <div class="card-body custom-card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Note / 20</th>
+                                <th scope="col">Date d'évaluation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for note in notes %}
+                            <tr>
+                                <td>{{ note.score }}</td>
+                                <td>{{ note.date|date:"d/m/Y" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr class='moyenne'>
+                                <th scope="col" class="text-center"> {% for key, value in subject_averages.items %}
+                                {% if key == subject_name %}
+                                Moyenne : {{ value }}
+                                {% endif %}
+                                {% endfor %}
+                                </th>
+                                <th scope="col" class="text-center"> {% for key, value in coefficients.items %}
+                                {% if key == subject_name %}
+                                Coefficient : {{ value }}
+                                {% endif %}
+                                {% endfor %}
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="general-average">
+            <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }}</strong></h4>
+        </div>
+        {% else %}
+        <div class="col-md-12 text-center">
+            <h2><i class="far fa-sad-tear"></i></h2>
+            <p>Aucune note disponible pour votre enfant !</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+    <div class="col-md-12 text-center mt-4 d-flex justify-content-between align-items-center flex-column flex-md-row">
+        <h1 class="mt-3">Absences</h1>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <p>Total des heures d'absence : <strong>{{ total_absence_hours }} heures</strong></p>
+            <ul class="list-group">
+            {% for absence in student.absences.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="absence-details">
+                        <p>{{ absence.start_time|date:"d/m/Y H:i" }} - {{ absence.end_time|date:"d/m/Y H:i" }}</p>
+                        <span class="badge badge-danger badge-pill">{{ absence.duration }} heures</span>
+                    </div>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#motifModal" data-motif="{{ absence.reason }}">
+                        <i class="fas fa-info-circle"></i> Motif
+                    </button>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center"><i class="far fa-smile text-success"></i> Votre enfant n'a aucune absence enregistrée !</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Motif -->
+<div class="modal fade" id="motifModal" tabindex="-1" role="dialog" aria-labelledby="motifModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="motifModalLabel">Motif de l'absence</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="motifContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#motifModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var motif = button.data('motif');
+            var modal = $(this);
+            modal.find('.modal-body #motifContent').text(motif);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Mission et Vision</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6 mb-4">
+                <div class="content-block p-4 shadow rounded">
+                    <h3 class="lead title-bold">Notre Mission</h3>
+                    <p>Le lycée scientifique de Yamoussoukro a pour mission de fournir une éducation de haute qualité, en mettant l'accent sur les sciences et la technologie, pour préparer nos élèves à devenir des leaders et des innovateurs dans leurs domaines respectifs. Nous nous engageons à:</p>
+                    <ul>
+                        <li>Encourager l'excellence académique et le développement personnel.</li>
+                        <li>Favoriser un environnement d'apprentissage inclusif et diversifié.</li>
+                        <li>Promouvoir l'innovation et la pensée critique.</li>
+                        <li>Préparer les étudiants à contribuer positivement à la société.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <img src="{% static 'images/vision2.jpg' %}" alt="Notre Mission" class="img-fluid rounded fixed-dimensions-image">
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6 mb-4">
+                <img src="{% static 'images/vision.jpeg' %}" alt="Notre Vision" class="img-fluid rounded fixed-dimensions-image">
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="content-block p-4 shadow rounded">
+                    <h3 class="lead title-bold">Notre Vision</h3>
+                    <p>Notre vision est de devenir une institution de référence en matière d'éducation scientifique en Afrique et dans le monde. Nous aspirons à:</p>
+                    <ul>
+                        <li>Former des élèves capables de résoudre des problèmes complexes grâce à une solide formation scientifique.</li>
+                        <li>Créer un environnement propice à l'innovation et à la créativité.</li>
+                        <li>Établir des partenariats avec des institutions de renommée mondiale.</li>
+                        <li>Contribuer à la recherche scientifique et au développement technologique.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

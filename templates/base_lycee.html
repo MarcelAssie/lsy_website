@@ -1,0 +1,75 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSY-CI</title>
+    <link rel="icon" type="image/png" href="{% static 'images/lsy_icon.png' %}">
+    <!-- Utilisation de Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Styles personnalisés -->
+    <link rel="stylesheet" href="{% static 'accueil/style_accueil.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg rounded navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">LSY</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lycee' %}">Le Lycée +</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ressources +</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Alumni +</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Nouvelles +</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Menu</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Notes</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login-form' %}">Se connecter</a></li>
+                    {% endif %}
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Saisissez un mot..." aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="mt-5 pt-5">
+    {% block content %}
+    <!-- Contenu spécifique de la page d'accueil -->
+    {% endblock %}
+</main>
+
+<!-- Utilisation de jQuery, Popper.js et Bootstrap JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    window.addEventListener('scroll', function() {
+        var header = document.querySelector('header');
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h3 class="card-title">Supprimer la note</h3>
+        </div>
+        <div class="card-body">
+            <p>Êtes-vous sûr de vouloir supprimer la note ?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                <a href="{% url 'teacher-class-students' class_id=note.student.classe.id %}" class="btn btn-secondary ml-2">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

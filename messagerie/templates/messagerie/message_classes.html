@@ -1,0 +1,53 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    .class-link {
+        text-decoration: none;
+        color: #000; /* Couleur de texte par défaut */
+        transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur de fond */
+    }
+
+    .class-link:hover {
+        text-decoration: none;
+        background-color: #f0f0f0; /* Couleur de fond au survol */
+    }
+
+    .class-link.clicked {
+        text-decoration: none;
+        background-color: #ccc; /* Couleur de fond lorsqu'il est cliqué */
+    }
+    @media (max-width: 768px) {
+        .title h5 {
+            font-size: 16px;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <h5 class="mb-4 text-center">A quelle classe voulez-vous envoyer le message ? </h5>
+    <div class="row">
+        {% for classe in classes %}
+            {% if forloop.counter0|divisibleby:5 and not forloop.first %}
+                </div><div class="row mt-3">
+            {% endif %}
+            <div class="col-md-2">
+                <div class="card mb-3">
+                    <div class="card-body text-center p-0">
+                        <a href="{% url 'admin-to-class' class_id=classe.id %}" class="class-link d-block p-2">
+                            {{ classe }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        Aucune classe disponible pour le moment !
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}>

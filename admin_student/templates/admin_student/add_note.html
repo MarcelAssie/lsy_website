@@ -1,0 +1,33 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.subject.label_tag }}
+            {{ form.subject }}
+        </div>
+
+        <div class="form-group">
+            {{ form.score.label_tag }}
+            {{ form.score }}
+        </div>
+
+        <div class="form-group">
+            {{ form.date.label_tag }}
+            {{ form.date }}
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter la note</button>
+        <a href="{% url 'student-details' student.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.director-section {
+  position: relative;
+  background: url('{% static '../static/images/director_speech.jpeg' %}') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 100px 20px;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.director-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.director-text, .director-photo {
+  flex: 1;
+  margin: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.director-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  animation: slideInUp 1.5s ease-out;
+}
+
+.director-desc {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-left: 1px solid #1baa54;
+  padding-left: 15px;
+  animation: slideInUp 1.8s ease-out;
+}
+
+.director-quote {
+  font-style: italic;
+  margin-bottom: 30px;
+  animation: slideInUp 2.1s ease-out;
+}
+
+.director-photo img {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.director-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 15px;
+  animation: slideInUp 2.4s ease-out;
+}
+
+.director-title-role {
+  font-size: 1rem;
+  margin-top: 5px;
+  animation: slideInUp 2.7s ease-out;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .director-section {
+    padding: 50px 10px;
+    min-height: 50vh;
+  }
+
+  .director-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .director-text {
+    margin: 10px;
+    text-align: center;
+  }
+
+  .director-photo {
+    margin: 10px;
+    text-align: center;
+  }
+
+  .director-title {
+    font-size: 2rem;
+  }
+
+  .director-desc {
+    font-size: 1.2rem;
+    padding-left: 10px;
+    border : transparent;
+  }
+
+  .director-quote {
+    font-size: 1rem;
+  }
+
+  .director-photo img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .director-name {
+    font-size: 1rem;
+  }
+
+  .director-title-role {
+    font-size: 0.8rem;
+  }
+}
+</style>
+
+<section class="director-section">
+    <div class="overlay"></div>
+    <div class="director-content">
+        <div class="director-text">
+            <h3 class="director-title">Mot du Proviseur</h3>
+            <p class="director-desc">
+                Chers élèves, parents et membres de la communauté, bienvenue au Lycée Scientifique de Yamoussoukro. Nous nous efforçons de fournir une éducation de qualité supérieure qui prépare nos étudiants à un avenir brillant.
+            </p>
+            <p class="director-quote">
+                "L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde." - Nelson Mandela
+            </p>
+        </div>
+        <div class="director-photo">
+            <img src="{% static '../static/images/Administration/member.jpeg' %}" alt="Photo du Directeur">
+            <div class="director-name">Marcel Assie</div>
+            <div class="director-title-role">Proviseur du Lycée Scientifique de Yamoussoukro</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

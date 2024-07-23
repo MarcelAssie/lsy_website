@@ -1,0 +1,28 @@
+{% extends 'base_authentification.html' %}
+{% load static %}
+{% block content %}
+<div class="background-container d-flex align-items-center justify-content-center">
+    <div class="form-container">
+        <h2 class="text-center font-weight-bold">Se connecter</h2>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag|safe|cut:":" }}<br>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag|safe|cut:":" }}<br>
+                {{ form.password }}
+            </div>
+            {% if message %}
+                <p class="message">{{ message }}</p>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+            <div class="text-right mt-3">
+                <small><a href="#">Mot de passe oublié ?</a></small>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

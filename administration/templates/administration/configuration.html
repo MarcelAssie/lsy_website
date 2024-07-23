@@ -1,0 +1,75 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h3 class="display-5">PROGRAMME SCOLAIRE</h3>
+            <p class="lead">Choisissez une option pour gérer les programmes</p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Coefficients des matières -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Coefficients des matières</h5>
+                    <p class="card-text">Gérez les coefficients attribués à chaque matière.</p>
+                    <a href="{% url 'coefficients-matieres' %}" class="btn btn-info"><i class="fas fa-cog"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Emploi du temps des élèves -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Emploi du temps des élèves</h5>
+                    <p class="card-text">Gérez les différents emploi du temps.</p>
+                    <a href="{% url 'schedule-class-list' %}" class="btn btn-info"><i class="fas fa-calendar-alt"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Emploi du temps des enseignants -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Emploi du temps des enseignants</h5>
+                    <p class="card-text">Gérez les différents emploi du temps.</p>
+                    <a href="{% url 'schedule-teacher-list' %}" class="btn btn-info"><i class="fas fa-calendar-alt"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Ajout d'annales -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Annales</h5>
+                    <p class="card-text">Gérez les annales publiées sur le site internet</p>
+                    <a href="{% url 'admin-annales-manage' %}" class="btn btn-info"><i class="fas fa-file-alt"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ajout d'évènéments' -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Evènements</h5>
+                    <p class="card-text">Gérez les évènements publiés sur le site internet</p>
+                    <a href="{% url 'evenements' %}" class="btn btn-info"><i class="fas fa-calendar-week"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ajout d'actualités' -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Actualités</h5>
+                    <p class="card-text">Gérez les actualités publiées sur le site internet</p>
+                    <a href="{% url 'actualites' %}" class="btn btn-info"><i class="fas fa-newspaper"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

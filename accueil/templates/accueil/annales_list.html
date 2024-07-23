@@ -1,0 +1,47 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Annales</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <h4 class="text-center mt-4 font-italic">Découvrez notre collection d'annales disponibles en téléchargement pour vous aider dans vos révisions et préparations.</h4>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="GET" action="{% url 'annales-list' %}" class="input-group">
+                            <input class="form-control me-2" type="search" name="recherche" value="{{ query }}" placeholder="Rechercher une annale..." aria-label="Search">
+                            <button class="btn btn-outline-info" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-group mt-4">
+            {% if annales %}
+                {% for annale in annales %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ annale.title }}</h5>
+                            <p class="mb-1">{{ annale.description }}</p>
+                            <small>Publié le {{ annale.created_at|date:"d/m/Y à H:i" }}</small>
+                        </div>
+                        <a href="{{ annale.file.url }}" class="btn btn-primary btn-sm" download>
+                            <i class="fas fa-download"></i> Télécharger
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucune annale ne correspond à votre recherche.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+{% endblock %}

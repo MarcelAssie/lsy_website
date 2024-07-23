@@ -1,0 +1,129 @@
+{% extends 'base_parent.html' %}
+{% block content %}
+<style>
+    .performance-chart-container {
+        width: 100%;
+        height: auto;
+        padding: 0 10px;
+    }
+
+    #performanceChart {
+        width: 100% !important; /* Assure que le graphique occupe toute la largeur du conteneur */
+        height: 300px; /* Hauteur par défaut du graphique */
+    }
+
+    @media (max-width: 768px) {
+        .performance-chart-container {
+            padding: 0 5px; /* Réduit les marges sur les écrans plus petits */
+        }
+
+        #performanceChart {
+            height: 250px; /* Ajuste la hauteur du graphique pour les petits écrans */
+        }
+
+        h3 {
+            margin-top: 100px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            font-size: 10px;
+            padding: 6px 12px;
+        }
+    }
+</style>
+
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="d-flex justify-content-between align-items-center my-0">
+        <a href="javascript:history.back()" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h3 class="text-center flex-grow-1">Courbe d'évolution des notes de {{ student.user.get_full_name }}</h3>
+    </div>
+    <div class="performance-chart-container">
+        <canvas id="performanceChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('performanceChart').getContext('2d');
+        var performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: JSON.parse('{{ dates|escapejs }}'),
+                datasets: [{
+                    label: 'Note',
+                    data: JSON.parse('{{ scores|escapejs }}'),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                month: 'MMM YYYY'
+                            }
+                        },
+                        title: {
+                            display: false,
+                            text: 'Date d\'évaluation',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            display: true,
+                            maxRotation: 45,
+                            minRotation: 30
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: 'Notes',
+                            font: {
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return 'Note: ' + tooltipItem.raw; // Notez l'utilisation de `tooltipItem.raw` pour accéder à la valeur brute
+                            }
+                        },
+                        bodyFont: {
+                            size: 12
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

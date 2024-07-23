@@ -1,0 +1,56 @@
+<!-- administration/templates/administration/list_matiere.html -->
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    .class-link {
+        text-decoration: none;
+        color: #000;
+        transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur de fond */
+    }
+
+    .class-link:hover {
+        text-decoration: none;
+        background-color: #f0f0f0;
+    }
+
+    .class-link.clicked {
+        text-decoration: none;
+        background-color: #ccc;
+    }
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 18px;
+        }
+        .text-div {
+            font-size: 12px;
+        }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <h3 class="mb-4 text-center"><strong>MATIÈRES</strong></h3>
+    <div class="row">
+        {% for matiere in matieres %}
+            {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+                </div><div class="row mt-3">
+            {% endif %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body text-center p-0">
+                        <a href="{% url 'teachers-by-subject' subject_id=matiere.id %}" class="class-link d-block p-2">
+                            {{ matiere }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center text-div">
+                        Aucune matière disponible pour le moment !
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 17px;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+ <h3 class="text-center">Message à {{ teacher.user.get_full_name }}</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.querySelector('.form-control[type="file"]');
+        if (fileInput) {
+            const fileLabel = document.createElement('label');
+            fileLabel.textContent = 'Choisir un fichier';
+            fileLabel.setAttribute('for', fileInput.id);
+            fileLabel.classList.add('btn', 'btn-outline-secondary', 'mt-2');
+            fileInput.insertAdjacentElement('beforebegin', fileLabel);
+
+            fileInput.style.display = 'none';
+
+            fileInput.addEventListener('change', function() {
+                const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Aucun fichier choisi';
+                fileLabel.textContent = fileName;
+            });
+        }
+    });
+</script>
+{% endblock %}

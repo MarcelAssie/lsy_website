@@ -1,0 +1,76 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .capitalize h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header custum-form capitalize">
+                    <h2 class="text-center">ENREGISTREMENT ENSEIGNANT</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="signup-form">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                {{ form.email }}
+                                {% if form.email.help_text %}
+                                    <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.matiere.id_for_label }}">{{ form.matiere.label }}</label>
+                                {{ form.matiere }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.date_naissance.id_for_label }}">{{ form.date_naissance.label }}</label>
+                                {{ form.date_naissance }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.annee_entree.id_for_label }}">{{ form.annee_entree.label }}</label>
+                                {{ form.annee_entree }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.telephone.id_for_label }}">{{ form.telephone.label }}</label>
+                                {{ form.telephone }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.photo_profile.id_for_label }}">{{ form.photo_profile.label }}</label>
+                                {{ form.photo_profile }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="{{ form.classes.id_for_label }}">{{ form.classes.label }}</label>
+                                {{ form.classes }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary validate">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

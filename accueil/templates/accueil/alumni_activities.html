@@ -1,0 +1,65 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Principales activités de la 2ALSY</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <h4 class="text-center mt-4">Événements et Projets</h4>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="{% static 'images/2alsy/alumni1.jpg' %}" alt="Image de l'activité 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Rencontre Annuelle</h5>
+                        <p class="card-text">Chaque année, les anciens se retrouvent pour partager leurs expériences et renforcer les liens d'amitié.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="{% static 'images/2alsy/alumni2.jpg' %}" alt="Image de l'activité 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Conférences et Ateliers</h5>
+                        <p class="card-text">Des conférences et ateliers sont organisés pour les élèves actuels, animés par les anciens.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="{% static 'images/2alsy/alumni3.jpg' %}" alt="Image de l'activité 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Projets de Mentorat</h5>
+                        <p class="card-text">Les anciens accompagnent les élèves dans leur parcours scolaire et professionnel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Projets de Développement</h5>
+                        <p class="card-text">Les anciens participent à divers projets de développement pour améliorer les infrastructures et les ressources de l'école.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Activités Culturelles et Sportives</h5>
+                        <p class="card-text">Organisation d'événements culturels et sportifs pour maintenir l'esprit de communauté et de compétition saine.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

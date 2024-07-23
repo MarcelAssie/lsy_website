@@ -1,0 +1,23 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <h3 class="text-center">{% if form.instance.pk %}Modifier{% else %}Créer{% endif %} un créneau pour {{ teacher }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+    <a href="{% url 'schedule-teacher-view' teacher.id %}" class="btn btn-secondary mt-3">Retour</a>
+</main>
+{% endblock %}

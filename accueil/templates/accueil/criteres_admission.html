@@ -1,0 +1,74 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .details-container {
+        margin-top: 2rem;
+    }
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    .card-header {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+</style>
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Critères d'Admission</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+
+        <div class="details-container">
+            <div class="card">
+                <div class="card-header text-center">
+                    Admission en Classe de 4ème
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Nationalité : <strong>Ivoirienne</strong></li>
+                        <li>Âge limite : <strong>12 ans maximum</strong></li>
+                        <li>Moyennes requises :
+                            <ul>
+                                <li>Mathématiques : Minimum <strong>18/20</strong></li>
+                                <li>Physique-Chimie : Minimum <strong>18/20</strong></li>
+                                <li>Français : Minimum <strong>16/20</strong></li>
+                                <li>Anglais : Minimum <strong>15/20</strong></li>
+                                <li>Moyenne générale annuelle : Minimum <strong>16/20</strong></li>
+                            </ul>
+                        </li>
+                        <li>Résultats au Brevet du Collège : Un minimum requis de <strong>320 points</strong> sur un total de 400.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header text-center">
+                    Admission en Classe de 2nde C
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Nationalité : <strong>Ivoirienne</strong></li>
+                        <li>Âge limite : <strong>16 ans maximum</strong></li>
+                        <li>Moyennes requises :
+                            <ul>
+                                <li>Mathématiques : Minimum <strong>17/20</strong></li>
+                                <li>Physique-Chimie : Minimum <strong>17/20</strong></li>
+                                <li>Français : Minimum <strong>15/20</strong></li>
+                                <li>Anglais : Minimum <strong>15/20</strong></li>
+                                <li>Moyenne générale annuelle : Minimum <strong>15/20</strong></li>
+                            </ul>
+                        </li>
+                        <li>Résultats au Brevet du Collège : Total de 400 points, minimum requis de <strong>320 points</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

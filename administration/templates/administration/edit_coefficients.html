@@ -1,0 +1,35 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h4 {
+            font-size: 17px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <a href="{% url 'manage-coefficients' coefficient.school_class.id %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Retour
+    </a>
+    <div class="d-flex justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white text-center">
+                    <h4 class="mb-0">Modifier Coefficient</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success btn-block">Enregistrer les modifications</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

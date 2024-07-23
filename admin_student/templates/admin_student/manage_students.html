@@ -1,0 +1,86 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="dashboard-header mb-4 text-center">
+        <h3 class="display-5">GESTION DES ELEVES </h3>
+        <p class="lead">Que souhaitez-vous faire aujourd'hui ?</p>
+    </div>
+    <!-- Barre de recherche -->
+    <div class="row mb-4">
+        <div class="col-md-12 md-1">
+            <div class="">
+                <div class="card-body">
+                    <form method="GET" action="{% url 'search-students' %}" class="input-group">
+                        <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher un élève..." aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Bloc : Liste de classes -->
+        <div class="col-md-6 mb-4">
+            <div class="card card-custom text-center">
+                <div class="card-body">
+                    <p class="card-text">Consulter les différentes listes d'élèves</p>
+                    <a href="{% url 'list-classes' %}" class="btn btn-info btn-custom"><i class="fas fa-list"></i> Accéder</a>
+                </div>
+            </div>
+        </div>
+        <!-- Bloc : Ajouter un nouvel élève -->
+        <div class="col-md-6 mb-4">
+            <div class="card card-custom text-center">
+                <div class="card-body">
+                    <p class="card-text">Ajoutez un élève à la base de données</p>
+                    <a href="{% url 'student_register' %}" class="btn btn-success btn-custom"><i class="fas fa-user-plus"></i> Ajouter</a>
+                </div>
+            </div>
+        </div>
+        <!-- Nouveau bloc : Informations à tous les étudiants -->
+        <div class="col-md-6 mb-4">
+            <div class="card card-custom text-center">
+                <div class="card-body">
+                    <p class="card-text">Messages aux élèves d'une classe</p>
+                    <a href="{% url 'message-classes' %}" class="btn btn-secondary btn-custom"><i class="fas fa-envelope"></i> Partager</a>
+                </div>
+            </div>
+        </div>
+        <!-- Bloc existant : Autres actions -->
+        <div class="col-md-6 mb-4">
+            <div class="card card-custom text-center">
+                <div class="card-body">
+                    <p class="card-text">Message à tous les élèves de l'école</p>
+                    <a href="{% url 'admin-to-all-students' %}" class="btn btn-warning btn-custom"><i class="fas fa-envelope"></i> Partager</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Résultats de la recherche -->
+    {% if students %}
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Résultats de la recherche
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for student in students %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="{% url 'student-details2' student.id %}" class="text-decoration-none text-dark">
+                                {{ student.first_name }} {{ student.last_name }}
+                            </a>
+                            <span class="badge badge-primary badge-pill">Détails</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

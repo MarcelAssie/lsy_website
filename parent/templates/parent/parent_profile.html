@@ -1,0 +1,58 @@
+{% extends 'base_parent.html' %}
+{% block content %}
+<main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="card">
+        <div class="card-header bg-success text-white d-flex align-items-center">
+            <h5 class="card-title mx-auto mb-0">{{ user.first_name }} {{ user.last_name }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p><strong>Email personnel :</strong></p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p><strong>Pays de résidence :</strong></p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ parent.get_pays_display }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p><strong>Ville de résidence :</strong></p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ parent.ville }}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p><strong>Numéro de téléphone :</strong></p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ parent.telephone }}</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p><strong>Autre contact :</strong></p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ parent.contact }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

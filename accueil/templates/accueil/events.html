@@ -1,0 +1,32 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Évènements</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+
+        <div class="row mt-4">
+            {% for evenement in evenements %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{{ evenement.image.url }}" class="card-img-top" alt="{{ evenement.titre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ evenement.titre }}</h5>
+                            <p class="card-text">{{ evenement.description|slice:":100" }}...</p>
+                            <a href="{% url 'event-detail' evenement.pk %}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Aucun événement disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

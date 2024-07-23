@@ -1,0 +1,99 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Réseau des Anciens du Lycée Scientifique</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <h4 class="text-center mt-4">Les Anciens du Lycée Scientifique (AS)</h4>
+        <p class="text-center font-italic">"AS35" signifie que vous êtes un Ancien du Scientifique de la 35ème promotion.</p>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title underline-green">Présentation de l'Association 2ALSY</h5>
+                        <p class="card-text">L'Association des Anciens du Lycée Scientifique de Yamoussoukro (2ALSY) est un réseau dynamique et solidaire créé pour maintenir et renforcer les liens entre les anciens élèves du lycée. Fondée dans le but de promouvoir un esprit de communauté et d'entraide, l'association organise régulièrement des événements sociaux, des conférences, et des activités professionnelles pour ses membres. La 2ALSY soutient également l'établissement scolaire dans ses projets d'envergure, en collaborant avec l'administration pour améliorer les infrastructures et enrichir l'expérience éducative des élèves actuels.</p>
+                        <p class="card-text">Nous sommes fiers de notre histoire et de notre réseau étendu d'anciens élèves qui contribuent activement au développement de notre communauté. Pour en savoir plus sur nos projets, événements à venir, et pour nous rejoindre, visitez notre site web officiel.</p>
+                        <a href="https://ci.linkedin.com/company/2alsy" class="btn btn-primary" target="_blank">Visiter le site</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title underline-green">Membres de l'Administration</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Président : Marcel Assie</li>
+                            <li class="list-group-item">Vice-président : Marcel Assie</li>
+                            <li class="list-group-item">Secrétaire Général : Marcel Assie</li>
+                            <li class="list-group-item">Trésorier : Marcel Assie</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="carousel-image-container">
+                                <img class="d-block w-100" src="{% static 'images/2alsy/alumni1.jpg' %}" alt="First slide">
+                                <div class="carousel-caption-overlay">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Rencontre annuelle des anciens</h5>
+                                        <p>Un moment de partage et de convivialité.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-image-container">
+                                <img class="d-block w-100" src="{% static 'images/2alsy/alumni2.jpg' %}" alt="Second slide">
+                                <div class="carousel-caption-overlay">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Conférence des Anciens</h5>
+                                        <p>Des échanges enrichissants avec les nouvelles générations.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-image-container">
+                                <img class="d-block w-100" src="{% static 'images/2alsy/alumni3.jpg' %}" alt="Third slide">
+                                <div class="carousel-caption-overlay">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Projet de mentorat</h5>
+                                        <p>Accompagner les élèves dans leur parcours scolaire et professionnel.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

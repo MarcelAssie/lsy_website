@@ -1,0 +1,45 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Création</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="content-block">
+                    <h3 class="lead title-bold">Fondation et Vision :
+                    Le lycée scientifique de Yamoussoukro, un projet ambitieux pour l'excellence éducative.</h3>
+                    <p>Le lycée scientifique de Yamoussoukro, couramment reconnu comme <strong>le joyau de l'éducation en Côte d'Ivoire</strong>,
+                        a été fondé dans le cadre d'une vision ambitieuse pour l'excellence académique et scientifique. Situé au cœur de Yamoussoukro,
+                        la capitale politique du pays, cette institution prestigieuse a vu le jour dans les années de l'indépendance, marquant ainsi
+                        <strong>un jalon majeur dans l'histoire éducative de la nation</strong>.</p>
+                    <button type="button" class="btn btn-success">Voir plus</button>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <img src="{% static 'images/lsy_1.jpeg' %}" alt="Lycée d'Excellence" class="img-fluid rounded fixed-dimensions-image">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <img src="{% static 'images/lsy_1.jpeg' %}" alt="Lycée d'Excellence" class="img-fluid rounded fixed-dimensions-image">
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="content-block">
+                    <h3 class="lead title-bold">Excellence Éducative : L'héritage de leadership académique à Yamoussoukro, joyau de la Côte d'Ivoire.</h3>
+                    <p>Depuis ses débuts, le lycée s'est démarqué par son engagement indéfectible envers l'innovation pédagogique et la qualité de l'enseignement.
+                        Il est devenu un phare pour les jeunes esprits aspirant à exceller dans les domaines des sciences et des technologies, produisant régulièrement
+                        des générations de leaders et de penseurs qui <strong>façonnent l'avenir de la Côte d'Ivoire et au-delà</strong>. Avec ses installations modernes
+                        et son corps professoral dévoué, <strong>le lycée scientifique de Yamoussoukro demeure une référence incontestée dans le paysage éducatif national</strong>.</p>
+                    <button type="button" class="btn btn-success">Voir plus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

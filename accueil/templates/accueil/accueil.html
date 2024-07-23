@@ -1,0 +1,79 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-20%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.slideInLeft {
+  animation: slideInLeft 2s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInUp {
+  animation: fadeInUp 2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  animation: fadeIn 2s ease-in-out;
+}
+
+}
+</style>
+<section class="home">
+    <div class="background-image"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="home-content">
+                <h3 class="home-title slideInLeft">LYCEE SCIENTIFIQUE DE <br>YAMOUSSOUKRO</h3>
+                <p class="lead home-desc fadeInUp">
+                    Bienvenue sur le site de notre ancienne école !
+                    Explorez avec nostalgie les souvenirs et les moments précieux passés dans nos murs.
+                    Découvrez ce qui fait de notre établissement un lieu si spécial pour nous tous.
+                </p>
+                <p class="quote fadeInUp">
+                    "L'excellence en éducation est la clé de l'avenir, car elle nourrit les esprits et ouvre les portes de l'opportunité." - Marcel Assie
+                </p>
+                <div class="devise fadeIn" style="margin-bottom: 30px;">L'Excellence, Notre Passion !</div>
+                <a href="{% url 'director-speech' %}" class="btn btn-warning mb-2 mb-md-0 fadeIn">Mot du proviseur</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

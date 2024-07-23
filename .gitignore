@@ -1,0 +1,48 @@
+# Environnement virtuel
+env/
+venv/
+
+# Fichiers Python compilés
+*.pyc
+*.pyo
+__pycache__/
+
+# Fichiers de cache
+*.log
+*.sqlite3
+*.db
+
+# Configuration des IDE
+.vscode/
+.idea/
+
+# Fichiers de couverture de tests
+.coverage
+*.cover
+
+# Fichiers générés
+*.egg-info/
+dist/
+build/
+
+# Fichiers temporaires
+*.swp
+*.swo
+
+# Fichiers de configuration de l'environnement
+*.env
+
+# Fichiers spécifiques à l'éditeur de texte
+*.sublime-project
+*.sublime-workspace
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Autres
+*.gz
+*.zip

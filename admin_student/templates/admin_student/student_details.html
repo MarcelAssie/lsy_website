@@ -1,0 +1,251 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    .card-custom {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 0;
+        height: 250px;
+    }
+    .card-title {
+        font-size: 18px;
+        margin-bottom: 0.5rem;
+    }
+    .card-header {
+        background-color: #5f5f5f;
+        padding: 8px 2px;
+    }
+    .custom-card-body {
+        overflow-y: auto;
+        max-height: 180px;
+    }
+    .moyenne {
+        color: #1c3d7a;
+        margin-top: 20px; /* Espacement du haut */
+        text-align: center;
+    }
+    .general-average {
+        color: #1336aa;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        background-color: transparent;
+        padding: 10px;
+        border: 1px solid #1336aa;
+        border-radius: 10px;
+        margin: 20px 0;
+        text-align: center;
+    }
+    .img-thumbnail {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .list-group-item .btn {
+        margin-top: 5px;
+    }
+    .notes-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Espace entre les cartes */
+    }
+    .subject-card {
+        flex: 1 1 100%; /* Une carte par ligne sur petits écrans */
+        box-sizing: border-box;
+    }
+    .card-body {
+        padding: 1rem; /* Réduit le padding pour les petits écrans */
+    }
+    .test h1 {
+        font-size: 24px;
+    }
+    @media (min-width: 768px) {
+        .subject-card {
+            flex: 1 1 calc(33.333% - 20px); /* Trois cartes par ligne sur écrans larges */
+        }
+    }
+    @media (max-width: 768px) {
+        .text-right {
+            text-align: center; /* Centrage du texte sur petits écrans */
+        }
+        .btn {
+            font-size: 0.8rem; /* Réduit la taille de la police des boutons */
+            padding: 0.5rem 1rem; /* Réduit le padding des boutons */
+        }
+        .list-group-item .btn {
+            margin-top: 10px;
+        }
+        .general-average {
+            font-size: 18px; /* Réduction de la taille de la police pour petits écrans */
+        }
+        .notes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Espace entre les cartes */
+        }
+        .subject-card {
+            flex: 1 1 100%; /* Une carte par ligne sur petits écrans */
+            box-sizing: border-box;
+        }
+    }
+</style>
+
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <h3>Informations personnelles</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3>{{ student.user.get_full_name }}</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Classe :</strong> {{ student.classe }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Date de naissance :</strong> {{ student.date_naissance|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Année d'admission :</strong> {{ student.annee_admission }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Pays d'origine :</strong> {{ student.get_pays_origine_display }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Ville d'origine :</strong> {{ student.ville_origine }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Téléphone :</strong> {{ student.telephone }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><strong>Lycée de provenance :</strong> {{ student.lycee_provenance }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    {% if student.photo_profile %}
+                        <img src="{{ student.photo_profile.url }}" alt="Photo de profil" class="img-thumbnail">
+                    {% else %}
+                        <p>Aucune photo disponible.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <a href="{% url 'edit-student' student.id %}" class="btn btn-outline-warning mb-2 mb-md-0"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'admin-to-unique-student' student.id %}" class="btn btn-outline-primary mb-2 mb-md-0"><i class="fas fa-pen"></i></a>
+                    <a href="{% url 'add-note' student.id %}" class="btn btn-outline-success mb-2 mb-md-0"><i class="fas fa-plus"></i> Note</a>
+                    <a href="{% url 'add-absence' student.id %}" class="btn btn-outline-info mb-2 mb-md-0"><i class="fas fa-plus"></i> Absence</a>
+                    <a href="{% url 'delete-confirm-student' student.id %}" class="btn btn-outline-danger ml-2 ml-md-0"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-5">Notes</h3>
+    <div class="notes-grid">
+        {% if grouped_notes %}
+        {% for subject_name, notes in grouped_notes.items %}
+        <div class="card card-custom subject-card">
+            <div class="card-header text-white text-center">
+                <h3 class="card-title">{{ subject_name }}</h3>
+            </div>
+            <div class="card-body custom-card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Note / 20</th>
+                                <th scope="col">Date d'évaluation</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for note in notes %}
+                            <tr>
+                                <td>{{ note.score }}</td>
+                                <td>{{ note.date|date:"d/m/Y" }}</td>
+                                <td>
+                                    <a href="{% url 'edit-note' note.id %}" class="mr-2"><i class="fas fa-edit text-warning"></i></a>
+                                    <a href="{% url 'delete-note' note.id %}"><i class="fas fa-trash-alt text-danger"></i></a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center">Aucune note disponible.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-md-12 text-center">
+            <h2><i class="far fa-sad-tear"></i></h2>
+            <p>Aucune note disponible pour le moment !</p>
+        </div>
+        {% endif %}
+    </div>
+    <h3 class="mt-5">Moyennes</h3>
+    <div class="table-responsive">
+             {% if grouped_notes %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Matière</th>
+                    <th scope="col">Coefficient</th>
+                    <th scope="col">Moyenne</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject_name, average in subject_averages.items %}
+                <tr>
+                    <td>{{ subject_name }}</td>
+                    {% for key, value in coefficients.items %}
+                    {% if key == subject_name %}<td>{{ value }}</td>{% endif %}
+                    {% endfor %}
+                    <td class='moyenne'><strong>{{ average|floatformat:2 }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="general-average">
+            <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }}</strong></h4>
+        </div>
+        {% endif %}
+    </div>
+    <h3 class="mt-5">Absences</h3>
+    <div class="card">
+        <div class="card-body">
+            <p>Total des heures d'absence : <strong>{{ total_absence_hours }} heures</strong></p>
+            <ul class="list-group">
+                {% for absence in student.absences.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="absence-details">
+                        <p>{{ absence.start_time|date:"d/m/Y H:i" }} - {{ absence.end_time|date:"d/m/Y H:i" }}</p>
+                        <span class="badge badge-danger badge-pill">{{ absence.duration }} heures</span>
+                    </div>
+                    <a href="{% url 'delete-absence' absence.id %}"><i class="fas fa-trash-alt text-danger"></i></a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center">Aucune absence enregistrée.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

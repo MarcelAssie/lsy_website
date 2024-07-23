@@ -1,0 +1,163 @@
+ <!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSY-CI</title>
+    <link rel="icon" type="image/png" href="{% static 'images/lsy_icon.png' %}">
+    <!-- Utilisation de Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Styles personnalisés -->
+    <link rel="stylesheet" href="{% static 'accueil/style_accueil.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg rounded navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/lsy_icon.png' %}" alt="Logo LSY" title="Logo LSY">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accueil' %}"><strong>Accueil</strong></a></li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Le Lycée</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'lycee-histoire' %}">Histoire du lycée</a>
+                            <a class="dropdown-item" href="{% url 'lycee-mission-vision' %}">Mission et vision</a>
+                            <a class="dropdown-item" href="{% url 'administration' %}">Administration</a>
+                            <a class="dropdown-item" href="{% url 'infras-equipements' %}">Infrastructures et équipements</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Ressources</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'reglements-interieurs' %}">Règlements intérieurs</a>
+                            <a class="dropdown-item" href="{% url 'admission' %}">Admission</a>
+                            <a class="dropdown-item" href="{% url 'annales-list' %}">Annales</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Alumni</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'alumni-network' %}">2ALSY</a>
+                            <a class="dropdown-item" href="{% url 'alumni-activities' %}">Activités</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>News</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'news' %}">Actualités</a>
+                            <a class="dropdown-item" href="{% url 'events' %}">Evénements</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><strong>Contact</strong></a></li>
+                    </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0 custom-margin-right">
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Saisissez un mot..." aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Pour permette que la barre de navigation change de couleur lorsqu'on descend de 50 pixels-->
+<script>
+    window.addEventListener('scroll', function() {
+        var header = document.querySelector('header');
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>
+<!-- Pour permettre la création du menu déroulant losqu'on passe en mode mobile-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdowns = document.querySelectorAll('.nav-item.dropdown');
+        dropdowns.forEach(function(dropdown) {
+            dropdown.addEventListener('mouseenter', function() {
+                this.querySelector('.dropdown-menu').classList.add('show');
+            });
+            dropdown.addEventListener('mouseleave', function() {
+                this.querySelector('.dropdown-menu').classList.remove('show');
+            });
+        });
+    });
+</script>
+<footer class="footer bg-dark text-white">
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <!-- Colonne 1 : Informations sur l'école -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase footer-title">
+                        <img src="{% static '../static/images/footer/about.png' %}" alt="Icone 1" class="footer-icon"> À propos de nous
+                    </h5>
+                    <p>
+                        Excellente éducation pour un avenir brillant. Nous offrons une gamme de programmes académiques adaptés à chaque étudiant.
+                    </p>
+                    <ul class="list-unstyled" style="margin-top: 20px;">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Rue de l'Éducation, Abidjan, CI</li>
+                        <li><i class="fas fa-phone"></i> +225 00 00 00 00</li>
+                        <li><i class="fas fa-envelope"></i> contact@lyceelsyci.ci</li>
+                    </ul>
+                </div>
+
+                <!-- Colonne 2 : Liens rapides -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase footer-title">
+                        <img src="{% static '../static/images/footer/links.png' %}" alt="Icone 2" class="footer-icon"> Liens rapides
+                    </h5>
+                    <ul class="list-unstyled test">
+                        <li><a href="{% url 'lycee-histoire' %}" class="text-white">Le lycée</a></li>
+                        <li><a href="{% url 'news' %}" class="text-white">Actualités</a></li>
+                        <li><a href="{% url 'admission' %}" class="text-white">Admissions</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-white">Nous contacter</a></li>
+                        <li><a href="{% url 'welcome' %}" class="text-white">Portail LSY</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonne 3 : Suivez-nous -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-uppercase footer-title">
+                        <img src="{% static '../static/images/footer/social.png' %}" alt="Icone 3" class="footer-icon"> Suivez-nous
+                    </h5>
+                    <ul class="list-unstyled d-flex">
+                        <li class="me-3"><a href="https://www.facebook.com/people/Lyc%C3%A9e-scientifique-de-Yamoussoukro/100068435483468/" target="_blank" class="text-white social-icon facebook mr-4"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="me-3"><a href="#" target="_blank" class="text-white social-icon twitter mr-4"><i class="fab fa-twitter"></i></a></li>
+                        <li class="me-3"><a href="#" target="_blank" class="text-white social-icon instagram mr-4"><i class="fab fa-instagram"></i></a></li>
+                        <li class="me-3"><a href="#" target="_blank" class="text-white social-icon linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deuxième ligne avec le copyright -->
+    <div class="footer-bottom text-center py-3">
+        <p class="mb-0">&copy; {{ current_year }} Lycée Scientifique de Yamoussoukro. Tous droits réservés.</p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+    .card-custom {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    .card-title {
+        margin-bottom: 0.5rem;
+        font-size: 18px;
+        text-align: center;
+    }
+    .card-header {
+        background-color: transparent;
+        padding: 8px 2px;
+    }
+    .general-average {
+        background-color: transparent;
+        padding: 10px;
+        color: #3a3a3a;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid #3a3a3a;
+        margin: 0 0 20px;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+    }
+    .moyenne {
+        color: #1c3d7a;
+        margin-top: 20px; /* Espacement du haut */
+    }
+    @media (max-width: 768px) {
+        .card-title {
+            font-size: 16px;
+        }
+        .card-custom {
+            margin-bottom: 10px;
+        }
+        .general-average h4{
+            font-size: 19px;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <div class="row">
+        {% if grouped_notes %}
+            {% for subject_name, notes in grouped_notes.items %}
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card card-custom">
+                    <div class="card-header custom bg-primary text-white">
+                        <h3 class="card-title">{{ subject_name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Note / 20</th>
+                                        <th scope="col" class="text-center">Date d'évaluation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for note in notes %}
+                                    <tr>
+                                        <td class="text-center">{{ note.score }}</td>
+                                        <td class="text-center">{{ note.date|date:"d/m/Y" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr class='moyenne'>
+                                        <th scope="col" class="text-center">
+                                        {% for key, value in subject_averages.items %}
+                                            {% if key == subject_name %}
+                                                Moyenne : {{ value }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </th>
+                                        <th scope="col" class="text-center">
+                                        {% for key, value in coefficients.items %}
+                                            {% if key == subject_name %}
+                                                Coefficient : {{ value }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-md-12 text-center mt-4">
+                <div class="general-average">
+                    <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }}</strong></h4>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-md-12 text-center">
+                <h2><i class="far fa-sad-tear fa-5x"></i></h2>
+                <p>Oups ! Vous n'avez pas encore de notes.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

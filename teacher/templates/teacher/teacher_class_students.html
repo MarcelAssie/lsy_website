@@ -1,0 +1,102 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+     .subject-info {
+        border: 2px solid #dee2e6;
+        padding-top: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+        border-radius: 0.25rem;
+    }
+    .subject-info h5 {
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .title h5 {
+            font-size: 15px;
+        }
+        .subject-info h5 {
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4 title">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+        <a href="{% url 'teacher-classes' %}" class="btn btn-secondary mb-3">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h3 class="mb-3 text-center flex-grow-1">Elèves de la {{ classe.get_name_display }}</h3>
+        <a href="{% url 'teacher-to-class-students' class_id=classe.id %}" class="btn btn-primary mb-3"><i class="fas fa-pen"></i></a>
+    </div>
+    <form method="get">
+        <div class="form-group">
+            <select id="studentSelect" name="student_id" class="form-control" onchange="handleStudentSelect()">
+                <option value="">-- Sélectionnez un étudiant --</option>
+                {% for student in students %}
+                    <option value="{{ student.id }}" {% if selected_student and student.id == selected_student.id %}selected{% endif %}>
+                        {{ student.user.get_full_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+    {% if selected_student %}
+        <h5 class="text-center">Notes et moyenne de {{ selected_student.user.get_full_name }} en {{ subject.get_name_display }}</h5>
+        <div class="d-flex mb-3 flex-wrap">
+            <a href="{% url 'teacher-add-note' student_id=selected_student.id subject_id=subject.id %}" class="btn btn-success mr-2 mb-2">Ajouter une note</a>
+            <a href="{% url 'teacher-add-absence' student_id=selected_student.id %}" class="btn btn-warning mb-2">Ajouter une absence</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Note / 20</th>
+                        <th>Date d'évaluation</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for note in notes %}
+                        <tr>
+                            <td>{{ note.score }}</td>
+                            <td>{{ note.date|date:"d/m/Y" }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'teacher-edit-note' note_id=note.id %}" class="mr-2"><i class="fas fa-edit text-warning"></i></a>
+                                <a href="{% url 'teacher-delete-note' note_id=note.id %}"><i class="fas fa-trash-alt text-danger"></i></a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">Aucune note disponible.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="subject-info">
+            <h5>Moyenne trimestrielle : {{ average_score }}</h5>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function handleStudentSelect() {
+        var studentSelect = document.getElementById('studentSelect');
+        if (studentSelect.value === '') {
+            // Ne rien faire si '-- Sélectionner --' est choisi
+            return;
+        }
+        // Soumettre le formulaire si un étudiant est sélectionné
+        studentSelect.form.submit();
+    }
+</script>
+{% endblock %}

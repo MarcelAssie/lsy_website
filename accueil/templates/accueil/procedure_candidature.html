@@ -1,0 +1,64 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .details-container {
+        margin-top: 2rem;
+    }
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    .card-header {
+        background-color: #343a40;
+        color: #ffffff;
+    }
+</style>
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Procédure de Candidature</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+
+        <div class="details-container">
+            <div class="card">
+                <div class="card-header">
+                    Procédure pour les Élèves Nouvellement Arrivés
+                </div>
+                <div class="card-body">
+                    <h5>Élèves entrants en 4ème et 2nde</h5>
+                    <ul>
+                        <li><strong>Étape 1 :</strong> Remplir le formulaire de candidature en ligne ou sur papier.</li>
+                        <li><strong>Étape 2 :</strong> Soumettre les documents requis :
+                            <ul>
+                                <li>Relevés de notes des années précédentes</li>
+                                <li>Reçu de l'inscription en ligne</li>
+                                <li>Certificat de scolarité ou d’inscription</li>
+                                <li>Copie de l'extrait de naissance</li>
+                                <li>Photocopie de la carte d'identité ou du passeport</li>
+                                <li>Lettre de motivation</li>
+                                <li>Recommandations d’enseignants</li>
+                            </ul>
+                        </li>
+                        <li><strong>Étape 3 :</strong> Passer un entretien si nécessaire.</li>
+                        <li><strong>Étape 4 :</strong> Attendre la notification d’admission.</li>
+                    </ul>
+                    <h5>Élèves en 3ème, 1ère et Terminale</h5>
+                    <ul>
+                        <li>Les élèves déjà dans l’établissement doivent fournir moins de documents. Ils doivent fournir :
+                            <ul>
+                                <li>Relevés de notes récents</li>
+                                <li>Certificat de scolarité</li>
+                            </ul>
+                        </li>
+                        <li>Les autres étapes restent les mêmes.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

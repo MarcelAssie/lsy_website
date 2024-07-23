@@ -1,0 +1,151 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<style>
+    .team-member {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .team-member .image-container {
+        display: flex;
+        justify-content: center; /* Centre l'image horizontalement */
+        align-items: center; /* Centre l'image verticalement */
+        height: 200px; /* Hauteur fixe pour le conteneur */
+        overflow: hidden; /* Masque les parties de l'image qui débordent */
+    }
+    .team-member img {
+        width: 170px;
+        height: 200px; /* Ajuste la hauteur automatiquement pour garder les proportions */
+        border-radius: 4px; /* Arrondir légèrement les coins */
+        object-fit: cover; /* Assure que l'image couvre bien la zone */
+    }
+    .team-member h5 {
+        margin-top: 15px;
+        font-size: 1.25rem;
+        font-weight: bold; /* Texte en gras pour le nom */
+    }
+    .team-member p.position {
+        color: black; /* Couleur noire pour le poste */
+        font-weight: normal; /* Enlever le gras pour le poste */
+    }
+    .team-member p.description {
+        color: #777; /* Couleur gris clair pour la description */
+    }
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Notre Administration</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <div class="row mt-4">
+            <!-- Première ligne -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Jean Dupont">
+                    </div>
+                    <h5>Jean Dupont</h5>
+                    <p class="position">Proviseur</p>
+                    <p class="description">Jean Dupont est le proviseur de notre établissement. Avec plus de 20 ans d'expérience dans l'éducation, il veille à l'excellence académique et au bon fonctionnement du collège.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Marie Martin">
+                    </div>
+                    <h5>Marie Martin</h5>
+                    <p class="position">Censeur</p>
+                    <p class="description">Marie Martin gère les questions disciplinaires et l'organisation des emplois du temps. Elle est aussi impliquée dans le développement des politiques éducatives du collège.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Pierre Lefèvre">
+                    </div>
+                    <h5>Pierre Lefèvre</h5>
+                    <p class="position">Secrétaire Général</p>
+                    <p class="description">Pierre Lefèvre s'occupe de la gestion administrative et de la communication interne. Il assure le bon déroulement des tâches administratives au quotidien.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <!-- Deuxième ligne -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Sophie Dubois">
+                    </div>
+                    <h5>Sophie Dubois</h5>
+                    <p class="position">Responsable des Affaires Sociales</p>
+                    <p class="description">Sophie Dubois s'assure du bien-être des élèves et coordonne les activités parascolaires. Elle est également le point de contact pour les familles concernant les questions sociales.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Lucas Moreau">
+                    </div>
+                    <h5>Lucas Moreau</h5>
+                    <p class="position">Conseiller Principal d'Éducation</p>
+                    <p class="description">Lucas Moreau aide à l'orientation des élèves et soutient les enseignants dans la gestion des groupes et des comportements des élèves.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Claire Robert">
+                    </div>
+                    <h5>Claire Robert</h5>
+                    <p class="position">Responsable Pédagogique</p>
+                    <p class="description">Claire Robert supervise le programme académique et travaille avec les enseignants pour améliorer les méthodes d'enseignement et d'évaluation.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <!-- Troisième ligne -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Antoine Girard">
+                    </div>
+                    <h5>Antoine Girard</h5>
+                    <p class="position">Responsable des Infrastructures</p>
+                    <p class="description">Antoine Girard gère les aspects techniques du collège, y compris l'entretien des bâtiments et des équipements, ainsi que les projets de rénovation.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Elodie Lefebvre">
+                    </div>
+                    <h5>Elodie Lefebvre</h5>
+                    <p class="position">Assistante Administrative</p>
+                    <p class="description">Elodie Lefebvre soutient les tâches administratives quotidiennes et aide à la coordination des événements et des communications internes du collège.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="team-member card">
+                    <div class="image-container">
+                        <img src="{% static 'images/Administration/member.jpeg' %}" alt="Julien Marchand">
+                    </div>
+                    <h5>Julien Marchand</h5>
+                    <p class="position">Responsable des Finances</p>
+                    <p class="description">Julien Marchand gère le budget du collège, supervise les dépenses et les recettes, et travaille à la planification financière à long terme.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+    .absence-list-item {
+        padding: 10px;
+    }
+    .absence-dates {
+        font-size: 14px;
+    }
+    .absence-reason {
+        font-size: 14px;
+    }
+    @media (max-width: 768px) {
+        .absence-dates,
+        .absence-reason {
+            text-align: center;
+        }
+        .absence-list-item {
+            padding: 5px;
+        }
+        .total-absence {
+            text-align: center;
+        }
+    }
+</style>
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <h1 class="mb-4">Absences</h1>
+    <div class="col-md-12 pl-0">
+        {% if student.absences.exists %}
+        <div class="mb-3">
+            <ul class="list-group">
+                {% for absence in student.absences.all %}
+                <li class="list-group-item absence-list-item">
+                    <div class="row">
+                        <div class="col-md-4 absence-dates">
+                            <p>{{ absence.start_time|date:"d/m/Y H:i" }} - {{ absence.end_time|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-8 absence-reason">
+                            <p><strong>Motif :</strong> {{ absence.reason }}</p>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center">
+                    Aucune absence enregistrée.
+                    <div class="text-center mt-3">
+                        <i class="far fa-smile fa-5x text-success"></i>
+                        <p class="mt-3">Vous êtes assidu !</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="mt-4 text-right total-absence">
+                <p>Total des heures d'absence : <strong style="color: red;">{{ total_absence_hours }} heures</strong></p>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center">
+            <i class="far fa-smile fa-5x text-success"></i>
+            <p class="mt-3">Aucune absence enregistrée. Vous êtes assidu !</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

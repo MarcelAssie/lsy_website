@@ -1,0 +1,11 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">    <h1>Ajouter une absence pour {{ student.user.get_full_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Ajouter l'absence</button>
+        <a href="{% url 'teacher-class-students' class_id=student.classe.id %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

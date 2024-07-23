@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon portail</title>
+    <link rel="icon" type="image/png" href="{% static 'images/lsy_icon.png' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .welcome-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('https://source.unsplash.com/random/1600x900');
+            background-size: cover;
+            background-position: center;
+            margin-top: 0;
+            padding: 15px;
+        }
+        .welcome-container h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+        .welcome-container p {
+            font-size: 15px;
+            margin-top: 30px;
+        }
+        .welcome-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        .welcome-card h2 {
+            font-family: 'Trebuchet MS', sans-serif;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .welcome-card p {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            border-radius: 20px;
+            font-family: 'Trebuchet MS', sans-serif;
+            padding: 10px 20px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .btn-student {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-student:hover {
+            background-color: #218838;
+        }
+        .btn-teacher {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .btn-teacher:hover {
+            background-color: #117a8b;
+        }
+        .btn-admin {
+            background-color: #ffc107;
+            color: white;
+        }
+        .btn-admin:hover {
+            background-color: #e0a800;
+        }
+        .btn-parent {
+            background-color: #ff5722;
+            color: white;
+        }
+        .btn-parent:hover {
+            background-color: #e64a19;
+        }
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 767.98px) {
+            .welcome-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .welcome-card {
+                margin-bottom: 20px;
+            }
+            .welcome-container h2 {
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2><strong>Bienvenue sur le Portail du Lycée Scientifique de Yamoussoukro</strong></h2>
+                <a href="{% url 'accueil' %}" target="_blank" class="btn btn-lg btn-primary">
+                    <i class="fas fa-globe mr-2"></i> Visiter le site du lycée</a>
+                <p>Êtes-vous élève, enseignant, administrateur ou parent d'élève ? Connectez-vous ci-dessous.</p>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <div class="welcome-card">
+                    <i class="fas fa-user-graduate icon text-success"></i>
+                    <a href="{% url 'login' %}" class="btn btn-custom btn-student">Connexion Élève</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <div class="welcome-card">
+                    <i class="fas fa-chalkboard-teacher icon text-info"></i>
+                    <a href="{% url 'login' %}" class="btn btn-custom btn-teacher">Connexion Enseignant</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <div class="welcome-card">
+                    <i class="fas fa-user-cog icon text-warning"></i>
+                    <a href="{% url 'login' %}" class="btn btn-custom btn-admin">Connexion Administrateur</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center">
+                <div class="welcome-card">
+                    <i class="fas fa-user-friends icon text-danger"></i>
+                    <a href="{% url 'login' %}" class="btn btn-custom btn-parent">Connexion Parent</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

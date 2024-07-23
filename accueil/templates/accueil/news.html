@@ -1,0 +1,33 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container">
+        <h2 class="section-title text-center">Actualités</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+
+        <div class="row mt-4">
+            {% for actualite in actualites %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{{ actualite.image.url }}" class="card-img-top" alt="{{ actualite.titre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ actualite.titre }}</h5>
+                            <p class="card-text">{{ actualite.description|slice:":100" }}...</p>
+                            <small>Publié le {{ actualite.date_publiée|date:"d/m/Y à H:i" }}</small>
+                            <a href="{% url 'news-detail' actualite.pk %}" class="btn btn-primary">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Aucune actualité disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

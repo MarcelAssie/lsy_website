@@ -1,0 +1,61 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<!-- Styles supplémentaires -->
+<style>
+    .dashboard-header {
+        background-color: #4e73df;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .card-custom {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-custom:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-custom .card-body {
+        padding: 20px;
+    }
+
+    .icon-large {
+        font-size: 50px;
+        color: #4e73df;
+    }
+
+    .icon-small {
+        font-size: 30px;
+        color: #f6c23e;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+    }
+</style>
+
+<!-- Contenu du tableau de bord -->
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="dashboard-header text-center mb-4">
+        <h1 class="display-4">Bienvenue, {{ user.first_name }} {{ user.last_name }} !</h1>
+        <p class="lead">Tableau de bord de l'administrateur</p>
+    </div>
+    <div>
+        <p class="lead text-center">Je compte faire des statistiques ici en fait</p>
+        <ul>
+            <li><h6>Statitsiques sur le nombre d'élèves</h6></li>
+            <li><h6>Statitsiques sur la proportions du genre</h6></li>
+            <li><h6>Statitsiques sur les mentions </h6></li>
+            <li><h6>liens de site</h6></li>
+            <li><h6>Statitsiques sur le nombre de professeurs dans chaque classe</h6></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSY-CI</title>
+    <link rel="icon" type="image/png" href="{% static 'images/lsy_icon.png' %}">
+    <!-- Utilisation de Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Styles personnalisés -->
+    <link rel="stylesheet" href="{% static 'authentication/styles_authentication.css' %}">
+    <!-- Police Google Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
