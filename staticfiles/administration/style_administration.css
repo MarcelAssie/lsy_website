@@ -1,0 +1,334 @@
+/* STYLE DE LA PAGE DE SAISIE DE NOTES DE L'ELEVE */
+
+body {
+    background-color: #f8f9fa; /* Couleur de fond */
+    font-family: 'Arial', sans-serif; /* Police de caractères */
+}
+
+.custom-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card .card-header {
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-card .card-title {
+    margin-bottom: 0;
+}
+
+.custom-card .card-body {
+    padding: 15px;
+}
+
+.custom-card .form-group {
+    margin-bottom: 15px;
+}
+
+.custom-card label {
+    font-weight: bold;
+}
+
+.custom-card button[type="submit"] {
+    margin-top: 15px;
+}
+
+/* Autres styles spécifiques au formulaire de saisie des notes */
+.custom-card select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.custom-card input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Styles spécifiques pour les boutons */
+.custom-card .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-card .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+#sidebar {
+    position: fixed;
+    margin-top: -30px;
+    height: 100vh;
+    width: 250px;
+    background: rgba(38, 38, 38, 1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+#sidebar.active {
+    left: 0; /* Montrer la sidebar */
+}
+#sidebar .nav-item {
+    margin-bottom: 15px;
+}
+#sidebar .nav-link {
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: left;
+}
+#sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #229399;
+    background-width: 100%;
+    border-radius: 4px;
+}
+#sidebar .nav-link i {
+    margin-right: 10px;
+}
+#sidebar .nav-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+}
+.sidebar-divider {
+    border: 1px solid #ddd;
+    margin-top: 20%;
+    width: 100%;
+}
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+.navbar-nav .nav-item .nav-link {
+    color: #333;
+    font-size: 16px;
+}
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        left: -250px;
+        transition: left 0.3s ease;
+        height: auto;
+    }
+    #sidebar.active {
+        left: 0;
+    }
+     #sidebar.mobile {
+        height: 70vh;
+    }
+    .navbar img {
+        margin-left: 50px;
+    }
+    .card {
+        font-size: 11px;
+    }
+}
+
+
+
+/* Formulaire d'inscription */
+
+.signup-form .card {
+    border: none;
+}
+
+.custum-form {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    border: 0.5px solid rgba(0, 0, 0, 0.8);
+}
+
+.card-header h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 35px;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 0;
+}
+
+.signup-form .card-body {
+    padding: 2rem;
+}
+
+.signup-form .form-group label {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="date"],
+.signup-form input[type="file"],
+.signup-form input[type="number"],
+.signup-form input[type="password"],
+.signup-form select {
+    border: none;
+    margin-bottom: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #b1b1b1; /* Couleur de la bordure inférieure */
+    background-color: transparent; /* Fond transparent */
+    border-radius: 0; /* Ajustement des coins */
+    padding: 8px 15px; /* Ajustement du padding */
+}
+
+.signup-form input[type="text"]:focus,
+.signup-form input[type="date"]:focus,
+.signup-form input[type="file"]:focus,
+.signup-form input[type="number"]:focus,
+.signup-form input[type="password"]:focus,
+.signup-form input[type="email"]:focus,
+.signup-form select:focus {
+    outline: none;
+    border-bottom-color: #007bff;
+}
+
+
+.signup-form button {
+    border: none;
+    border-radius: 8px;
+    width: 50%;
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 20px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.signup-form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* STYLE DE LA PAGE DE CONFIRMATION  DE SAISIE DE NOTES*/
+
+.confirmation-notes .card {
+    border-radius: 10px; /* Coins arrondis pour la carte */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.confirmation-notes .card-header {
+    padding: 1.5rem;
+}
+
+.confirmation-notes .card-body {
+    padding: 2rem;
+}
+
+.confirmation-notes .confirmation-text {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.confirmation-notes .confirmation-details {
+    margin-bottom: 2rem;
+}
+
+.confirmation-notes .back-button {
+    text-align: center;
+}
+
+.confirmation-notes .btn-primary {
+    background-color: #007bff; /* Couleur de fond du bouton */
+    border: none; /* Suppression de la bordure */
+}
+
+.confirmation-notes .btn-primary:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
+}
+
+.confirmation-notes .btn-primary:focus {
+    box-shadow: none; /* Suppression de la mise en relief au focus */
+}
+
+
+/* MOT DE PASSE */
+
+.custom-container {
+    max-width: 400px;
+}
+
+.custom-container h2{
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+.change-password-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.change-password-form label {
+    margin-bottom: 0;
+
+}
+
+.change-password-form .form-group {
+    margin-bottom: 20px;
+}
+
+.change-password-form  input[type="password"] {
+    border: none;
+    margin-bottom: 30px;
+    width: 100%;
+    border-bottom: 1px solid #b1b1b1; /* Couleur de la bordure inférieure */
+    background-color: transparent; /* Fond transparent */
+    border-radius: 0; /* Ajustement des coins */
+    padding: 8px 15px; /* Ajustement du padding */
+}
+
+.change-password-form input[type="password"]:focus {
+    outline: none; /* Supprimer l'outline au focus */
+    border-bottom-color: #007bff; /* Couleur de la bordure inférieure au focus */
+}
+
+.change-password-form .btn-primary {
+    width: 100%;
+}
+
+/* Pour les messages d'erreur */
+.errorlist {
+  color: red;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.errorlist li {
+  margin-bottom: 5px;
+}
+
+.text-container {
+    word-wrap: break-word; /* Permet aux mots longs de se casser et d'aller à la ligne */
+    overflow-wrap: break-word; /* Assure que le texte s'ajuste dans le conteneur */
+    overflow: hidden; /* Cache tout contenu qui dépasse */
+    text-overflow: ellipsis; /* Ajoute des points de suspension si le texte dépasse */
+}
+
+.img-fluid {
+    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de son conteneur */
+    height: auto; /* Conserve les proportions de l'image */
+}
+
+
