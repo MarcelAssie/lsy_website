@@ -11,12 +11,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from django.utils.translation import gettext_lazy as _
 import os
+import dj_database_url
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read.env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -33,9 +36,6 @@ ALLOWED_HOSTS = []
 # Languages
 
 LANGUAGE_CODE = 'fr-FR'
-COUNTRIES_OVERRIDE = {
-    'fr': _('French Country Names'),
-}
 
 # Application definition
 
@@ -93,14 +93,18 @@ WSGI_APPLICATION = 'lsy_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
