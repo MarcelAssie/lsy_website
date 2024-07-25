@@ -17,6 +17,12 @@ def director_speech(request):
 def lycee_histoire(request):
     return render(request, 'accueil/lycee_histoire.html')
 
+def foundation_and_vision(request):
+    return render(request, 'accueil/foundation_and_vision.html')
+
+def excellence_education(request):
+    return render(request, 'accueil/excellence_education.html')
+
 def lycee_mission_vision(request):
     return render(request, 'accueil/lycee_mission_vision.html')
 

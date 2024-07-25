@@ -1,6 +1,22 @@
 {% extends 'base_accueil.html' %}
 {% load static %}
 {% block content %}
+
+<style>
+    .toggle-content {
+        cursor: pointer;
+    }
+
+    .toggle-icon {
+        float: right;
+        color: green;
+    }
+
+    .toggle-content-body {
+        display: none;
+        padding-top: 10px;
+    }
+</style>
 <link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <section class="py-2">
@@ -11,31 +27,31 @@
         </div>
 
         <div class="content-block mt-5">
-            <h3 class="title-bold toggle-content">Discipline Générale <span class="toggle-icon">&#x25BC;</span></h3>
+            <h3 class="title toggle-content"><strong>Discipline Générale</strong> <span class="toggle-icon">&#x25BC;</span></h3>
             <div class="toggle-content-body">
                 <p>Les élèves doivent respecter le règlement intérieur qui garantit un environnement propice à l'apprentissage. Le respect mutuel et la courtoisie sont exigés de tous.</p>
             </div>
         </div>
         <div class="content-block mt-4">
-            <h3 class="title-bold toggle-content">Tenue Vestimentaire <span class="toggle-icon">&#x25BC;</span></h3>
+            <h3 class="title toggle-content"><strong>Tenue Vestimentaire</strong> <span class="toggle-icon">&#x25BC;</span></h3>
             <div class="toggle-content-body">
                 <p>Le port de l'uniforme scolaire est obligatoire. Il doit être propre et bien entretenu. Les vêtements non conformes au règlement ne sont pas autorisés.</p>
             </div>
         </div>
         <div class="content-block mt-4">
-            <h3 class="title-bold toggle-content">Ponctualité et Assiduité <span class="toggle-icon">&#x25BC;</span></h3>
+            <h3 class="title toggle-content"><strong>Ponctualité et Assiduité</strong> <span class="toggle-icon">&#x25BC;</span></h3>
             <div class="toggle-content-body">
                 <p>Les élèves doivent arriver à l'heure pour les cours. Toute absence doit être justifiée par écrit. Les retards répétitifs et les absences non justifiées peuvent entraîner des sanctions.</p>
             </div>
         </div>
         <div class="content-block mt-4">
-            <h3 class="title-bold toggle-content">Utilisation des Équipements <span class="toggle-icon">&#x25BC;</span></h3>
+            <h3 class="title toggle-content"><strong>Utilisation des Équipements</strong> <span class="toggle-icon">&#x25BC;</span></h3>
             <div class="toggle-content-body">
                 <p>Les équipements scolaires doivent être utilisés avec soin. Toute dégradation volontaire sera sanctionnée et le remplacement sera à la charge de l'élève responsable.</p>
             </div>
         </div>
         <div class="content-block mt-4">
-            <h3 class="title-bold toggle-content">Sanctions <span class="toggle-icon">&#x25BC;</span></h3>
+            <h3 class="title toggle-content"><strong>Sanctions </strong><span class="toggle-icon">&#x25BC;</span></h3>
             <div class="toggle-content-body">
                 <p>Les sanctions disciplinaires varient selon la gravité des infractions, allant de l'avertissement à l'exclusion temporaire ou définitive. Les parents seront informés de toute sanction appliquée.</p>
             </div>
@@ -64,20 +80,5 @@
     });
 </script>
 
-<style>
-    .toggle-content {
-        cursor: pointer;
-    }
-
-    .toggle-icon {
-        float: right;
-        color: green;
-    }
-
-    .toggle-content-body {
-        display: none;
-        padding-top: 10px;
-    }
-</style>
 
 {% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+.page-section {
+    background: url('{% static 'images/bg.jpg' %}') no-repeat center center;
+    background-size: cover;
+    padding: 60px 20px;
+    color: white;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: fadeInDown 2s ease-in-out;
+}
+.page-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    animation: fadeIn 2s ease-in-out;
+}
+.page-image {
+    width: 70%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .page-content {
+    font-size: 0.8rem;
+    animation: fadeIn 2s ease-in-out;
+    margin-bottom: 15px;
+    }
+  .page-image {
+    width: 90%;
+    height: auto;
+    margin: 5px 0;
+  }
+}
+</style>
+<section class="page-section">
+    <h1 class="page-title">Fondation et Vision</h1>
+    <p class="page-content">
+        Le lycée scientifique de Yamoussoukro, un projet ambitieux pour l'excellence éducative.
+        Le lycée scientifique de Yamoussoukro, couramment reconnu comme le joyau de l'éducation en Côte d'Ivoire,
+        a été fondé dans le cadre d'une vision ambitieuse pour l'excellence académique et scientifique.
+        Situé au cœur de Yamoussoukro, la capitale politique du pays, cette institution prestigieuse a vu le jour
+        dans les années de l'indépendance, marquant ainsi un jalon majeur dans l'histoire éducative de la nation.
+    </p>
+    <img src="{% static 'images/foundation_photo1.jpg' %}" alt="Foundation Photo 1" class="page-image">
+    <img src="{% static 'images/foundation_photo2.jpg' %}" alt="Foundation Photo 2" class="page-image">
+</section>
+{% endblock %}

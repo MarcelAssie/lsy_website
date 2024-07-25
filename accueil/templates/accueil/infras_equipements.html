@@ -1,10 +1,18 @@
 {% extends 'base_accueil.html' %}
 {% load static %}
 {% block content %}
+<style>
+
+@media (max-width: 768px) {
+  .infra h2 {
+    font-size: 1.3rem;
+    }
+}
+</style>
 <link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<section class="py-2">
-    <div class="container">
+<section class="py-2 ">
+    <div class="container infra">
         <h2 class="section-title text-center">Infrastructures et Équipements</h2>
         <div class="line text-center">
             <span></span>
@@ -17,7 +25,6 @@
                 <div class="content-block">
                     <h3 class="lead title-bold">Bâtiment administratif</h3>
                     <p>Notre bâtiment administratif est une structure moderne qui centralise les bureaux de l'administration scolaire, des salles de réunion et des espaces dédiés au personnel. Ce bâtiment est conçu pour offrir un environnement de travail efficace et confortable, facilitant la gestion quotidienne et les interactions entre le personnel et les étudiants.</p>
-                    <a href="#" class="btn btn-info">Détails</a>
                 </div>
             </div>
         </div>
@@ -28,8 +35,8 @@
             <div class="col-md-6 order-md-1 mb-4">
                 <div class="content-block">
                     <h3 class="lead title-bold">Laboratoires de Physique</h3>
-                    <p>Nos laboratoires de sciences sont équipés de materiels adéquats pour permettre aux élèves du lycée de mener des expériences pratiques et de développer leurs compétences. Ces laboratoires sont essentiels pour notre programme de sciences rigoureux.</p>
-                    <a href="#" class="btn btn-info">Détails</a>
+                    <p class="font-deco">Nos laboratoires de sciences sont équipés de materiels adéquats pour permettre aux élèves du lycée de mener des expériences pratiques et de développer leurs compétences. Ces laboratoires sont essentiels pour notre programme de sciences rigoureux.</p>
+                    <a href="#" class="btn btn-info">PHOTOS</a>
                 </div>
             </div>
         </div>
@@ -41,7 +48,7 @@
                 <div class="content-block">
                     <h3 class="lead title-bold">Bibliothèque Moderne</h3>
                     <p>Notre bibliothèque est un espace de ressources où les élèves peuvent accéder à une vaste collection de livres, de revues académiques, et de ressources numériques. C'est un lieu de silence et de concentration pour l'étude et la recherche.</p>
-                    <a href="#" class="btn btn-info">Détails</a>
+                    <a href="#" class="btn btn-info">PHOTOS</a>
                 </div>
             </div>
         </div>
@@ -53,7 +60,7 @@
                 <div class="content-block">
                     <h3 class="lead title-bold">Salle Informatique</h3>
                     <p>Notre salle informatique est équipée d'ordinateurs de pointe et de logiciels éducatifs pour enseigner les compétences numériques. Elle offre aux élèves l'opportunité de se familiariser avec les technologies actuelles et de se préparer pour l'avenir numérique.</p>
-                    <a href="#" class="btn btn-info">Détails</a>
+                    <a href="#" class="btn btn-info">PHOTOS</a>
                 </div>
             </div>
         </div>

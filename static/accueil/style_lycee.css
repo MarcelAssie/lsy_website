@@ -1,3 +1,8 @@
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+
 .fixed-dimensions-image {
     width: 100%;
     height: 300px; /* Définir des dimensions fixes */
@@ -5,7 +10,6 @@
     border-radius: 10px; /* Coins arrondis pour l'image */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour l'image */
 }
-
 
 .section-title {
     font-size: 36px; /* Taille de police augmentée pour le titre */
@@ -30,6 +34,7 @@
     color: #5f5f5f;
 
 }
+
 
 .content-block:hover {
     transform: translateY(-10px);

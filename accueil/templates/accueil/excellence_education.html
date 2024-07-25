@@ -1,0 +1,77 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+.page-section {
+    background: url('{% static 'images/bg.jpg' %}') no-repeat center center;
+    background-size: cover;
+    padding: 60px 20px;
+    color: white;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: fadeInDown 2s ease-in-out;
+}
+.page-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    animation: fadeIn 2s ease-in-out;
+}
+.page-image {
+    width: 70%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .page-content {
+    font-size: 0.8rem;
+    animation: fadeIn 2s ease-in-out;
+    margin-bottom: 15px;
+    }
+  .page-image {
+    width: 90%;
+    height: auto;
+    margin: 5px 0;
+  }
+}
+</style>
+<section class="page-section">
+    <h1 class="page-title">Excellence Éducative</h1>
+    <p class="page-content">
+        Depuis ses débuts, le lycée s'est démarqué par son engagement indéfectible envers l'innovation pédagogique
+        et la qualité de l'enseignement. Il est devenu un phare pour les jeunes esprits aspirant à exceller dans les
+        domaines des sciences et des technologies, produisant régulièrement des générations de leaders et de penseurs
+        qui façonnent l'avenir de la Côte d'Ivoire et au-delà. Avec ses installations modernes et son corps professoral
+        dévoué, le lycée scientifique de Yamoussoukro demeure une référence incontestée dans le paysage éducatif national.
+    </p>
+    <img src="{% static 'images/excellence_photo1.jpg' %}" alt="Excellence Photo 1" class="page-image">
+    <img src="{% static 'images/excellence_photo2.jpg' %}" alt="Excellence Photo 2" class="page-image">
+</section>
+{% endblock %}
