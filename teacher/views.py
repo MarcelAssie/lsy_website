@@ -41,7 +41,7 @@ def class_students_view(request, class_id):
             notes = Note.objects.filter(student=selected_student, subject=subject)
             # Calculer la moyenne des notes
             if notes.exists():
-                average_score = notes.aggregate(Avg('score'))['score__avg']
+                average_score = round((notes.aggregate(Avg('score'))['score__avg']),2)
 
     return render(request, 'teacher/teacher_class_students.html', {
         'classe': classe,

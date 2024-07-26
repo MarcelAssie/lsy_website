@@ -78,7 +78,8 @@ body {
     margin-top: -30px;
     height: 100vh;
     width: 250px;
-    background: rgba(38, 38, 38, 1);
+    background: #424344;
+    border-radius: 0px 0px 10px 10px;
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -132,8 +133,9 @@ body {
 .navbar-brand {
     font-size: 24px;
     font-weight: bold;
+    text-align: center; /* Centrer le texte */
+    flex: 1;
 }
-
 .navbar-nav .nav-item .nav-link {
     color: #333;
     font-size: 16px;
@@ -153,6 +155,10 @@ body {
     }
     .navbar img {
         margin-left: 50px;
+    }
+    .navbar-brand {
+        text-align: center; /* Centrer le texte sur les petits écrans */
+        margin-left: 0; /* Enlever les marges inutiles */
     }
     .card {
         font-size: 11px;

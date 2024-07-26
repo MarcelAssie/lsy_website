@@ -106,6 +106,7 @@ DATABASES = {
     }
 }
 
+
 #For deployment
 """
 DATABASES = {

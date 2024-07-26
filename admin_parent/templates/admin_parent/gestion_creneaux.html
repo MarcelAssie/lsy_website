@@ -1,0 +1,103 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 20px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+        .list-group-item {
+            align-items: flex-start;
+            padding: 1rem;
+        }
+        .list-group-item h5 {
+            font-size: 18px;
+        }
+        .list-group-item p, .list-group-item small {
+            font-size: 14px;
+        }
+        .list-group-item .btn {
+            margin-top: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-container {
+            text-align: center;
+            width: 100%;
+        }
+    }
+    .section-header {
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    .list-group-item.non-disponible {
+        background-color: #f8f9fa; /* Gris clair */
+        border-color: #dee2e6; /* Gris clair pour la bordure */
+    }
+    .list-group-item.non-disponible h5 {
+        color: #b7bbbe; /* Gris plus foncé pour le texte */
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <h2 class="text-center">Gestion des Créneaux</h2>
+    <div class="btn-container mb-3">
+        <a href="{% url 'ajouter-creneau' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Ajouter un Créneau
+        </a>
+    </div>
+
+    <!-- Créneaux Disponibles -->
+    {% if creneaux_disponibles %}
+        <div>
+            <h3 class="section-header">Créneaux Disponibles</h3>
+            <ul class="list-group">
+                {% for creneau in creneaux_disponibles %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ creneau.date }} à {{ creneau.heure|date:"H:i" }}</h5>
+                            <small>Disponible : {{ creneau.disponible|yesno:"Oui,Non" }}</small>
+                        </div>
+                        <div>
+                            <a href="{% url 'supprimer-creneau' creneau.id %}" class="btn btn-danger btn-sm" title="Supprimer">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Créneaux Non Disponibles -->
+    {% if creneaux_non_disponibles %}
+        <div>
+            <h3 class="section-header">Créneaux Non Disponibles</h3>
+            <ul class="list-group">
+                {% for creneau in creneaux_non_disponibles %}
+                    <li class="list-group-item non-disponible d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ creneau.date }} à {{ creneau.heure|date:"H:i" }}</h5>
+                            <small style="color: #b7bbbe;">Disponible : {{ creneau.disponible|yesno:"Oui,Non" }}</small>
+                        </div>
+                        <div>
+                            <a href="{% url 'supprimer-creneau' creneau.id %}" class="btn btn-danger btn-sm" title="Supprimer">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if not creneaux_disponibles and not creneaux_non_disponibles %}
+        <p class="text-center">Aucun créneau disponible.</p>
+    {% endif %}
+</main>
+{% endblock %}

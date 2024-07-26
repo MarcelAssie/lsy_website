@@ -92,6 +92,8 @@ urlpatterns = [
     path('parent/notifications/', parent.views.parent_notifications, name='parent-notifications'),
     path('parent/children-details/', parent.views.children_details, name='children-details'),
     path('parent/children-details/<int:student_id>/performance/', parent.views.children_performance, name='children-performance'),
+    path('parent/prendre-rendez-vous/motif/', parent.views.choisir_motif, name='choisir-motif'),
+    path('parent/prendre-rendez-vous/creneau/', parent.views.choisir_creneau, name='choisir-creneau'),
 #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/', administration.views.admin_dashboard, name='admin-profile'),
     path('admin-profile/notifications/', administration.views.admin_notifications, name='admin-notifications'),
@@ -159,6 +161,10 @@ urlpatterns = [
     path('admin-profile/parents/<int:parent_id>/', admin_parent.views.parent_details2, name='parent-details2'),
     path('admin-profile/parent/<int:parent_id>/delete/', admin_parent.views.delete_confirm_parent, name='delete-confirm-parent'),
     path('admin-profile/parent/<int:parent_id>/delete-confirm/', admin_parent.views.delete_parent, name='delete-parent'),
+    path('admin-profile/manage-parents/admin/creneaux/', admin_parent.views.gestion_creneaux, name='gestion-creneaux'),
+    path('admin-profile/manage-parents/admin/creneaux/ajouter/', admin_parent.views.ajouter_creneau, name='ajouter-creneau'),
+    path('admin-profile/manage-parents/admin/creneaux/supprimer/<int:creneau_id>/', admin_parent.views.supprimer_creneau, name='supprimer-creneau'),
+    path('admin-profile/manage-parents/rendezvous/', admin_parent.views.rendezvous_list, name='appointments'),
 #--------------------------------------------------------------------------------------------------------------------------
     path('messages/admin-student/<int:student_id>/send-message/', messagerie.views.admin_to_unique_student, name='admin-to-unique-student'),
     path('messages/student-admin/send-message/', messagerie.views.student_to_admin, name='student-to-admin'),

@@ -1,5 +1,4 @@
 from django.db import models
-#from authentication.models import Student
 from django.utils import timezone
 
 MATIERE_CHOICES = [

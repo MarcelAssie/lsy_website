@@ -8,7 +8,13 @@ from administration.models import Note, MATIERE_CHOICES, Coefficient
 from itertools import groupby
 from django.contrib.auth.decorators import login_required
 import json
+from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
+from admin_parent.forms import ChoixCreneauForm, ChoixMotifForm
+from admin_parent.models import Motif, RendezVous, Creneau
+
+
+
 @login_required
 def parent_dashboard(request):
     parent = Parent.objects.get(user=request.user)
@@ -104,3 +110,52 @@ def children_performance(request, student_id):
     }
     return render(request, 'parent/children_perfomance.html', context)
 
+
+
+
+@login_required
+def choisir_motif(request):
+    if request.method == 'POST':
+        form = ChoixMotifForm(request.POST)
+        if form.is_valid():
+            motif = form.cleaned_data['motif']
+            autre_motif = form.cleaned_data['autre_motif']
+            request.session['motif'] = motif.id if motif else None
+            request.session['autre_motif'] = autre_motif
+            return redirect('choisir-creneau')
+    else:
+        form = ChoixMotifForm()
+    return render(request, 'parent/choisir_motif.html', {'form': form})
+
+@login_required
+def choisir_creneau(request):
+    creneaux_disponibles = Creneau.objects.filter(disponible=True)
+    if request.method == 'POST':
+        form = ChoixCreneauForm(request.POST)
+        if form.is_valid():
+            parent = Parent.objects.get(user=request.user)
+            creneau = form.cleaned_data['creneau']
+            motif_id = request.session.get('motif')
+            autre_motif = request.session.get('autre_motif')
+
+            rendezvous = RendezVous(
+                parent=parent,
+                creneau=creneau,
+                motif=Motif.objects.get(id=motif_id) if motif_id else None,
+                autre_motif=autre_motif,
+            )
+            rendezvous.save()
+            creneau.disponible = False
+            creneau.save()
+            return JsonResponse({
+                'success': True,
+                'date': creneau.date.strftime('%Y-%m-%d'),
+                'heure': creneau.heure.strftime('%H:%M'),  # Format hour and minute
+                'motif': rendezvous.motif.nom if rendezvous.motif else rendezvous.autre_motif
+            })
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = ChoixCreneauForm()
+
+    return render(request, 'parent/choisir_creneau.html', {'form': form, 'creneaux_disponibles': creneaux_disponibles})

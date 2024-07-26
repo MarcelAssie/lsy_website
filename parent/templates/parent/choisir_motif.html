@@ -1,0 +1,22 @@
+{% extends 'base_parent.html' %}
+{% block content %}
+<main class="container my-0">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Motif du rendez-vous</h2>
+            <form method="post" class="p-3 shadow rounded bg-white">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.motif.label_tag }}
+                    {{ form.motif }}
+                </div>
+                <div class="form-group">
+                    {{ form.autre_motif.label_tag }}
+                    {{ form.autre_motif }}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Suivant</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
