@@ -4,7 +4,6 @@ from authentication.models import Student, User
 from administration.models import MATIERE_CHOICES, Note, Absence, Coefficient
 from administration.models import Class
 from django.contrib import messages
-from authentication.forms import StudentSignUpForm
 from administration.forms import NoteForm, AbsenceForm
 from itertools import groupby
 from django.shortcuts import render
@@ -109,23 +108,6 @@ def student_details2(request, student_id):
 
 
 @staff_member_required
-def edit_student(request, student_id):
-    student = get_object_or_404(Student, id=student_id)
-    if request.method == "POST":
-        form = StudentSignUpForm(request.POST, request.FILES, instance=student.user)
-        if form.is_valid():
-            form.save()
-            return redirect('student-details', student_id=student.id)
-    else:
-        form = StudentSignUpForm(instance=student.user)
-    return render(request, 'admin_student/edit_student.html', {'form': form, 'student': student})
-
-@staff_member_required
-def delete_confirm_student(request, student_id):
-    student = get_object_or_404(Student, id=student_id)
-    return render(request, 'admin_student/delete_confirm_student.html', {'student': student})
-
-@staff_member_required
 def delete_student(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     user = student.user
@@ -134,6 +116,11 @@ def delete_student(request, student_id):
         messages.success(request, 'L\'étudiant a été supprimé avec succès.')
         return redirect('list-classes')
     return redirect('student-details', student_id=student_id)
+
+@staff_member_required
+def delete_confirm_student(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    return render(request, 'admin_student/delete_confirm_student.html', {'student': student})
 
 @staff_member_required
 def add_note(request, student_id):

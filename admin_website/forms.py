@@ -1,5 +1,5 @@
 from django import forms
-from .models import Actualite, Evenement, Annale
+from .models import Actualite, Evenement, Annale,Testimonial
 
 class ActualiteForm(forms.ModelForm):
     class Meta:
@@ -54,3 +54,30 @@ class AnnaleForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Entrez la description'}),
             'file': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
         }
+
+
+
+
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = ['name', 'promotion', 'photo', 'text']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Nom complet'
+            }),
+            'promotion': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Promotion'
+            }),
+            'text': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Écrivez votre témoignage ici...',
+                'rows': 4
+            }),
+            'photo': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file'
+            }),
+        }
+

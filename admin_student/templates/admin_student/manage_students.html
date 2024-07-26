@@ -1,5 +1,12 @@
 {% extends 'base_administration.html' %}
 {% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title p {
+            font-size: 16px;
+        }
+    }
+</style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="dashboard-header mb-4 text-center">
         <h3 class="display-5">GESTION DES ELEVES </h3>
@@ -23,7 +30,7 @@
         <!-- Bloc : Liste de classes -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Consulter les différentes listes d'élèves</p>
                     <a href="{% url 'list-classes' %}" class="btn btn-info btn-custom"><i class="fas fa-list"></i> Accéder</a>
                 </div>
@@ -32,7 +39,7 @@
         <!-- Bloc : Ajouter un nouvel élève -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Ajoutez un élève à la base de données</p>
                     <a href="{% url 'student_register' %}" class="btn btn-success btn-custom"><i class="fas fa-user-plus"></i> Ajouter</a>
                 </div>
@@ -41,7 +48,7 @@
         <!-- Nouveau bloc : Informations à tous les étudiants -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Messages aux élèves d'une classe</p>
                     <a href="{% url 'message-classes' %}" class="btn btn-secondary btn-custom"><i class="fas fa-envelope"></i> Partager</a>
                 </div>
@@ -50,7 +57,7 @@
         <!-- Bloc existant : Autres actions -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Message à tous les élèves de l'école</p>
                     <a href="{% url 'admin-to-all-students' %}" class="btn btn-warning btn-custom"><i class="fas fa-envelope"></i> Partager</a>
                 </div>

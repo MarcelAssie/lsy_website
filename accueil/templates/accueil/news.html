@@ -4,13 +4,33 @@
 <link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+.accroche {
+    font-size: 1.25rem;
+    color: #555;
+    text-align: center;
+    font-style: italic;
+    margin: 20px 0;
+}
+@media (max-width: 768px) {
+.accroche {
+    font-size: 0.8rem;
+   }
+.infra h2 {
+    font-size: 1.3rem;
+   }
+}
+</style>
+
 <section class="py-2">
-    <div class="container">
+    <div class="container infra">
         <h2 class="section-title text-center">Actualités</h2>
         <div class="line text-center">
             <span></span>
         </div>
-
+        <p class="accroche text-center mt-4">
+            "Restez informés avec les dernières nouvelles et événements de notre lycée. Découvrez les moments forts, les réalisations et les annonces importantes qui façonnent notre communauté."
+        </p>
         <div class="row mt-4">
             {% for actualite in actualites %}
                 <div class="col-md-4 mb-4">

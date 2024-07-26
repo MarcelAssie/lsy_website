@@ -1,5 +1,12 @@
 {% extends 'base_administration.html' %}
 {% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title p {
+            font-size: 16px;
+        }
+    }
+</style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="dashboard-header mb-0 text-center">
         <h3 class="display-5">GESTION DES PARENTS </h3>
@@ -9,8 +16,8 @@
     <div class="row mb-4">
         <div class="col-md-12 md-1">
             <div class="">
-                <div class="card-body">
-                    <form method="GET" action="#" class="input-group">
+                <div class="card-body title">
+                    <form method="GET" action="{% url 'search-parents' %}" class="input-group">
                         <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher un parent..." aria-label="Search">
                         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
                     </form>
@@ -20,56 +27,56 @@
     </div>
 
     <div class="row">
-        <!-- Bloc : Liste de classes -->
+        <!-- Bloc : Liste des parents -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Consulter la liste de tous les parents d'élèves</p>
-                    <a href="#" class="btn btn-info btn-custom"><i class="fas fa-list"></i> Accéder</a>
+                    <a href="{% url 'list-parents' %}" class="btn btn-info btn-custom"><i class="fas fa-list"></i> Accéder</a>
                 </div>
             </div>
         </div>
-        <!-- Bloc : Ajouter un nouvel élève -->
+        <!-- Bloc : Ajouter un nouveau parent -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Ajoutez un parent à la base de données</p>
                     <a href="{% url 'parent_register' %}" class="btn btn-success btn-custom"><i class="fas fa-user-plus"></i> Ajouter</a>
                 </div>
             </div>
         </div>
-        <!-- Nouveau bloc : Informations à tous les étudiants -->
+        <!-- Bloc : Rendez-vous des parents -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
-                    <p class="card-text">Message à un parent</p>
-                    <a href="#" class="btn btn-secondary btn-custom"><i class="fas fa-envelope"></i> Partager</a>
+                <div class="card-body title">
+                    <p class="card-text title">Consulter les rendez-vous des parents</p>
+                    <a href="" class="btn btn-secondary btn-custom"><i class="fas fa-calendar-check"></i> Voir les rendez-vous</a>
                 </div>
             </div>
         </div>
-        <!-- Bloc existant : Autres actions -->
+        <!-- Bloc : Message à tous les parents -->
         <div class="col-md-6 mb-4">
             <div class="card card-custom text-center">
-                <div class="card-body">
+                <div class="card-body title">
                     <p class="card-text">Messages à tous les parents</p>
-                    <a href="#" class="btn btn-warning btn-custom"><i class="fas fa-envelope"></i> Partager</a>
+                    <a href="{% url 'admin-to-all-parents' %}" class="btn btn-warning btn-custom"><i class="fas fa-envelope"></i> Partager</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Résultats de la recherche
-    {% if teachers %}
+    <!-- Résultats de la recherche-->
+    {% if parents %}
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Résultats de la recherche</div>
                 <div class="card-body">
                     <ul class="list-group">
-                        {% for teacher in teachers %}
+                        {% for parent in parents %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{% url 'teacher-details2' teacher.id %}" class="text-decoration-none text-dark">
-                                {{ teacher.first_name }} {{ teacher.last_name }}
+                            <a href="{% url 'parent-details2' parent.id %}" class="text-decoration-none text-dark">
+                                {{ parent.first_name }} {{ parent.last_name }}
                             </a>
                             <span class="badge badge-primary badge-pill">Détails</span>
                         </li>
@@ -79,6 +86,6 @@
             </div>
         </div>
     </div>
-    {% endif %} -->
+    {% endif %}
 </div>
 {% endblock %}

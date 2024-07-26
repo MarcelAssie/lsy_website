@@ -1,0 +1,55 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<style>
+.testimonial-accroche {
+    font-size: 1.25rem;
+    color: #555;
+    text-align: center;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .testimonial-accroche  {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    .infra h2 {
+        font-size: 1.3rem;
+    }
+}
+</style>
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-2">
+    <div class="container infra">
+        <h2 class="section-title text-center">Témoignages</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <p class="testimonial-accroche text-center mt-4">
+            "Les témoignages de nos anciens élèves capturent l'essence de notre lycée, leurs histoires révèlent les moments marquants et les souvenirs impérissables qui ont façonné leur parcours. Plongez dans ces récits inspirants et découvrez la magie qui continue de résonner dans les couloirs de notre établissement."
+        </p>
+        <div class="row mt-4">
+            {% for testimonial in testimonials %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        {% if testimonial.photo %}
+                            <img src="{{ testimonial.photo.url }}" class="card-img-top" alt="Photo de {{ testimonial.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ testimonial.name }} | {{ testimonial.promotion }}</h5>
+                            <p class="card-text">{{ testimonial.text|slice:":100" }}...</p>
+                            <a href="{% url 'temoignage-detail' testimonial.pk %}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Aucun témoignage disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -34,11 +34,20 @@
             width: 100%;
         }
     }
+    .message-info-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px; /* Espacement entre le contenu du message et les informations supplémentaires */
+    }
+    .message-status {
+        text-align: right;
+        margin-left: auto; /* Aligner le statut à droite */
+    }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
     <div class="d-flex justify-content-between align-items-center mb-4 text-left">
-        <button id="new-message-btn" class="btn btn-primary"> Nouveau message
-        </button>
+        <button id="new-message-btn" class="btn btn-primary"> Nouveau message </button>
     </div>
     <div id="message-form" style="display: none;">
         <h3 class="w-100 text-center" style="font-size: 20px;">Votre message sera transmis automatiquement à l'administration</h3>
@@ -57,16 +66,20 @@
                 <small>{{ message.timestamp|date:"d/m/Y H:i" }}</small>
             </div>
             <p class="mb-1">{{ message.body|truncatewords:20 }}</p>
-            {% if message.file %}
-            <small class="text-muted">Fichier joint: {{ message.file.name }}</small>
-            {% endif %}
-            <small class="text-muted">
-                {% if message.is_read %}
-                    <i class="fas fa-check-circle text-success"></i> Lu
-                {% else %}
-                    <i class="fas fa-times-circle text-danger"></i> Non Lu
+            <div class="message-info-container">
+                {% if message.file %}
+                <small class="text-muted">Fichier joint: {{ message.file.name }}</small>
                 {% endif %}
-            </small>
+                <div class="message-status">
+                    <small class="text-muted">
+                        {% if message.is_read %}
+                            <i class="fas fa-check-circle text-success"></i> Lu
+                        {% else %}
+                            <i class="fas fa-times-circle text-danger"></i> Non Lu
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
         </a>
         {% empty %}
         <p class="text-center">Aucun message envoyé.</p>
@@ -100,5 +113,3 @@
     });
 </script>
 {% endblock %}
-
-

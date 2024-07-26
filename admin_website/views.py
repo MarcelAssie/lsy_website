@@ -1,27 +1,36 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .models import Actualite, Evenement
-from .forms import ActualiteForm, EvenementForm
+from .models import Actualite, Evenement, Testimonial
+from .forms import ActualiteForm, EvenementForm, TestimonialForm
 from django.contrib import messages
 from .models import Annale
 from .forms import AnnaleForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 
+@staff_member_required
 def actualites(request):
     actualites = Actualite.objects.all().order_by('-date_publiée')
     return render(request, 'admin_website/actualites.html', {'actualites': actualites})
-
+@staff_member_required
 def evenements(request):
     evenements = Evenement.objects.all().order_by('-date')
     return render(request, 'admin_website/evenements.html', {'evenements': evenements})
-
+@staff_member_required
 def actualite_detail(request, pk):
     actualite = get_object_or_404(Actualite, pk=pk)
     return render(request, 'admin_website/actualite_detail.html', {'actualite': actualite})
-
+@staff_member_required
 def evenement_detail(request, pk):
     evenement = get_object_or_404(Evenement, pk=pk)
     return render(request, 'admin_website/evenement_detail.html', {'evenement': evenement})
+@staff_member_required
+def testimonials(request):
+    testimonials = Testimonial.objects.all().order_by('-id')
+    return render(request, 'admin_website/testimonials.html', {'testimonials': testimonials})
+@staff_member_required
+def testimonial_detail(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    return render(request, 'admin_website/testimonial_detail.html', {'testimonial': testimonial})
 
 @staff_member_required
 def ajouter_actualite(request):
@@ -91,7 +100,6 @@ def supprimer_evenement(request, pk):
     })
 
 
-
 @staff_member_required
 def add_annale(request):
     if request.method == 'POST':
@@ -121,3 +129,41 @@ def delete_annale(request, annale_id):
         messages.success(request, 'Annale supprimée avec succès.')
         return redirect('admin-annales-manage')
     return redirect('admin-annales-manage')
+
+@staff_member_required
+def add_testimonial(request):
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Témoignage ajouté avec succès.')
+            return redirect('testimonials')
+    else:
+        form = TestimonialForm()
+    return render(request, 'admin_website/add_testimonial.html', {'form': form})
+
+@staff_member_required
+def edit_testimonial(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, request.FILES, instance=testimonial)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Témoignage modifié avec succès.')
+            return redirect('testimonials')
+    else:
+        form = TestimonialForm(instance=testimonial)
+    return render(request, 'admin_website/add_testimonial.html', {'form': form})
+
+@staff_member_required
+def delete_testimonial(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    if request.method == 'POST':
+        testimonial.delete()
+        messages.success(request, 'Témoignage supprimé avec succès.')
+        return redirect('testimonials')
+    return render(request, 'admin_website/confirmer_suppression.html', {
+        'obj': testimonial,
+        'type_obj': 'témoignage',
+        'cancel_url': reverse('testimonials')  # URL de retour pour les témoignages
+    })

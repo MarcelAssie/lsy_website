@@ -52,6 +52,9 @@ urlpatterns = [
     path('actualite/<int:pk>/', accueil.views.news_detail, name='news-detail'),
     path('evenements/', accueil.views.events, name='events'),
     path('evenement/<int:pk>/', accueil.views.event_detail, name='event-detail'),
+    path('temoignages/', accueil.views.temoignage_list, name='temoignages'),
+    path('temoignages/<int:pk>/', accueil.views.temoignage_detail, name='temoignage-detail'),
+    path('galerie/', accueil.views.gallerie, name='gallerie'),
     path('contact/', accueil.views.contact, name='contact'),
 #--------------------------------------------------------------------------------------------------------------------------
     path('', authentication.views.welcome, name='welcome'),
@@ -86,6 +89,7 @@ urlpatterns = [
     path('parent-dashboard/', parent.views.parent_dashboard, name='parent-dashboard'),
     path('parent-profile/', parent.views.parent_profile, name='parent-profile'),
     path('parent/change-password/', parent.views.parent_change_password, name='parent-change-password'),
+    path('parent/notifications/', parent.views.parent_notifications, name='parent-notifications'),
     path('parent/children-details/', parent.views.children_details, name='children-details'),
     path('parent/children-details/<int:student_id>/performance/', parent.views.children_performance, name='children-performance'),
 #--------------------------------------------------------------------------------------------------------------------------
@@ -121,11 +125,15 @@ urlpatterns = [
     path('admin-profile/configuration/annales-add/', admin_website.views.add_annale, name='add-annale'),
     path('admin-profile/configuration/annales-manage/', admin_website.views.admin_annales_manage,name='admin-annales-manage'),
     path('admin-profile/configuration/annales-manage/delete/<int:annale_id>/', admin_website.views.delete_annale,name='delete-annale'),
+    path('admin-profile/configuration/testimonials/', admin_website.views.testimonials, name='testimonials'),
+    path('admin-profile/configuration/testimonials/<int:pk>/', admin_website.views.testimonial_detail, name='testimonial-detail'),
+    path('admin-profile/configuration/testimonials/add/', admin_website.views.add_testimonial, name='add-testimonial'),
+    path('admin-profile/configuration/testimonials/edit/<int:pk>/', admin_website.views.edit_testimonial, name='edit-testimonial'),
+    path('admin-profile/configuration/testimonials/delete/<int:pk>/', admin_website.views.delete_testimonial, name='delete-testimonial'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/classes/<int:class_id>/students/', admin_student.views.list_students_by_class, name='students-by-class'),
     path('admin-profile/student/<int:student_id>/', admin_student.views.student_details, name='student-details'),
     path('admin-profile/students/<int:student_id>/', admin_student.views.student_details2, name='student-details2'),
-    path('admin-profile/student/<int:student_id>/edit/', admin_student.views.edit_student, name='edit-student'),
     path('admin-profile/student/<int:student_id>/delete/', admin_student.views.delete_confirm_student, name='delete-confirm-student'),
     path('admin-profile/student/<int:student_id>/delete-confirm/', admin_student.views.delete_student, name='delete-student'),
     path('admin-profile/student/<int:student_id>/notes-add/', admin_student.views.add_note, name='add-note'),
@@ -138,11 +146,19 @@ urlpatterns = [
 #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/manage-teachers/', admin_teacher.views.manage_teachers, name='manage-teachers'),
     path('admin-profile/search-teachers/', admin_teacher.views.search_teachers, name='search-teachers'),
+    path('admin-profile/teacher/<int:teacher_id>/delete/', admin_teacher.views.delete_confirm_teacher, name='delete-confirm-teacher'),
+    path('admin-profile/teacher/<int:teacher_id>/delete-confirm/', admin_teacher.views.delete_teacher, name='delete-teacher'),
     path('admin-profile/teachers-by-subject/<int:subject_id>/', admin_teacher.views.teachers_by_subject, name='teachers-by-subject'),
     path('admin-profile/teacher/<int:teacher_id>/', admin_teacher.views.teacher_details, name='teacher-details'),
     path('admin-profile/teachers/<int:teacher_id>/', admin_teacher.views.teacher_details2, name='teacher-details2'),
 #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/manage-parents/', admin_parent.views.manage_parents, name='manage-parents'),
+    path('admin-profile/search-parents/', admin_parent.views.search_parents, name='search-parents'),
+    path('admin-profile/manage-parents/list-parents', admin_parent.views.list_parents, name='list-parents'),
+    path('admin-profile/parent/<int:parent_id>/', admin_parent.views.parent_details, name='parent-details'),
+    path('admin-profile/parents/<int:parent_id>/', admin_parent.views.parent_details2, name='parent-details2'),
+    path('admin-profile/parent/<int:parent_id>/delete/', admin_parent.views.delete_confirm_parent, name='delete-confirm-parent'),
+    path('admin-profile/parent/<int:parent_id>/delete-confirm/', admin_parent.views.delete_parent, name='delete-parent'),
 #--------------------------------------------------------------------------------------------------------------------------
     path('messages/admin-student/<int:student_id>/send-message/', messagerie.views.admin_to_unique_student, name='admin-to-unique-student'),
     path('messages/student-admin/send-message/', messagerie.views.student_to_admin, name='student-to-admin'),
@@ -156,6 +172,9 @@ urlpatterns = [
     path('messages/teacher-class/<int:class_id>/send-message/', messagerie.views.teacher_to_class_students,name='teacher-to-class-students'),
     path('messages/admin-teachers-subject/<int:subject_id>/', messagerie.views.admin_to_teachers_by_subject, name='admin-teachers-subject'),
     path('messages/admin-teachers-classe/<int:classe_id>/', messagerie.views.admin_to_teachers_by_classe, name='admin-teachers-classe'),
+    path('messages/parent-admin/send-message/', messagerie.views.parent_to_admin, name='parent-to-admin'),
+    path('messages/admin-parent/<int:parent_id>/send-message/', messagerie.views.admin_to_unique_parent, name='admin-to-unique-parent'),
+    path('messages/admin-parents/send-message/', messagerie.views.admin_to_all_parents, name='admin-to-all-parents'),
 ]
 
 if settings.DEBUG:

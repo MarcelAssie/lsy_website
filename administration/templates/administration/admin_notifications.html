@@ -15,6 +15,19 @@
             font-size: 14px; /* Taille de la police du corps du message pour petits écrans */
         }
     }
+    .message-body-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .message-body {
+        flex-grow: 1;
+    }
+    .btn-reply {
+        align-self: flex-end; /* Alignement de l'icône de réponse en bas */
+        font-size: 0.8rem; /* Taille de la police du bouton */
+        margin-left: 10px; /* Espacement entre la date et le bouton Répondre */
+    }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
     <h3 class="mb-4 text-center">Messages reçus</h3>
@@ -25,12 +38,23 @@
                     <div class="d-flex justify-content-between align-items-center message-sender">
                         <div>
                             <i class="fas fa-user-circle"></i>
-                            <strong>De : {{ message.sender.get_full_name }}</strong>
+                            <strong>De : {{ message.sender.get_full_name }}</strong> |
+                            {% if message.sender.is_student %}
+                            <small>Elève - {{ message.sender.student.classe }}</small>
+                            {% elif message.sender.is_teacher %}
+                            <small>Enseignant - {{ message.sender.teacher.matiere }}</small>
+                            {% elif message.sender.is_parent %}
+                            <small>Parent d'élève</small>
+                            {% endif %}
                         </div>
-                        <small class="text-muted">{{ message.timestamp|date:"d/m/Y H:i" }}</small>
+                        <div class="d-flex align-items-center">
+                            <small class="text-muted">{{ message.timestamp|date:"d/m/Y H:i" }}</small>
+                        </div>
                     </div>
                     <div class="mt-2 message-subject">
                         <h5><i class="fas fa-envelope"></i> {{ message.subject }}</h5>
+                    </div>
+                    <div class="message-body-container">
                         <div class="message-body">
                             <p>{{ message.body }}</p>
                             {% if message.file %}
@@ -40,6 +64,11 @@
                                 </p>
                             {% endif %}
                         </div>
+                        <a href="{% if message.sender.is_student %}{% url 'admin-to-unique-student' student_id=message.sender.student.id %}
+                                {% elif message.sender.is_teacher %}{% url 'admin-to-unique-teacher' teacher_id=message.sender.teacher.id %}
+                                {% elif message.sender.is_parent %}{% url 'admin-to-unique-parent' parent_id=message.sender.parent.id %}
+                                {% endif %}"
+                           class="btn btn-outline-primary btn-reply"><i class="fas fa-reply"></i></a>
                     </div>
                 </div>
                 <hr>

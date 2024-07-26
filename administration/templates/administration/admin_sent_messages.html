@@ -15,6 +15,16 @@
             font-size: 12px; /* Taille de la police des éléments en petits caractères pour petits écrans */
         }
     }
+    .message-body-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 10px; /* Espacement entre le contenu du message et les informations supplémentaires */
+    }
+    .message-info {
+        margin-left: auto;
+        text-align: right; /* Aligner les informations supplémentaires à droite */
+    }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
     <h3 class="mb-4 text-center">Messages envoyés</h3>
@@ -26,16 +36,33 @@
                 <small>{{ message.timestamp|date:"d/m/Y H:i" }}</small>
             </div>
             <p class="mb-1">{{ message.body|truncatewords:20 }}</p>
-            {% if message.file %}
-            <small class="text-muted">Fichier joint: {{ message.file.name }}</small>
-            {% endif %}
-            <small class="text-muted">
-                {% if message.is_read %}
-                    <i class="fas fa-check-circle text-success"></i> Lu
-                {% else %}
-                    <i class="fas fa-times-circle text-danger"></i> Non Lu
-                {% endif %}
-            </small>
+            <div class="message-body-container">
+                <div>
+                    {% if message.file %}
+                    <small class="text-muted">Fichier joint: {{ message.file.name }}</small>
+                    {% endif %}
+                </div>
+                <div class="message-info">
+                    <small class="text-muted">
+                        {% if message.is_read %}
+                            <i class="fas fa-check-circle text-success"></i> Lu
+                        {% else %}
+                            <i class="fas fa-times-circle text-danger"></i> Non Lu
+                        {% endif %}
+                    </small>
+                    <br>
+                    <small>A :
+                        {% for recipient in message.recipients.all %}
+                            {% if recipient.is_student %}
+                                {{ recipient.get_full_name }} | Elève - {{ recipient.student.classe }}
+                            {% elif recipient.is_teacher %}
+                                {{ recipient.get_full_name }} | Enseignant - {{ recipient.teacher.matiere }}
+                            {% endif %}
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </small>
+                </div>
+            </div>
         </a>
         {% empty %}
         <p class="text-center">Aucun message envoyé.</p>

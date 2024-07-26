@@ -1,9 +1,9 @@
-from django.shortcuts import get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from authentication.models import User, Teacher
 from administration.models import Subject
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models
+from django.contrib import messages
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------- GESTION ENSEIGNANTS ----------------------------------------------------------------
@@ -36,3 +36,18 @@ def teacher_details2(request, teacher_id):
     user = get_object_or_404(User, id=teacher_id, is_teacher=True)
     teacher = get_object_or_404(Teacher, user=user)
     return render(request, 'admin_teacher/teacher_details.html', {'teacher': teacher})
+
+@staff_member_required
+def delete_teacher(request, teacher_id):
+    teacher = get_object_or_404(Teacher, id=teacher_id)
+    user = teacher.user
+    if request.method == "POST":
+        user.delete()
+        messages.success(request, 'L\'enseignant a été supprimé avec succès.')
+        return redirect('list-subjects')
+    return redirect('teacher-details', teacher_id=teacher_id)
+@staff_member_required
+def delete_confirm_teacher(request, teacher_id):
+    teacher = get_object_or_404(Teacher, id=teacher_id)
+    return render(request, 'admin_teacher/delete_confirm_teacher.html', {'teacher': teacher})
+

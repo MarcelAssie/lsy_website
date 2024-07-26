@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Message
-from authentication.models import Student, User, Teacher
+from authentication.models import Student, User, Teacher, Parent
 from administration.models import Class, Subject
 from .forms import MessageForm
 from django.contrib.auth.decorators import login_required
@@ -226,10 +226,64 @@ def teacher_to_class_students(request, class_id):
     return render(request, 'messagerie/teacher_to_class_students.html', {'form': form, 'classe': classe})
 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------- MESSAGES ELEVES ----------------------------------------------------------------
 
 
+@login_required
+def parent_to_admin(request):
+    sent_messages = Message.objects.filter(sender=request.user, recipients__is_superuser=True).order_by('-timestamp')
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            body = form.cleaned_data['body']
+            file = form.cleaned_data['file']
+            sender = request.user
+            admin_user = User.objects.filter(is_superuser=True).first()
+            message = Message.objects.create(sender=sender, subject=subject, body=body,file=file)
+            message.recipients.add(admin_user)
+            message.save()
+            return redirect('parent-profile')
+    else:
+        form = MessageForm()
+    return render(request, 'messagerie/parent_to_admin.html', {'form': form, 'sent_messages': sent_messages})
+
+@staff_member_required
+def admin_to_unique_parent(request, parent_id):
+    parent = get_object_or_404(Parent, id=parent_id)
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            body = form.cleaned_data['body']
+            file = form.cleaned_data['file']
+            sender = request.user
+            message = Message.objects.create(sender=sender, subject=subject, body=body, file=file)
+            message.recipients.add(parent.user)
+            message.save()
+            return redirect('parent-details', parent_id=parent.id)
+    else:
+        form = MessageForm()
+    return render(request, 'messagerie/admin_to_unique_parent.html', {'form': form, 'parent': parent})
 
 
+@staff_member_required
+def admin_to_all_parents(request):
+    all_parents = Parent.objects.all()
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            body = form.cleaned_data['body']
+            file = form.cleaned_data['file']
+            sender = request.user
+            for parent in all_parents:
+                message = Message.objects.create(sender=sender, subject=subject, body=body, file=file)
+                message.recipients.add(parent.user)
+                message.save()
+            return redirect('manage-parents')
+    else:
+        form = MessageForm()
 
-
-
+    return render(request, 'messagerie/admin_to_all_parents.html', {'form': form})

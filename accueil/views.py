@@ -1,15 +1,13 @@
-from django.shortcuts import render
-from admin_website.models import Annale, Evenement, Actualite
-from django.shortcuts import render, get_object_or_404
-
-
+from admin_website.models import Annale, Evenement, Actualite, Testimonial
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
     """
     Lancement de la page d'accueil
     """
-    return render(request, 'accueil/accueil.html')
+    testimonials = Testimonial.objects.all().order_by('-id')[:2]
+    return render(request, 'accueil/accueil.html', {'testimonials': testimonials})
 
 def director_speech(request):
     return render(request, 'accueil/director_speech.html')
@@ -77,3 +75,30 @@ def events(request):
 def event_detail(request, pk):
     evenement = get_object_or_404(Evenement, pk=pk)
     return render(request, 'accueil/event_detail.html', {'evenement': evenement})
+
+
+def temoignage_list(request):
+    """ Affiche la liste de tous les témoignages """
+    testimonials = Testimonial.objects.all().order_by('-id')
+    return render(request, 'accueil/temoignage_list.html', {'testimonials': testimonials})
+
+def temoignage_detail(request, pk):
+    """ Affiche les détails d'un témoignage spécifique """
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    return render(request, 'accueil/temoignage_detail.html', {'testimonial': testimonial})
+
+
+# views.py
+import os
+from django.conf import settings
+from django.shortcuts import render
+
+
+def gallerie(request):
+    # Construire le chemin du répertoire des images
+    gallery_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'galleries')
+    # Lire les fichiers du répertoire
+    image_files = [os.path.join('images', 'galleries', filename) for filename in os.listdir(gallery_dir) if
+                   filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    # Passer les chemins relatifs des images au template
+    return render(request, 'accueil/gallerie.html', {'images': image_files})

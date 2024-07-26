@@ -1,0 +1,50 @@
+{% extends 'base_accueil.html' %}
+{% block content %}
+<style>
+
+    .testimonial-photo {
+        max-width: 350px;  /* Augmenter la taille maximale de l'image */
+        width: 100%;
+        height: auto;
+        border-radius: 5%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonial-text {
+        text-align: justify;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-top: 20px;  /* Ajouter de l'espace au-dessus du texte */
+    }
+
+    .testimonial-footer {
+        text-align: center;
+        margin-top: 40px; /* Augmenter l'espace au-dessus du pied de page */
+        margin-bottom: 40px; /* Ajouter de l'espace en bas de la page */
+    }
+</style>
+
+<section class="py-2">
+    <div class="container">
+        <div class="row align-items-center">
+            {% if testimonial.photo %}
+                <div class="col-md-6 mb-4">
+                    <img src="{{ testimonial.photo.url }}" alt="Photo de {{ testimonial.name }}" class="testimonial-photo">
+                </div>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="testimonial-text">
+                    <p>{{ testimonial.text }}</p>
+                    <hr>
+                    <strong>{{ testimonial.name }}</strong>
+                    <br>
+                    <strong>{{ testimonial.promotion }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-footer">
+            <a href="{% url 'temoignages' %}" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

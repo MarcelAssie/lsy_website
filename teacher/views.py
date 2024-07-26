@@ -131,7 +131,7 @@ def teacher_notifications(request):
     teacher = get_object_or_404(Teacher, user=request.user)
     received_messages = teacher.user.received_messages.order_by('-timestamp')
     received_messages.filter(is_read=False).update(is_read=True)
-    return render(request, 'student/student_notifications.html', {'received_messages': received_messages})
+    return render(request, 'teacher/teacher_notifications.html', {'received_messages': received_messages})
 
 
 @login_required

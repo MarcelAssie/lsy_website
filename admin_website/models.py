@@ -27,3 +27,14 @@ class Annale(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Nom")
+    promotion = models.CharField(max_length=50, verbose_name="Promotion")
+    photo = models.ImageField(upload_to='testimonials/', blank=True, null=True, verbose_name="Photo")
+    text = models.TextField(verbose_name="Texte du Témoignage")
+
+    def __str__(self):
+        return self.name

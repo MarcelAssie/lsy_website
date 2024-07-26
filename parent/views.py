@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from authentication.models import Parent, Student
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -20,6 +19,12 @@ def parent_profile(request):
     parent = Parent.objects.get(user=request.user)
     return render(request, 'parent/parent_profile.html', {'parent': parent})
 
+@login_required
+def parent_notifications(request):
+    parent = get_object_or_404(Parent, user=request.user)
+    received_messages = parent.user.received_messages.order_by('-timestamp')
+    received_messages.filter(is_read=False).update(is_read=True)
+    return render(request, 'parent/parent_notifications.html', {'received_messages': received_messages})
 
 @login_required
 def parent_change_password(request):
@@ -98,3 +103,4 @@ def children_performance(request, student_id):
         'scores': json.dumps(scores, cls=DjangoJSONEncoder)
     }
     return render(request, 'parent/children_perfomance.html', context)
+

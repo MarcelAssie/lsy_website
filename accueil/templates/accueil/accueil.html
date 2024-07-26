@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 <style>
+/* Ajoutez ici vos styles CSS actuels pour les témoignages et autres éléments */
+
 @keyframes slideInLeft {
   from {
     transform: translate3d(-20%, 0, 0);
@@ -14,17 +16,6 @@
 }
 .slideInLeft {
   animation: slideInLeft 2s ease;
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
-
-  50% {
-    opacity: 1;
-  }
 }
 
 @keyframes fadeInUp {
@@ -54,8 +45,158 @@
   animation: fadeIn 2s ease-in-out;
 }
 
+.testimonial-section {
+    padding: 60px 15px;
+    position: relative;
+}
+
+
+.testimonial-header {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.testimonial-header h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+}
+
+
+
+.testimonial-accroche {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+    text-align: center;
+}
+
+.testimonial-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+
+.testimonial-card:hover::before {
+    opacity: 0;
+}
+
+.testimonial-content {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.testimonial-photo {
+    max-width: 120px;
+    border-radius: 10%;
+    margin-right: 20px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-photo {
+    transform: scale(1.05);
+}
+
+.testimonial-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.testimonial-name {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.testimonial-button-container {
+    text-align: center;
+    margin-top: 20px;
+    z-index: 1001;
+}
+
+.btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #007bff;
+    padding: 10px 20px;
+    text-decoration: none;
+    background: none;
+    transition: color 0.3s ease;
+}
+
+.btn-view-all:hover {
+    text-decoration: none;
+}
+
+.btn-view-all i {
+    margin-right: 8px;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 768px) {
+    .testimonial-header h2 {
+        font-size: 28px;
+    }
+
+    .testimonial-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .testimonial-photo {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .btn-view-all {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 100px;
+    }
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 500px; /*
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #007bff;
+}
+
+.carousel-indicators li {
+    background-color: #007bff;
+}
+@media (max-width: 768px) {
+    .carousel-item img {
+        width: 100%;
+        height: 50px;
+    }
 }
 </style>
+
 <section class="home">
     <div class="background-image"></div>
     <div class="overlay">
@@ -73,6 +214,88 @@
                 <div class="devise fadeIn" style="margin-bottom: 30px;">L'Excellence, Notre Passion !</div>
                 <a href="{% url 'director-speech' %}" class="btn btn-warning mb-2 mb-md-0 fadeIn">Mot du proviseur</a>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonial-section">
+    <div class="container">
+        <div class="testimonial-header">
+            <h2>Témoignages</h2>
+            <p class="testimonial-accroche">"Vos histoires, vos souvenirs, votre héritage - Découvrez les témoignages de ceux qui ont façonné notre lycée."</p>
+        </div>
+        <div class="row">
+            {% for testimonial in testimonials|slice:":2" %}
+                <div class="col-md-6 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            {% if testimonial.photo %}
+                                <img src="{{ testimonial.photo.url }}" alt="Photo de {{ testimonial.name }}" class="testimonial-photo">
+                            {% endif %}
+                            <div>
+                                <p class="testimonial-text">{{ testimonial.text|slice:":150" }}...</p>
+                                <div class="testimonial-name">
+                                    <strong>{{ testimonial.name }}</strong>
+                                    <br>
+                                    <span>{{ testimonial.promotion }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Aucun témoignage disponible.</p>
+            {% endfor %}
+        </div>
+        <!-- Bouton centré -->
+
+    </div>
+    <div class="testimonial-button-container">
+            <a href="{% url 'temoignages' %}" class="btn-view-all">
+                <i class="fas fa-chevron-right"></i> Plus de détails
+            </a>
+    </div>
+</section>
+<hr>
+<section class="gallery-section py-4">
+    <div class="container">
+        <h2 class="text-center mb-4" style="font-size: 36px;"><strong>Galerie</strong></h2>
+        <div id="galleryCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#galleryCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#galleryCarousel" data-slide-to="1"></li>
+                <li data-target="#galleryCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-image-container">
+                        <img class="d-block w-100" src="{% static 'images/galleries/lsy_1.jpeg' %}" alt="Première image">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image-container">
+                        <img class="d-block w-100" src="{% static 'images/galleries/foundation_photo1.jpg' %}" alt="Deuxième image">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image-container">
+                        <img class="d-block w-100" src="{% static 'images/galleries/excellence_bg.jpg' %}" alt="Troisième image">
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#galleryCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Précédent</span>
+            </a>
+            <a class="carousel-control-next" href="#galleryCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suivant</span>
+            </a>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'gallerie' %}" class="btn-view-all">
+                <i class="fas fa-chevron-right"></i> Plus d'images
+            </a>
         </div>
     </div>
 </section>

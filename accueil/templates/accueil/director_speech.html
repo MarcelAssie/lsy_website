@@ -22,9 +22,23 @@
   }
 }
 
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .director-section {
   position: relative;
-  background: url('{% static '../static/images/director_speech.jpeg' %}') no-repeat center center;
+  background: url('{% static 'images/director_speech.jpeg' %}') no-repeat center center;
   background-size: cover;
   color: white;
   padding: 100px 20px;
@@ -32,6 +46,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .overlay {
@@ -51,55 +66,132 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
 }
 
-.director-text, .director-photo {
+.director-text {
   flex: 1;
   margin: 20px;
   animation: fadeIn 2s ease-in-out;
 }
 
 .director-title {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 20px;
   font-weight: bold;
   animation: slideInUp 1.5s ease-out;
 }
 
 .director-desc {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  line-height: 1.6;
   margin-bottom: 20px;
   border-left: 1px solid #1baa54;
-  padding-left: 15px;
+  padding-left: 20px;
   animation: slideInUp 1.8s ease-out;
+  text-align: left;
 }
 
 .director-quote {
   font-style: italic;
   margin-bottom: 30px;
+  font-size: 1.4rem;
   animation: slideInUp 2.1s ease-out;
 }
 
+.director-photo {
+  flex: 1;
+  margin: 20px;
+  animation: bounceIn 2s ease-out;
+  text-align: center;
+}
+
 .director-photo img {
-  width: 250px;
-  height: 250px;
-  border-radius: 10px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
 }
 
 .director-name {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-top: 15px;
   animation: slideInUp 2.4s ease-out;
 }
 
 .director-title-role {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-top: 5px;
   animation: slideInUp 2.7s ease-out;
 }
 
-/* Responsive styles for small screens */
+/* Section pour le parcours du proviseur */
+.bio-section {
+  background: #f8f9fa;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.bio-section h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #1baa54;
+}
+
+.bio-section p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bio-section .timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bio-section .timeline-item {
+  margin: 20px 0;
+  position: relative;
+  max-width: 800px;
+}
+
+.bio-section .timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  border-left: 2px solid #1baa54;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.bio-section .timeline-item-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.bio-section .timeline-item-content h3 {
+  margin-top: 0;
+}
+
+.bio-section .timeline-item-content p {
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .director-section {
     padding: 50px 10px;
@@ -111,12 +203,7 @@
     align-items: center;
   }
 
-  .director-text {
-    margin: 10px;
-    text-align: center;
-  }
-
-  .director-photo {
+  .director-text, .director-photo {
     margin: 10px;
     text-align: center;
   }
@@ -128,7 +215,8 @@
   .director-desc {
     font-size: 1.2rem;
     padding-left: 10px;
-    border : transparent;
+    border-left: transparent;
+    text-align: center;
   }
 
   .director-quote {
@@ -147,6 +235,14 @@
   .director-title-role {
     font-size: 0.8rem;
   }
+
+  .bio-section h2 {
+    font-size: 2rem;
+  }
+
+  .bio-section p {
+    font-size: 1rem;
+  }
 }
 </style>
 
@@ -157,16 +253,58 @@
             <h3 class="director-title">Mot du Proviseur</h3>
             <p class="director-desc">
                 Chers élèves, parents et membres de la communauté, bienvenue au Lycée Scientifique de Yamoussoukro. Nous nous efforçons de fournir une éducation de qualité supérieure qui prépare nos étudiants à un avenir brillant.
+                <br><br>
+                Notre engagement est de cultiver un environnement d'apprentissage dynamique et inclusif où chaque étudiant peut s'épanouir et atteindre son plein potentiel. Avec des installations modernes et une équipe pédagogique passionnée, nous visons à développer les compétences et les valeurs nécessaires pour réussir dans un monde en constante évolution.
+                <br><br>
+                Nous vous invitons à explorer notre site pour en savoir plus sur nos programmes, événements et opportunités. Nous sommes ravis de vous accueillir et de collaborer avec vous pour atteindre des sommets élevés.
             </p>
             <p class="director-quote">
                 "L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde." - Nelson Mandela
             </p>
         </div>
         <div class="director-photo">
-            <img src="{% static '../static/images/Administration/member.jpeg' %}" alt="Photo du Directeur">
+            <img src="{% static 'images/Administration/member.jpeg' %}" alt="Photo du Directeur">
             <div class="director-name">Marcel Assie</div>
             <div class="director-title-role">Proviseur du Lycée Scientifique de Yamoussoukro</div>
         </div>
     </div>
 </section>
+
+<section class="bio-section">
+    <h2>Parcours du Proviseur</h2>
+    <p>
+        Marcel Assie a une carrière impressionnante en éducation, avec plus de 20 ans d'expérience dans la gestion et l'enseignement. Il a commencé sa carrière en tant que professeur de sciences, avant de gravir les échelons pour devenir directeur d'établissement. Passionné par l'éducation et le développement des jeunes, il a dirigé plusieurs initiatives visant à améliorer la qualité de l'enseignement et à encourager l'innovation pédagogique.
+    </p>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <h3><i class="fas fa-graduation-cap" style="color: #1baa54; font-size: 1.5rem;"></i> Formation</h3>
+                <hr>
+                <p>Marcel Assie a obtenu son diplôme en Sciences de l'Éducation à l'Université de Yamoussoukro. Il a ensuite poursuivi des études supérieures en gestion éducative.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <h3><i class="fas fa-chalkboard-teacher" style="color: #1baa54; font-size: 1.5rem;"></i> Premiers Pas en Éducation</h3>
+                <hr>
+                <p>Débutant sa carrière en tant que professeur de sciences, il a rapidement été reconnu pour son approche innovante et son engagement envers ses élèves.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <h3><i class="fas fa-school" style="color: #1baa54; font-size: 1.5rem;"></i> Directeur de Lycée</h3>
+                <hr>
+                <p>En tant que directeur, il a introduit plusieurs programmes de développement professionnel pour les enseignants et a mis en place des initiatives pour améliorer les performances académiques des élèves.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <h3><i class="fas fa-lightbulb" style="color: #1baa54; font-size: 1.5rem;"></i> Vision pour l'Avenir</h3>
+                <hr>
+                <p>Marcel Assie continue d'œuvrer pour une éducation inclusive et de qualité, en mettant l'accent sur l'innovation pédagogique et le bien-être des élèves.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

@@ -1,11 +1,20 @@
 {% extends 'base_accueil.html' %}
 {% load static %}
 {% block content %}
+<style>
+@media (max-width: 768px) {
+  .infra h2 {
+    font-size: 1.4rem;
+    }
+  .infra h4 {
+    font-size: 1.3rem;
+    }
+}
+</style>
 <link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 <section class="py-2">
-    <div class="container">
+    <div class="container infra">
         <h2 class="section-title text-center">Réseau des Anciens du Lycée Scientifique</h2>
         <div class="line text-center">
             <span></span>
