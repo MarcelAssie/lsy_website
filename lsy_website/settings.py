@@ -34,7 +34,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"     #For deployment
 
 #ALLOWED_HOSTS = []
 
-#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
 
 
 # Languages
