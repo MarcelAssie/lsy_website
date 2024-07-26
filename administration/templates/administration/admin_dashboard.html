@@ -1,0 +1,188 @@
+{% extends 'base_administration.html' %}
+{% block content %}
+<!-- Styles supplémentaires -->
+<style>
+    .dashboard-header {
+        background-color: #4e73df;
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .dashboard-header h1 {
+        margin: 0;
+    }
+
+    .dashboard-header h2 {
+        font-size: 1.5rem;
+        margin-top: 10px;
+    }
+
+    .card-custom {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-custom:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-custom .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .card-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        background-color: #4e73df; /* Fond rouge pour les chiffres */
+        padding: 5px 5px 5px 5px;
+        border-radius: 5px;
+        width: 50px;
+        text-align: center;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .dashboard-header h2 {
+            font-size: 1rem;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<!-- Contenu du tableau de bord -->
+<div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="dashboard-header">
+        <h1>Bienvenue, {{ user.first_name }} {{ user.last_name }} !</h1>
+        <h2>Votre Tableau de Bord</h2>
+    </div>
+    <div class="row">
+        <!-- Statistiques principales -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h5 class="card-title">Effectif total Élèves</h5>
+                        <p class="card-text">{{ total_students }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h5 class="card-title">Effectif total Total Professeurs</h5>
+                        <p class="card-text">{{ total_teachers }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body d-flex align-items-center">
+                    <div>
+                        <h5 class="card-title">Effectif total Parents</h5>
+                        <p class="card-text">{{ total_parents }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Statistiques détaillées -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Élèves par Classe</h5>
+                    <ul class="list-group">
+                        {% for item in students_per_class %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                {{ item.classe__name }} <span class="badge badge-primary">{{ item.count }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Aucune donnée disponible</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Professeurs par Matière</h5>
+                    <ul class="list-group">
+                        {% for item in teachers_per_subject %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                {{ item.matiere__name }} <span class="badge badge-primary">{{ item.count }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Aucune donnée disponible</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Parents</h5>
+                    <h6>Par Ville</h6>
+                    <ul class="list-group mb-3">
+                        {% for item in parents_per_city %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                {{ item.ville }} <span class="badge badge-primary">{{ item.count }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Aucune donnée disponible</li>
+                        {% endfor %}
+                    </ul>
+                    <h6>Par Pays</h6>
+                    <ul class="list-group">
+                        {% for item in parents_per_country %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                {{ item.pays }} <span class="badge badge-primary">{{ item.count }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">Aucune donnée disponible</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

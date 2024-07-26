@@ -2,14 +2,11 @@
 {% load static %}
 {% block content %}
 <style>
-/* Ajoutez ici vos styles CSS actuels pour les témoignages et autres éléments */
-
 @keyframes slideInLeft {
   from {
     transform: translate3d(-20%, 0, 0);
     visibility: visible;
   }
-
   to {
     transform: translate3d(0, 0, 0);
   }
@@ -23,7 +20,6 @@
     opacity: 0;
     transform: translate3d(0, 10%, 0);
   }
-
   to {
     opacity: 1;
     transform: none;
@@ -50,7 +46,6 @@
     position: relative;
 }
 
-
 .testimonial-header {
     text-align: center;
     position: relative;
@@ -65,8 +60,6 @@
     position: relative;
     display: inline-block;
 }
-
-
 
 .testimonial-accroche {
     font-size: 1.25rem;
@@ -88,7 +81,6 @@
     transform: translateY(-10px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
-
 
 .testimonial-card:hover::before {
     opacity: 0;
@@ -154,17 +146,14 @@
     .testimonial-header h2 {
         font-size: 28px;
     }
-
     .testimonial-content {
         flex-direction: column;
         text-align: center;
     }
-
     .testimonial-photo {
         margin-right: 0;
         margin-bottom: 15px;
     }
-
     .btn-view-all {
         font-size: 14px;
         padding: 8px 16px;
@@ -177,40 +166,178 @@
 
 .carousel-item img {
     width: 100%;
-    height: 500px; /*
+    height: 500px;
     object-fit: cover;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: #007bff;
+    background-color: none;
+    color: #0056b3;
+}
+.carousel-control-prev-icon::before {
+    content: "\f053"; /* Code de l'icône Font Awesome pour la flèche gauche */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; /* Font Awesome solid */
+}
+
+.carousel-control-next-icon::before {
+    content: "\f054"; /* Code de l'icône Font Awesome pour la flèche droite */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; /* Font Awesome solid */
 }
 
 .carousel-indicators li {
-    background-color: #007bff;
+    background-color: none;
 }
 @media (max-width: 768px) {
     .carousel-item img {
         width: 100%;
-        height: 50px;
+        height: 200px;
+    }
+}
+
+.stats-section {
+    padding: 60px 15px;
+    position: relative;
+    background: url("{% static 'images/director_speech.jpeg' %}") center center/cover no-repeat;
+    color: white;
+    text-align: center;
+}
+
+.stats-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.stats-header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 40px;
+}
+
+.stats-header h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.stats-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stats-item {
+    flex: 1 1 200px;
+    margin: 10px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+.stats-icon {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.stats-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #007bff;
+    font-family : "Roboto";
+}
+
+.stats-label {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .stats-header h2 {
+        font-size: 22px;
+    }
+    .stats-item {
+        margin: 10px 0;
+    }
+    .stats-label{
+        font-size: 15px;
+    }
+    .stats-icon {
+        font-size: 25px;
+        color: #007bff;
+        margin-bottom: 10px;
     }
 }
 </style>
-
+<!-- Section accueil -->
 <section class="home">
     <div class="background-image"></div>
     <div class="overlay">
         <div class="container">
             <div class="home-content">
                 <h3 class="home-title slideInLeft"><strong>LYCEE SCIENTIFIQUE DE YAMOUSSOUKRO</strong></h3>
-                <p class="lead home-desc fadeInUp">
-                    Bienvenue sur le site de notre ancienne école !
-                    Explorez avec nostalgie les souvenirs et les moments précieux passés dans nos murs.
-                    Découvrez ce qui fait de notre établissement un lieu si spécial pour nous tous.
+                <p class="home-desc fadeInUp">
+                    Bienvenue sur le site officiel du Lycée Scientifique de Yamoussoukro.
+                    Explorez l'histoire et les moments marquants de notre institution.
+                    Découvrez ce qui fait de notre lycée un lieu unique et privilégié pour l'éducation de nos élèves.
                 </p>
-                <p class="quote fadeInUp">
-                    "L'excellence en éducation est la clé de l'avenir, car elle nourrit les esprits et ouvre les portes de l'opportunité." - Marcel Assie
-                </p>
+
+                <!-- Carrousel de citations -->
+                <div id="quoteCarousel" class="carousel slide fadeInUp" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <p class="quote">
+                                "L'excellence en éducation est la clé de l'avenir, car elle nourrit les esprits et ouvre les portes de l'opportunité." - Marcel Assie
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="quote">
+                                "L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde." - Nelson Mandela
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="quote">
+                                "Le savoir est le pouvoir. L'information est libératrice. L'éducation est la prémisse du progrès, dans chaque société, dans chaque famille." - Kofi Annan
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="quote">
+                                "L'éducation est notre passeport pour l'avenir, car demain appartient aux personnes qui se préparent aujourd'hui." - Malcolm X
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="quote">
+                                "L'objectif de l'éducation est de remplacer un esprit vide par un esprit ouvert." - Malcolm Forbes
+                            </p>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#quoteCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                    <a class="carousel-control-next" href="#quoteCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </div>
+
                 <div class="devise fadeIn" style="margin-bottom: 30px;">L'Excellence, Notre Passion !</div>
                 <a href="{% url 'director-speech' %}" class="btn btn-warning mb-2 mb-md-0 fadeIn">Mot du proviseur</a>
             </div>
@@ -218,6 +345,47 @@
     </div>
 </section>
 
+<!-- Section statistiques -->
+<section class="stats-section">
+    <div class="stats-overlay"></div>
+    <div class="container">
+        <div class="stats-header">
+            <h2>LE LYCEE SCIENTIFIQUE C'EST</h2>
+        </div>
+        <div class="stats-container">
+            <div class="stats-item slideInLeft">
+                <div class="stats-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stats-number">600</div>
+                <div class="stats-label">ÉLÈVES</div>
+            </div>
+            <div class="stats-item fadeInUp">
+                <div class="stats-icon">
+                    <i class="fas fa-female"></i>
+                </div>
+                <div class="stats-number">80</div>
+                <div class="stats-label">FILLES</div>
+            </div>
+            <div class="stats-item slideInLeft">
+                <div class="stats-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="stats-number">98%</div>
+                <div class="stats-label">DE RÉUSSITE AU BACCALAURÉAT 2024</div>
+            </div>
+            <div class="stats-item fadeInUp">
+                <div class="stats-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="stats-number">75%</div>
+                <div class="stats-label">EN MOYENNE LES PRESTIGIEUSES ÉCOLES</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section témoignages -->
 <section class="testimonial-section">
     <div class="container">
         <div class="testimonial-header">
@@ -247,16 +415,15 @@
                 <p>Aucun témoignage disponible.</p>
             {% endfor %}
         </div>
-        <!-- Bouton centré -->
-
     </div>
     <div class="testimonial-button-container">
-            <a href="{% url 'temoignages' %}" class="btn-view-all">
-                <i class="fas fa-chevron-right"></i> Plus de détails
-            </a>
+        <a href="{% url 'temoignages' %}" class="btn-view-all">
+            <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus de détails
+        </a>
     </div>
 </section>
 <hr>
+<!-- Section Gale   rie -->
 <section class="gallery-section py-4">
     <div class="container">
         <h2 class="text-center mb-4" style="font-size: 36px;"><strong>Galerie</strong></h2>
@@ -294,7 +461,7 @@
         </div>
         <div class="text-center mt-4">
             <a href="{% url 'gallerie' %}" class="btn-view-all">
-                <i class="fas fa-chevron-right"></i> Plus d'images
+                <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus d'images
             </a>
         </div>
     </div>

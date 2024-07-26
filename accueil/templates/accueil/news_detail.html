@@ -5,13 +5,16 @@
     .text-container p {
         text-align: justify;
     }
+    .text-container h2 {
+        font-size: 17px;
+    }
 </style>
 <link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <section class="py-2">
-    <div class="container">
+    <div class="container text-container">
         <h2 class="text-center">{{ actualite.titre }}</h2>
-        <div class="content-container text-container">
+        <div class="content-container ">
             <img src="{{ actualite.image.url }}" alt="{{ actualite.titre }}" class="img-fluid">
             <p class="content-description">{{ actualite.description }}</p>
         </div>

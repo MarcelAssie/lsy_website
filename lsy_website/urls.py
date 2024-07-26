@@ -93,7 +93,7 @@ urlpatterns = [
     path('parent/children-details/', parent.views.children_details, name='children-details'),
     path('parent/children-details/<int:student_id>/performance/', parent.views.children_performance, name='children-performance'),
 #--------------------------------------------------------------------------------------------------------------------------
-    path('admin-profile/', administration.views.admin_profile, name='admin-profile'),
+    path('admin-profile/', administration.views.admin_dashboard, name='admin-profile'),
     path('admin-profile/notifications/', administration.views.admin_notifications, name='admin-notifications'),
     path('admin-profile/sent-messages/', administration.views.admin_sent_messages, name='admin-sent-messages'),
     path('admin-profile/change-password/', administration.views.admin_change_password, name='admin-change-password'),

@@ -1,18 +1,47 @@
-from django.shortcuts import redirect,get_object_or_404
+from django.shortcuts import redirect,get_object_or_404, render
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Subject, Coefficient, Class, Schedule,TeacherSchedule
-from authentication.models import Teacher
+from authentication.models import Student, Parent, Teacher
 from messagerie.models import Message
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render
+from django.db.models import Count
 from .forms import CoefficientForm, ClassSelectionForm, ScheduleStudentForm, ScheduleTeacherForm
 
-@staff_member_required
-def admin_profile(request):
-    user = request.user
-    return render(request, 'administration/admin_profile.html',{'user': user})
+def admin_dashboard(request):
+    # Statistiques sur les élèves par classe
+    students_per_class = Student.objects.values('classe__name').annotate(count=Count('id')).order_by('classe__name')
+
+    # Statistiques sur les parents
+    parents_per_city = Parent.objects.values('ville').annotate(count=Count('id')).order_by('ville')
+    parents_per_country = Parent.objects.values('pays').annotate(count=Count('id')).order_by('pays')
+
+    # Statistiques sur les enseignants par matière
+    teachers_per_subject = Teacher.objects.values('matiere__name').annotate(count=Count('id')).order_by('matiere__name')
+
+    # Nombre total d'enseignants
+    total_teachers = Teacher.objects.count()
+
+    # Nombre total de parents
+    total_parents = Parent.objects.count()
+
+    # Nombre total d'élèves
+    total_students = Student.objects.count()
+
+    # Passer les données au template
+    context = {
+        'students_per_class': students_per_class,
+        'parents_per_city': parents_per_city,
+        'parents_per_country': parents_per_country,
+        'teachers_per_subject': teachers_per_subject,
+        'total_teachers': total_teachers,
+        'total_parents': total_parents,
+        'total_students': total_students,
+    }
+    print(students_per_class)
+    return render(request, 'administration/admin_dashboard.html', context)
+
 
 @staff_member_required
 def admin_notifications(request):
