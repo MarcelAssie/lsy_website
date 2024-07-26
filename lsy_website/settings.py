@@ -105,14 +105,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
-#For deployment
 
+#For deployment
+"""
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-
+"""
+DATABASES["default"] = dj_database_url.parse("postgresql://lsydatabase_user:n2WvcFab46K8BPczod5psPoZfyzc07vE@dpg-cqg4pi56l47c73bp487g-a.oregon-postgres.render.com/lsydatabase")
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
