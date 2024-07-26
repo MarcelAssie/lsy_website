@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Actualite, Evenement, Annale
+from .models import Actualite, Evenement, Annale, Testimonial
 
 @admin.register(Actualite)
 class ActualiteAdmin(admin.ModelAdmin):
@@ -20,3 +20,9 @@ class AnnaleAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at')  # Champs à afficher dans la liste des annales
     search_fields = ('title', 'description')  # Champs à utiliser pour la recherche
     ordering = ('-created_at',)
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ('name', 'promotion', 'photo', 'text')  # Champs à afficher dans la liste des témoignages
+    search_fields = ('name', 'promotion', 'text')  # Champs à utiliser pour la recherche
+    ordering = ('-name',)  # Ordre de tri par défaut dans

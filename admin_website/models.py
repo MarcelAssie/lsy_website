@@ -29,7 +29,6 @@ class Annale(models.Model):
         return self.title
 
 
-
 class Testimonial(models.Model):
     name = models.CharField(max_length=100, verbose_name="Nom")
     promotion = models.CharField(max_length=50, verbose_name="Promotion")
