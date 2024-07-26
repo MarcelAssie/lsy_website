@@ -11,10 +11,12 @@ from django.contrib.admin.views.decorators import staff_member_required
 def actualites(request):
     actualites = Actualite.objects.all().order_by('-date_publiée')
     return render(request, 'admin_website/actualites.html', {'actualites': actualites})
+
 @staff_member_required
 def evenements(request):
     evenements = Evenement.objects.all().order_by('-date')
     return render(request, 'admin_website/evenements.html', {'evenements': evenements})
+
 @staff_member_required
 def actualite_detail(request, pk):
     actualite = get_object_or_404(Actualite, pk=pk)
@@ -23,10 +25,12 @@ def actualite_detail(request, pk):
 def evenement_detail(request, pk):
     evenement = get_object_or_404(Evenement, pk=pk)
     return render(request, 'admin_website/evenement_detail.html', {'evenement': evenement})
+
 @staff_member_required
 def testimonials(request):
     testimonials = Testimonial.objects.all().order_by('-id')
     return render(request, 'admin_website/testimonials.html', {'testimonials': testimonials})
+
 @staff_member_required
 def testimonial_detail(request, pk):
     testimonial = get_object_or_404(Testimonial, pk=pk)
@@ -42,6 +46,7 @@ def ajouter_actualite(request):
     else:
         form = ActualiteForm()
     return render(request, 'admin_website/ajouter_actualite.html', {'form': form})
+
 @staff_member_required
 def ajouter_evenement(request):
     if request.method == 'POST':
@@ -52,6 +57,7 @@ def ajouter_evenement(request):
     else:
         form = EvenementForm()
     return render(request, 'admin_website/ajouter_evenement.html', {'form': form})
+
 @staff_member_required
 def modifier_actualite(request, pk):
     actualite = get_object_or_404(Actualite, pk=pk)
@@ -74,6 +80,7 @@ def modifier_evenement(request, pk):
     else:
         form = EvenementForm(instance=evenement)
     return render(request, 'admin_website/ajouter_evenement.html', {'form': form})
+
 @staff_member_required
 def supprimer_actualite(request, pk):
     actualite = get_object_or_404(Actualite, pk=pk)
@@ -87,6 +94,7 @@ def supprimer_actualite(request, pk):
         'cancel_url': reverse('actualites')  # URL de retour pour les actualités
     })
 
+@staff_member_required
 def supprimer_evenement(request, pk):
     evenement = get_object_or_404(Evenement, pk=pk)
     if request.method == 'POST':
