@@ -25,16 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ.get("SECRET_KEY")  #For deployment
-SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
+SECRET_KEY = os.environ.get("SECRET_KEY")  #For deployment
+#SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.environ.get("DEBUG", "False").lower() == "true"     #For deployment
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"     #For deployment
 
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
-#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
 
 
 # Languages
@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'lsy_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -112,7 +112,7 @@ DATABASES = {
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
