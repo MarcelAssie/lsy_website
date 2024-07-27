@@ -267,6 +267,21 @@
     font-size: 18px;
     color: #555;
 }
+.styled-header {
+    font-family: 'Georgia', serif; /* Choisissez une police élégante */
+    font-size: 36px; /* Augmentez la taille de la police */
+    font-weight: bold; /* Rendre le texte en gras */
+    color: white; /* Couleur de texte */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ajouter une ombre au texte */
+    letter-spacing: 2px; /* Espacement entre les lettres */
+    text-transform: uppercase; /* Mettre le texte en majuscules */
+    background: linear-gradient(90deg, #ff7e5f, #feb47b); /* Dégradé de fond */
+    -webkit-background-clip: text; /* Utiliser le fond comme clip de texte */
+    -webkit-text-fill-color: transparent; /* Remplir le texte avec le fond */
+    margin-bottom: 20px; /* Espacement sous le titre */
+    text-align: center; /* Centrer le texte */
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {
@@ -350,7 +365,7 @@
     <div class="stats-overlay"></div>
     <div class="container">
         <div class="stats-header">
-            <h2>LE LYCEE SCIENTIFIQUE C'EST</h2>
+            <h2 class="styled-header">LE LYCEE SCIENTIFIQUE C'EST</h2>
         </div>
         <div class="stats-container">
             <div class="stats-item slideInLeft">
@@ -362,24 +377,24 @@
             </div>
             <div class="stats-item fadeInUp">
                 <div class="stats-icon">
-                    <i class="fas fa-female"></i>
-                </div>
-                <div class="stats-number">80</div>
-                <div class="stats-label">FILLES</div>
-            </div>
-            <div class="stats-item slideInLeft">
-                <div class="stats-icon">
                     <i class="fas fa-award"></i>
                 </div>
                 <div class="stats-number">98%</div>
                 <div class="stats-label">DE RÉUSSITE AU BACCALAURÉAT 2024</div>
             </div>
+            <div class="stats-item slideInLeft">
+                <div class="stats-icon">
+                    <i class="fas fa-medal honor-icon"></i>
+                </div>
+                <div class="stats-number">75%</div>
+                <div class="stats-label">DE MENTIONS AU BACCALAURÉAT 2024</div>
+            </div>
             <div class="stats-item fadeInUp">
                 <div class="stats-icon">
                     <i class="fas fa-university"></i>
                 </div>
-                <div class="stats-number">75%</div>
-                <div class="stats-label">EN MOYENNE LES PRESTIGIEUSES ÉCOLES</div>
+                <div class="stats-number">70%</div>
+                <div class="stats-label">D'ADMIS DANS LES PRESTIGIEUSES ÉCOLES</div>
             </div>
         </div>
     </div>
@@ -418,7 +433,7 @@
     </div>
     <div class="testimonial-button-container">
         <a href="{% url 'temoignages' %}" class="btn-view-all">
-            <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus de détails
+            <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus de témoignages
         </a>
     </div>
 </section>
@@ -441,12 +456,12 @@
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-image-container">
-                        <img class="d-block w-100" src="{% static 'images/galleries/foundation_photo1.jpg' %}" alt="Deuxième image">
+                        <img class="d-block w-100" src="{% static 'images/galleries/lsy_2.jpg' %}" alt="Deuxième image">
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-image-container">
-                        <img class="d-block w-100" src="{% static 'images/galleries/excellence_bg.jpg' %}" alt="Troisième image">
+                        <img class="d-block w-100" src="{% static 'images/galleries/lsy_3.jpg' %}" alt="Troisième image">
                     </div>
                 </div>
             </div>
@@ -461,7 +476,7 @@
         </div>
         <div class="text-center mt-4">
             <a href="{% url 'gallerie' %}" class="btn-view-all">
-                <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus d'images
+                <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Plus de photos
             </a>
         </div>
     </div>

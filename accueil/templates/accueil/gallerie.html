@@ -4,50 +4,59 @@
 <link rel="stylesheet" href="{% static 'accueil/style_accueil.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.gallery-item {
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+.gallery-description {
+font-size: 1.2rem;
+color: #555;
+margin-bottom: 20px;
+font-style: italic;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 768px) {
+    .gallery-item {
+        margin: 5px;
+    }
+}
+
+@media (max-width: 576px) {
     .gallery-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 2rem;
+        flex-direction: column;
+        align-items: center;
     }
     .gallery-item {
-        margin: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gallery-item img {
+        margin: 5px 0;
         width: 100%;
-        height: auto;
-        display: block;
+        max-width: 400px;
     }
-    .gallery-item:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    .infra h2 {
+        font-size: 1.3rem;
     }
-
-    /* Styles pour les petits écrans */
-    @media (max-width: 768px) {
-        .gallery-item {
-            margin: 5px;
-        }
+    .infra p {
+        font-size: 0.8rem;
     }
-
-    @media (max-width: 576px) {
-        .gallery-container {
-            flex-direction: column;
-            align-items: center;
-        }
-        .gallery-item {
-            margin: 5px 0;
-            width: 100%;
-            max-width: 400px;
-        }
-        .infra h2 {
-            font-size: 1.3rem;
-        }
-    }
+}
 </style>
 
 <section class="py-2">
@@ -55,6 +64,7 @@
         <h2 class="section-title text-center">Galerie Photos</h2>
         <div class="line text-center">
             <span></span>
+             <p class="text-center gallery-description">Découvrez les moments forts de notre lycée en images</p>
         </div>
 
         <div class="gallery-container">

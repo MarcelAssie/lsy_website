@@ -33,7 +33,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 #--------------------------------------------------------------------------------------------------------------------------
-    path('accueil/', accueil.views.home, name='accueil'),
+    path('', accueil.views.home, name='accueil'),
     path('accueil/director-speech/', accueil.views.director_speech, name='director-speech'),
     path('lycee/histoire/', accueil.views.lycee_histoire, name='lycee-histoire'),
     path('lycee/mission-vision/', accueil.views.lycee_mission_vision, name='lycee-mission-vision'),
@@ -57,7 +57,7 @@ urlpatterns = [
     path('galerie/', accueil.views.gallerie, name='gallerie'),
     path('contact/', accueil.views.contact, name='contact'),
 #--------------------------------------------------------------------------------------------------------------------------
-    path('', authentication.views.welcome, name='welcome'),
+    path('portail/', authentication.views.welcome, name='welcome'),
     path('login/', authentication.views.LoginPage.as_view(), name='login'),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('register/student/', authentication.views.student_register, name='student_register'),
