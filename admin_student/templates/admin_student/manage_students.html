@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <!-- Bloc : Liste de classes -->
         <div class="col-md-6 mb-4">
@@ -77,8 +76,8 @@
                     <ul class="list-group">
                         {% for student in students %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{% url 'student-details2' student.id %}" class="text-decoration-none text-dark">
-                                {{ student.first_name }} {{ student.last_name }}
+                            <a href="{% url 'student-details' student.id %}" class="text-decoration-none text-dark">
+                                {{ student.user.first_name }} {{ student.user.last_name }} | {{ student.classe.get_name_display }}
                             </a>
                             <span class="badge badge-primary badge-pill">Détails</span>
                         </li>

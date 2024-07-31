@@ -6,6 +6,21 @@
             font-size: 20px;
         }
     }
+
+    .required {
+        color: red; /* Couleur rouge pour le symbole * */
+        font-size: 18px;
+    }
+
+    .checkbox-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Espacement entre les cases à cocher */
+    }
+
+    .checkbox-inline .form-check {
+        margin-right: 15px; /* Espacement entre les cases à cocher */
+    }
 </style>
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="row justify-content-center">
@@ -19,51 +34,28 @@
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label> <span class="required">*</span>
                                 {{ form.last_name }}
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label> <span class="required">*</span>
                                 {{ form.first_name }}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                                {{ form.email }}
-                                {% if form.email.help_text %}
-                                    <small class="form-text text-muted">{{ form.email.help_text }}</small>
-                                {% endif %}
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="{{ form.matiere.id_for_label }}">{{ form.matiere.label }}</label>
+                                <label for="{{ form.matiere.id_for_label }}">{{ form.matiere.label }}</label> <span class="required">*</span>
                                 {{ form.matiere }}
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="{{ form.date_naissance.id_for_label }}">{{ form.date_naissance.label }}</label>
-                                {{ form.date_naissance }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="{{ form.annee_entree.id_for_label }}">{{ form.annee_entree.label }}</label>
-                                {{ form.annee_entree }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="{{ form.telephone.id_for_label }}">{{ form.telephone.label }}</label>
-                                {{ form.telephone }}
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="{{ form.photo_profile.id_for_label }}">{{ form.photo_profile.label }}</label>
-                                {{ form.photo_profile }}
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="{{ form.classes.id_for_label }}">{{ form.classes.label }}</label>
-                                {{ form.classes }}
+                                <label for="{{ form.classes.id_for_label }}">{{ form.classes.label }}</label> <span class="required">*</span>
+                                <div class="checkbox-inline">
+                                    {% for checkbox in form.classes %}
+                                        <div class="form-check">
+                                            {{ checkbox.tag }} {{ checkbox.choice_label }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary validate">Valider</button>

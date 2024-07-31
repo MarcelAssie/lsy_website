@@ -6,12 +6,12 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = ['subject', 'body', 'file']
         labels = {
-            'subject': 'Sujet',
+            'subject': 'Objet',
             'body': 'Message',
             'file': 'Joindre un fichier (facultatif)',
         }
         widgets = {
-            'subject': forms.TextInput(attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'subject': forms.TextInput(attrs={'class': 'form-control', 'maxlength': 250}),
+            'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'maxlength': 250}),
             'file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }

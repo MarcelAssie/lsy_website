@@ -2,17 +2,17 @@ from django.db import models
 from django.utils import timezone
 
 MATIERE_CHOICES = [
-    ('HG', 'Histoire-Géographie'),
-    ('PC', 'Physique-Chimie'),
+    ('Histoire-Géographie', 'Histoire-Géographie'),
+    ('Physique-Chimie', 'Physique-Chimie'),
     ('Français', 'Français'),
     ('Anglais', 'Anglais'),
-    ('LV2', 'Langue Vivante 2'),
-    ('Mathematiques', 'Mathématiques'),
-    ('EDHC', 'Éducation Civique et Morale'),
+    ('Langue Vivante 2', 'Langue Vivante 2'),
+    ('Mathématiques', 'Mathématiques'),
+    ('Éducation Civique et Morale', 'Éducation Civique et Morale'),
     ('Philosophie', 'Philosophie'),
     ('Arts Plastiques', 'Arts Plastiques'),
     ('Musique', 'Musique'),
-    ('EPS', 'Éducation Physique et Sportive'),
+    ('Éducation Physique et Sportive', 'Éducation Physique et Sportive'),
     ('Natation', 'Natation'),
 ]
 NIVEAU = [
@@ -44,6 +44,14 @@ DAYS = [
         ('Vendredi', 'Vendredi'),
     ]
 
+CATEGORY_CHOICES = [
+    ('warning', 'Avertissement'),
+    ('event', 'Évènement'),
+    ('danger', 'Danger'),
+    ('info', 'Information')
+]
+
+
 # Filtrer NUMEROS en fonction des règles spécifiées pour chaque niveau
 def filter_numeros(niveau_code):
     if niveau_code in ['4', '3']:
@@ -56,21 +64,19 @@ def filter_numeros(niveau_code):
         return []
 
 # Générer toutes les combinaisons possibles
-CLASSES = []
+CLASSES_CHOICES = []
 for niveau_code, niveau_desc in NIVEAU:
     numeros_filtres = filter_numeros(niveau_code)
     for num_code, num_desc in numeros_filtres:
-        CLASSES.append((niveau_desc + num_desc, f"{niveau_desc} {num_desc}"))
+        CLASSES_CHOICES.append((niveau_desc + num_desc, f"{niveau_desc} {num_desc}"))
 
 class Class(models.Model):
-    CHOIX_CLASSES = CLASSES
-    name = models.CharField(max_length=100, choices=CHOIX_CLASSES)
+    name = models.CharField(max_length=100, choices=CLASSES_CHOICES)
     def __str__(self):
         return self.get_name_display()
 
 class Subject(models.Model):
-    CHOIX_MATIERES = MATIERE_CHOICES
-    name = models.CharField(max_length=100, choices=CHOIX_MATIERES)
+    name = models.CharField(max_length=100, choices=MATIERE_CHOICES)
     def __str__(self):
         return self.get_name_display()
 
@@ -119,5 +125,13 @@ class Absence(models.Model):
     def __str__(self):
         return f"Absence de {self.student} de {self.start_time} à {self.end_time}"
 
+class Information(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 

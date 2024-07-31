@@ -1,0 +1,55 @@
+/* styles.css */
+/* Styles spécifiques pour la page de contact */
+
+#contactForm {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#contactForm .form-group {
+    margin-bottom: 20px;
+}
+
+#contactForm label {
+    font-weight: bold;
+}
+
+#contactForm textarea {
+    resize: vertical; /* Permet à la zone de texte de redimensionner verticalement */
+}
+
+#contactForm button {
+    width: 100px;
+    margin-top: 20px;
+}
+
+.section-title {
+    margin-bottom: 0px; /* Utilisation du vert de Bootstrap */
+
+}
+
+.line {
+    width: 100%;
+    background: #ddd;
+    height: 3px;
+    margin: 20px auto;
+}
+
+.line span {
+    display: block;
+    width: 100px;
+    background-color: #7cb62f;
+    height: 4px;
+    margin: auto;
+    position: relative;
+    bottom: 0.5px;
+}
+
+@media (min-width: 768px) {
+    #contactForm {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}

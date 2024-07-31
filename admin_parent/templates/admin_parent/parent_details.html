@@ -31,18 +31,9 @@
                     <h3>{{ parent.user.get_full_name }}</h3>
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <p><strong>Ville :</strong> {{ parent.ville }}</p>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <p><strong>Pays :</strong> {{ parent.get_pays_display  }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <p><strong>N° Téléphone :</strong> {{ parent.telephone }}</p>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <p><strong>Autre N° Téléphone :</strong> {{ parent.contact }}</p>
+                            {% if parent.contact %}
+                            <p><strong>N° Téléphone :</strong> {{ parent.contact }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -35,11 +35,7 @@
         margin: 20px 0;
         text-align: center;
     }
-    .img-thumbnail {
-        width: 100%;
-        max-width: 150px;
-        height: auto;
-    }
+
     .table-responsive {
         overflow-x: auto;
     }
@@ -110,37 +106,9 @@
                             <p><strong>Classe :</strong> {{ student.classe }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Date de naissance :</strong> {{ student.date_naissance|date:"d/m/Y" }}</p>
+                            <p><strong>Identifiant :</strong> {{ student.id_student }}</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Année d'admission :</strong> {{ student.annee_admission }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Pays d'origine :</strong> {{ student.get_pays_origine_display }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Ville d'origine :</strong> {{ student.ville_origine }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Téléphone :</strong> {{ student.telephone }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><strong>Lycée de provenance :</strong> {{ student.lycee_provenance }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    {% if student.photo_profile %}
-                        <img src="{{ student.photo_profile.url }}" alt="Photo de profil" class="img-thumbnail">
-                    {% else %}
-                        <p>Aucune photo disponible.</p>
-                    {% endif %}
                 </div>
             </div>
             <div class="mt-4">
@@ -223,7 +191,7 @@
             </tbody>
         </table>
         <div class="general-average">
-            <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }}</strong></h4>
+            <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }} <br> Rang : {{ student_rank }} / {{ student.classe.student_set.count }}</strong></h4>
         </div>
         {% endif %}
     </div>

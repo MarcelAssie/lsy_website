@@ -1,0 +1,71 @@
+{% extends 'base_parent.html' %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 1.1rem;
+        }
+        table {
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+        }
+        thead {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        th, td {
+            font-size: 0.8rem;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        th {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #96abbd;
+        }
+        td {
+            padding: 0.5rem;
+            text-align: center;
+        }
+    }
+</style>
+<main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+    <h3 class="text-center">Emploi du temps de {{ student.user.get_full_name }}</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-4">
+            <thead>
+                <tr>
+                    <th style="font-size: 0.9rem; color: #96abbd;">Heures/Jours</th>
+                    {% for day in days %}
+                        <th class="text-center" style="font-size: 0.9rem; background-color: rgba(0, 0, 0, 0.7); color:white;"> {{ day }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in schedule_matrix %}
+                <tr>
+                    <td style="font-size: 0.9rem; background-color: rgba(0, 0, 0, 0.7); color:white;">
+                        <strong>{{ row.time_slot }}</strong>
+                    </td>
+                    {% for day in days %}
+                        <td style="padding: 0.5rem; font-size: 0.8rem; text-align: center;">
+                            {% for key, value in row.items %}
+                                {% if key == day %}
+                                    {% if value.subject %}
+                                        {{ value.subject }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                {% else %}
+                                    &nbsp;
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

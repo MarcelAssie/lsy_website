@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth import login,  logout, authenticate
 from .forms import StudentSignUpForm, TeacherSignUpForm, ParentSignUpForm
 from . import forms
@@ -6,14 +6,13 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-from authentication.models import Student
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.http import HttpResponseServerError
 
 def welcome(request):
     return render(request, 'authentication/dashboard.html')
-
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_student(request, username, full_name, classe, password):
     template_path = 'authentication/student_registration_pdf.html'
     context = {
@@ -34,7 +33,8 @@ def generate_pdf_student(request, username, full_name, classe, password):
         return HttpResponse('Error generating PDF')
     return response
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def student_register(request):
     if request.method == 'POST':
         form = StudentSignUpForm(request.POST, request.FILES)
@@ -54,7 +54,8 @@ def student_register(request):
         form = StudentSignUpForm()
     return render(request, 'authentication/student_register.html', {'form': form})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_teacher(request, username, full_name, matiere, classes, password):
     template_path = 'authentication/teacher_registration_pdf.html'
     context = {
@@ -76,7 +77,8 @@ def generate_pdf_teacher(request, username, full_name, matiere, classes, passwor
         return HttpResponse('Error generating PDF')
     return response
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def teacher_register(request):
     if request.method == 'POST':
         form = TeacherSignUpForm(request.POST, request.FILES)
@@ -136,7 +138,8 @@ class LoginPage(View):
         else:
             return redirect('welcome')
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_parent(request, username, full_name, password):
     template_path = 'authentication/parent_registration_pdf.html'
     context = {
@@ -155,7 +158,8 @@ def generate_pdf_parent(request, username, full_name, password):
     if pisa_status.err:
         return HttpResponse('Error generating PDF')
     return response
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def parent_register(request):
     if request.method == 'POST':
         form = ParentSignUpForm(request.POST)
@@ -181,4 +185,7 @@ def logout_user(request):
     logout(request)
     return redirect('welcome')
 
-
+def custom_404_view(request, exception=None):
+    return render(request, 'authentication/404.html', status=404)
+def custom_500_view(request):
+    return render(request, 'authentication/500.html', status=500)

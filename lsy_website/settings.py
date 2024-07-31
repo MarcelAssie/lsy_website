@@ -32,7 +32,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"     #For deployment
 
 #DEBUG = True
 
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
 
@@ -123,6 +123,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'authentication.validators.MaxLengthValidator',
+        'OPTIONS': {
+            'max_length': 12,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -130,6 +139,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'authentication.validators.PasswordComplexityValidator',
+    }
 ]
 
 
@@ -163,7 +175,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
 
-LOGIN_URL = 'login-form'
+LOGIN_URL = 'login'
 
 MEDIA_URL = '/media/'
 

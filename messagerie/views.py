@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.admin.views.decorators import staff_member_required
 from .models import Message
 from authentication.models import Student, User, Teacher, Parent
 from administration.models import Class, Subject
 from .forms import MessageForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------- MESSAGES ELEVES ----------------------------------------------------------------
 @login_required
+@user_passes_test(lambda user: user.is_student)
 def student_to_admin(request):
     sent_messages = Message.objects.filter(sender=request.user, recipients__is_superuser=True).order_by('-timestamp')
     if request.method == 'POST':
@@ -27,12 +27,14 @@ def student_to_admin(request):
         form = MessageForm()
     return render(request, 'messagerie/student_to_admin.html', {'form': form, 'sent_messages': sent_messages})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def message_classes(request):
     classes = Class.objects.all()
     return render(request, 'messagerie/message_classes.html', {'classes': classes})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_unique_student(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     if request.method == 'POST':
@@ -50,7 +52,8 @@ def admin_to_unique_student(request, student_id):
         form = MessageForm()
     return render(request, 'messagerie/admin_to_unique_student.html', {'form': form, 'student': student})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_students_by_class(request, class_id):
     classe = Class.objects.get(id=class_id)
     students = classe.student_set.all()  # Récupère tous les étudiants de la classe
@@ -69,7 +72,8 @@ def admin_to_students_by_class(request, class_id):
         form = MessageForm()
     return render(request, 'messagerie/admin_to_class_students.html', {'form': form, 'class_instance': classe})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_all_students(request):
     all_students = Student.objects.all()
     if request.method == 'POST':
@@ -93,13 +97,15 @@ def admin_to_all_students(request):
 #----------------------------------------------------------------- MESSAGES ENSEIGNANTS ----------------------------------------------------------------
 
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def message_subjects_classes(request):
     subjects = Subject.objects.all()
     classes = Class.objects.all()
     return render(request, 'messagerie/message_subjects_classes.html', {'subjects': subjects, 'classes': classes})
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_to_admin(request):
     sent_messages = Message.objects.filter(sender=request.user, recipients__is_superuser=True).order_by('-timestamp')
     if request.method == 'POST':
@@ -118,7 +124,8 @@ def teacher_to_admin(request):
         form = MessageForm()
     return render(request, 'messagerie/teacher_to_admin.html', {'form': form, 'sent_messages': sent_messages})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_unique_teacher(request, teacher_id):
     teacher = get_object_or_404(Teacher, id=teacher_id)
     if request.method == 'POST':
@@ -137,7 +144,8 @@ def admin_to_unique_teacher(request, teacher_id):
     return render(request, 'messagerie/admin_to_unique_teacher.html', {'form': form, 'teacher': teacher})
 
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_all_teachers(request):
     all_teachers = Teacher.objects.all()
     if request.method == 'POST':
@@ -157,7 +165,8 @@ def admin_to_all_teachers(request):
 
     return render(request, 'messagerie/admin_to_all_teachers.html', {'form': form})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_teachers_by_subject(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     teachers = Teacher.objects.filter(matiere=subject)
@@ -178,7 +187,8 @@ def admin_to_teachers_by_subject(request, subject_id):
 
     return render(request, 'messagerie/admin_to_subject_teachers.html', {'form': form, 'target': subject, 'type': 'subject'})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_teachers_by_classe(request, classe_id):
     classe = get_object_or_404(Class, id=classe_id)
     teachers = classe.teachers.all()
@@ -201,8 +211,8 @@ def admin_to_teachers_by_classe(request, classe_id):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_to_class_students(request, class_id):
-
     classe = get_object_or_404(Class, id=class_id)
     teacher = get_object_or_404(Teacher, user=request.user)
     # Vérifiez que l'enseignant enseigne cette classe
@@ -227,10 +237,11 @@ def teacher_to_class_students(request, class_id):
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
-#----------------------------------------------------------------- MESSAGES ELEVES ----------------------------------------------------------------
+#----------------------------------------------------------------- MESSAGES PARENTS ----------------------------------------------------------------
 
 
 @login_required
+@user_passes_test(lambda user: user.is_parent)
 def parent_to_admin(request):
     sent_messages = Message.objects.filter(sender=request.user, recipients__is_superuser=True).order_by('-timestamp')
     if request.method == 'POST':
@@ -244,12 +255,13 @@ def parent_to_admin(request):
             message = Message.objects.create(sender=sender, subject=subject, body=body,file=file)
             message.recipients.add(admin_user)
             message.save()
-            return redirect('parent-profile')
+            return redirect('parent-dashboard')
     else:
         form = MessageForm()
     return render(request, 'messagerie/parent_to_admin.html', {'form': form, 'sent_messages': sent_messages})
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_unique_parent(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
     if request.method == 'POST':
@@ -268,7 +280,8 @@ def admin_to_unique_parent(request, parent_id):
     return render(request, 'messagerie/admin_to_unique_parent.html', {'form': form, 'parent': parent})
 
 
-@staff_member_required
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def admin_to_all_parents(request):
     all_parents = Parent.objects.all()
     if request.method == 'POST':

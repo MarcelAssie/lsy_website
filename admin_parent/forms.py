@@ -47,7 +47,7 @@ class ChoixCreneauForm(forms.Form):
     creneau = forms.ModelChoiceField(
         queryset=Creneau.objects.filter(disponible=True),
         widget=forms.RadioSelect,
-        label="Choisissez un créneau disponible ",
+        label="Choisissez un créneau",
     )
 
     def __init__(self, *args, **kwargs):

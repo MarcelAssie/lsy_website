@@ -9,24 +9,34 @@
 </style>
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
     <div class="row">
-        <div class="col-12 text-center mb-4 ">
-            <h3 class="display-5">PROGRAMME SCOLAIRE</h3>
-            <p class="lead">Choisissez une option pour gérer les programmes</p>
+        <div class="col-12 text-center mb-4">
+            <h3 class="display-5">GESTION DE L'ETABLISSEMENT</h3>
+            <p class="lead">Choisissez une option de gestion</p>
         </div>
     </div>
     <div class="row">
-        <!-- Coefficients des matières -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <!-- Gestion des classes et matières-->
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Coefficients des matières</h5>
+                    <h5 class="card-title">Classes et matières</h5>
+                    <p class="card-text">Gérez les classes et les matières de l'école.</p>
+                    <a href="{% url 'list-classes-subjects' %}" class="btn btn-info"><i class="fas fa-chalkboard"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Coefficients des matières -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Coefficients</h5>
                     <p class="card-text">Gérez les coefficients attribués à chaque matière.</p>
                     <a href="{% url 'coefficients-matieres' %}" class="btn btn-info"><i class="fas fa-cog"></i> Voir +</a>
                 </div>
             </div>
         </div>
         <!-- Emploi du temps des élèves -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Emploi du temps des élèves</h5>
@@ -35,8 +45,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <!-- Emploi du temps des enseignants -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Emploi du temps des enseignants</h5>
@@ -45,10 +57,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <!-- Ajout d'annales -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Annales</h5>
@@ -58,7 +68,7 @@
             </div>
         </div>
         <!-- Ajout d'évènements -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Evènements</h5>
@@ -67,8 +77,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <!-- Ajout d'actualités -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Actualités</h5>
@@ -78,7 +90,7 @@
             </div>
         </div>
         <!-- Ajout de témoignages -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Témoignages</h5>
@@ -88,12 +100,22 @@
             </div>
         </div>
         <!-- Gestion des rendez-vous -->
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Gestion des Rendez-vous</h5>
+                    <h5 class="card-title">Rendez-vous parent d'élèves</h5>
                     <p class="card-text">Gérez les rendez-vous pris par les parents.</p>
                     <a href="{% url 'gestion-creneaux' %}" class="btn btn-info"><i class="fas fa-calendar-check"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ajout d'informations -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Informations</h5>
+                    <p class="card-text">Gérez les informations cruciales de l'école.</p>
+                    <a href="{% url 'information-list' %}" class="btn btn-info"><i class="fas fa-info-circle"></i> Voir +</a>
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 350px;
-    height: 400px;
+    height: 500px;
     font-family: 'Trebuchet MS', sans-serif;
     z-index: 1;
 }
@@ -63,7 +63,7 @@
 @media (max-width: 768px) {
     .form-container {
         width: 80%; /* Ajuste la largeur pour les petits écrans */
-        height: 55%;
+        height: 450px;
         padding: 20px; /* Ajuste le padding pour les petits écrans */
     }
 }

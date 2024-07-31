@@ -12,16 +12,18 @@
     }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h3 class="card-title text-center">Modification de note</h3>
-        </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Valider la modification</button>
-            </form>
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title text-center">Modification de note</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Valider la modification</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

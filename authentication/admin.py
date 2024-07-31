@@ -1,10 +1,9 @@
 from django.contrib import admin
 from .models import User, Student, Teacher, Parent
-from administration.models import Subject, Class
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'is_student', 'is_teacher', 'is_parent', 'is_staff')
+    list_display = ('username', 'is_student', 'is_teacher', 'is_parent', 'is_staff')
     list_filter = ('is_student', 'is_teacher','is_parent', 'is_staff')
 
 @admin.register(Student)

@@ -1,6 +1,42 @@
 from django import forms
-from .models import Note, Subject, Absence, Coefficient, Class, TeacherSchedule, Schedule
+from .models import Note, Subject, Absence, Coefficient, Class, TeacherSchedule, Schedule, Information
 from authentication.models import Teacher
+
+class ClassForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = ['name']
+        labels = {
+            'name': 'Nom de la Classe',
+        }
+        widgets = {
+            'name': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Class.objects.filter(name=name).exists():
+            raise forms.ValidationError("Cette classe existe déjà.")
+        return name
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+        labels = {
+            'name': 'Nom de la Matière',
+        }
+        widgets = {
+            'name': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Subject.objects.filter(name=name).exists():
+            raise forms.ValidationError("Cette matière existe déjà.")
+        return name
+
+
 
 class NoteForm(forms.ModelForm):
     class Meta:
@@ -132,4 +168,29 @@ class ScheduleTeacherForm(forms.ModelForm):
             'day_of_week': forms.Select(attrs={'class': 'form-control'}),
             'start_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+        }
+
+
+class InformationForm(forms.ModelForm):
+    class Meta:
+        model = Information
+        fields = ['title', 'content', 'category']
+        labels = {
+            'title': 'Titre',
+            'content': 'Contenu',
+            'category': 'Type d\'information',
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Titre de l\'information'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Description de l\'information',
+                'rows': 4
+            }),
+            'category': forms.Select(attrs={
+                'class': 'form-control'
+            }),
         }

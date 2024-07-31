@@ -19,11 +19,6 @@
         .row {
             margin-bottom: 1rem; /* Ajoute un espace entre les lignes */
         }
-
-        .img-thumbnail {
-            max-width: 100%;
-            height: auto; /* Maintient les proportions de l'image */
-        }
     }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
@@ -37,34 +32,16 @@
                         <div class="col-12 col-md-6">
                             <p><strong>Matière :</strong> {{ teacher.matiere }}</p>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <p><strong>Date de naissance :</strong> {{ teacher.date_naissance|date:"d/m/Y" }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <p><strong>Année d'entrée :</strong> {{ teacher.annee_entree }}</p>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <p><strong>Téléphone :</strong> {{ teacher.telephone }}</p>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <p><strong>Classes enseignées :</strong>
+                            <p><strong>Classe(s) enseignée(s) :</strong>
                                 {% for classe in teacher.classes.all %}
                                     {{ classe }}{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-3 text-center">
-                    {% if teacher.photo_profile %}
-                        <img src="{{ teacher.photo_profile.url }}" alt="Photo de profil" class="img-thumbnail mb-3" style="max-width: 150px;">
-                    {% else %}
-                        <p>Aucune photo disponible.</p>
-                    {% endif %}
                 </div>
             </div>
             <div class="mt-4 d-flex flex-wrap justify-content-between">

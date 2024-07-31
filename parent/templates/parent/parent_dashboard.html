@@ -1,46 +1,47 @@
 {% extends 'base_parent.html' %}
 {% block content %}
 <style>
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
+@media (max-width: 768px) {
+    .school-info h4 {
+        font-size: 18px;
+    }
+    .card-header h2 {
+        font-size: 18px;
+    }
+    .modify h5 {
+        font-size: 16px;
+    }
 
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
-.fadeInUp {
-  animation: fadeInUp 1.5s ease-out;
-}
+.warning { background-color: yellow; }
+.event { background-color: blue; color: white; }
+.danger { background-color: red; color: white; }
+.info { background-color: green; color: white; }
 </style>
 <main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
     <div class="row justify-content-center mt-4">
         <div class="col-md-10">
             <div class="card shadow">
                 <div class="card-header bg-success text-white">
-                    <h2 class="text-center">Tableau de Bord</h2>
+                    <h2 class="text-center">{{ user.first_name }} {{ user.last_name }}</h2>
                 </div>
                 <div class="card-body">
-                    <div class="welcome-message mb-4">
-                        <h3 class="fadeInUp">Bienvenue, {{ user.first_name }} {{ user.last_name }} !</h3>
+                    <div class="student-id-form modify" style="margin-bottom: 20px;">
+                        <h5 class="mb-3">Pour consulter les notes de votre enfant, veuillez-vous rendre dans la section <strong>"Mon enfant"</strong></h5>
                     </div>
                     <div class="school-info mb-4">
-                        <h4>Informations Importantes de l'École</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, ipsum urna laoreet mi, nec lacinia urna lorem ut justo.</p>
-                    </div>
-                    <div class="student-id-form">
-                        <h4 class="mb-3">Veuillez saisir l'identifiant de votre enfant pour voir ses informations</h4>
-                        <form method="post" action="{% url 'children-details' %}">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="student_id"></label>
-                                <input type="text" name="student_id" id="student_id" class="form-control" required placeholder="Tapez ici...">
+                        <h4><strong><i class="fas fa-info-circle"></i>      INFORMATIONS</strong></h4>
+                        <hr>
+                        {% if informations %}
+                            {% for info in informations %}
+                            <div class="alert {{ info.category }} " role="alert">
+                                <strong>{{ info.title }}</strong><br>
+                                {{ info.content }}
                             </div>
-                            <button type="submit" class="btn btn-success">Valider</button>
-                        </form>
+                            {% endfor %}
+                        {% else %}
+                            <h6> Aucune information disponible actuellement </h6>
+                        {% endif %}
                     </div>
                 </div>
             </div>

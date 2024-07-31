@@ -24,6 +24,15 @@
         <div class="col-md-8 offset-md-2">
             <div class="card shadow-sm">
                 <div class="card-body">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <form id="annaleForm" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}

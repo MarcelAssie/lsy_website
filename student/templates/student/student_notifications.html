@@ -2,23 +2,17 @@
 {% block content %}
 <style>
     @media (max-width: 768px) {
-        h3.mb-4 {
+        .title h3 {
             font-size: 20px;
         }
-        .message-header strong {
-            font-size: 16px; /* Taille de la police de l'envoyeur pour petits écrans */
+        .message-sender strong {
+            font-size: 14px; /* Taille de la police de l'expéditeur pour petits écrans */
         }
-        .message-header small {
-            font-size: 12px; /* Taille de la police de la date pour petits écrans */
-        }
-        .message-body h5 {
-            font-size: 16px; /* Taille de la police de l'objet pour petits écrans */
+        .message-subject h5 {
+            font-size: 16px; /* Taille de la police de l'objet du message pour petits écrans */
         }
         .message-body p {
-            font-size: 14px; /* Taille de la police du contenu pour petits écrans */
-        }
-        .message-body a {
-            font-size: 14px; /* Taille de la police du lien de fichier joint pour petits écrans */
+            font-size: 14px; /* Taille de la police du corps du message pour petits écrans */
         }
     }
     .message-body-container {
@@ -34,18 +28,48 @@
         font-size: 0.8rem; /* Taille de la police du bouton */
         margin-left: 10px; /* Espacement entre la date et le bouton Répondre */
     }
+    .new-message {
+        border: 1px solid #007bff; /* Bordure bleue pour les nouveaux messages */
+        border-radius: 10px;
+        padding: 15px;
+        background: linear-gradient(135deg, rgba(0, 255, 0, 0.4), rgba(0, 128, 0, 0.3));
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre portée pour un effet de profondeur */
+        margin-bottom: 10px;
+    }
+    .new-message .message-sender strong {
+        color: #007bff; /* Couleur bleue pour le nom de l'expéditeur */
+    }
+    .new-message .message-subject h5 {
+        color: #0056b3; /* Couleur plus foncée pour le sujet du message */
+    }
+    .new-message .message-body p {
+        color: #333; /* Couleur de texte plus sombre pour le corps du message */
+    }
+    .new-message .btn-reply {
+        color: #007bff;
+        border-color: #007bff;
+    }
+    .new-message .btn-reply:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
 </style>
 <div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
     <h3 class="mb-4 text-center">Messages reçus</h3>
+    {% if unread_notifications_count > 0 %}
+        <div class="alert alert-info text-center">
+            Vous avez reçu {{ unread_notifications_count }} nouveau{{ unread_notifications_count|pluralize }} message{{ unread_notifications_count|pluralize }}.
+        </div>
+    {% endif %}
     <div class="col-md-12 pl-0">
         {% if received_messages %}
             {% for message in received_messages %}
-                <div class="mb-3">
+                <div class="{% if forloop.counter <= unread_notifications_count %} new-message {% else %} mb-3 {% endif %}">
                     <div class="d-flex justify-content-between align-items-center message-header">
                         <div>
                             <i class="fas fa-user-circle"></i>
                             {% if message.sender.is_superuser %}
-                            <strong>De : Admnistration </strong>
+                            <strong>De : Administration </strong>
                             {% elif message.sender.is_teacher %}
                             <strong> De : Professeur </strong> |
                             <small>{{ message.sender.teacher.matiere }}</small>

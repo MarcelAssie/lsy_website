@@ -1,0 +1,61 @@
+{% extends 'base_administration.html' %}
+{% load static %}
+{% block content %}
+<style>
+    @media (max-width: 768px) {
+        .title h3 {
+            font-size: 20px;
+        }
+        .title h5 {
+            font-size: 17px;
+        }
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+        .list-group-item {
+            align-items: flex-start;
+        }
+    }
+</style>
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <h3 class="text-center text-md-left mb-3 mb-md-0">Liste des Informations</h3>
+                <a href="{% url 'information-add' %}" class="btn btn-success mb-3">
+                    <i class="fas fa-plus"></i> Ajouter une information
+                </a>
+            </div>
+        </div>
+        <div class="list-group mt-4">
+            {% if informations %}
+                {% for info in informations %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ info.title }}</h5>
+                            <p class="mb-1">{{ info.content }}</p>
+                            <small>Publié le {{ info.created_at|date:"d/m/Y à H:i" }}</small>
+                        </div>
+                        <div class="d-flex">
+                            <a href="{% url 'information-edit' info.pk %}" class="btn btn-link p-0 mr-2" title="Modifier">
+                                <i class="fas fa-edit text-warning"></i>
+                            </a>
+                            <form method="POST" action="{% url 'information-delete' info.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link p-0" title="Supprimer">
+                                    <i class="fas fa-trash-alt text-danger"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Pas d'informations publiées.</p>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

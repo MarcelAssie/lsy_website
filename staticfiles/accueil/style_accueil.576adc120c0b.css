@@ -1,0 +1,402 @@
+/* Style Général */
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.sections {
+    padding: 40px 0;
+}
+
+.line {
+    width: 100%;
+    background: #ddd;
+    height: 3px;
+    margin: auto;
+}
+
+.line span {
+    display: block;
+    width: 300px;
+    background-color: #7cb62f;
+    height: 4px;
+    margin: auto;
+    position: relative;
+    bottom: 0.5px;
+}
+
+.section-header p {
+    width: 500px;
+    color: #888;
+    margin: 10px auto;
+    line-height: 1.5;
+}
+
+/* Style navbar */
+
+
+.navbar {
+    background: #343a40;
+    margin-bottom: -70px;
+}
+
+
+
+header .navbar-brand {
+    font-size: 35px;
+    color: #fff;
+}
+
+.navbar-brand img {
+    max-width: 40px; /* Largeur maximale de l'image */
+    height: auto; /* Hauteur automatique en fonction de la largeur */
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    padding: 15px 20px;
+    transition: color 0.3s ease-in-out;
+    font-size: 14px;
+    margin: 0 8px;
+    text-transform: uppercase;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #17a2b8 !important;
+}
+.dropdown-item:hover {
+    font-weight: bold;
+}
+.navbar {
+    padding: 5px;
+    top: 0;
+}
+
+header.scrolled {
+    background-color: #09424b;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-toggler-icon {
+    color: #fff;
+}
+
+/* Masquer la flèche vers le bas du menu déroulant */
+.nav-link.no-caret::after {
+    display: none !important;
+}
+
+/* Styliser l'icône personnalisée */
+.nav-link .custom-icon {
+    margin-left: 5px;
+    font-size: 12px; /* Ajustez la taille de l'icône selon vos besoins */
+    color: inherit; /* Prend la couleur du texte du lien */
+}
+
+
+.custom-margin-right {
+    margin-right: 100px; /* Ajustez cette valeur pour jouer sur l'espacement */
+}
+
+/* Style petits écrans */
+@media (max-width: 575px) {
+    header {
+        background: #343a40;
+    }
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        background-color: #343a40;
+    }
+    .navbar-nav .nav-link {
+        padding: 10px 0;
+        color: #fff;
+        text-align: left;
+    }
+    .navbar-nav .nav-link:hover {
+        color: #00aa00;
+    }
+    header.scrolled {
+        background-color: #343a40;
+    }
+}
+
+/* Créer des sections pour chaque page */
+main {
+    margin-top: 70px; /* Ajoutez cette règle pour compenser la hauteur du header fixe */
+}
+
+/* Accueil Section */
+.home {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/login_font.53449fa87702.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: brightness(70%);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.home-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Centrer le contenu horizontalement */
+    color: #fff; /* Couleur du texte */
+    padding: 0 20px; /* Ajouter du padding pour plus d'espace sur les petits écrans */
+    width: 90%; /* Occupation de la largeur de l'écran avec une marge */
+    box-sizing: border-box; /* Inclure le padding dans la largeur totale */
+}
+
+.home-title {
+    font-size: 44px; /* Taille de police par défaut pour grands écrans */
+    margin-bottom: 50px;
+    margin-top: -50px;
+    text-align: center; /* Centrer le titre horizontalement */
+}
+
+.home-desc {
+    font-size: 19px; /* Taille de police par défaut pour grands écrans */
+    max-width: 600px; /* Limiter la largeur du texte pour une meilleure lisibilité */
+    margin: 0 auto 20px; /* Centrer le paragraphe et ajouter de l'espace en bas */
+    text-align: center; /* Centrer le texte */
+}
+
+.quote {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #333;
+    padding: 15px 25px;
+    border-radius: 10px;
+    border-left: 6px solid #0056b3;
+    margin: 30px 0;
+    max-width: 600px; /* Limiter la largeur de la citation */
+    margin: 30px auto; /* Centrer la citation horizontalement */
+    background-color: rgba(255, 255, 255, 0.9); /* Fond légèrement transparent */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre subtile */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition pour l'effet de survol */
+}
+
+.quote:hover {
+    transform: translateY(-5px); /* Légère élévation au survol */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée au survol */
+}
+
+.quote::before {
+    content: open-quote;
+    font-size: 30px;
+    color: #0056b3;
+    margin-right: 10px;
+    vertical-align: -10px;
+}
+
+.quote::after {
+    content: close-quote;
+    font-size: 30px;
+    color: #0056b3;
+    margin-left: 10px;
+    vertical-align: -10px;
+}
+
+.devise {
+    font-size: 2rem;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #FFD700; /* Couleur or pour la devise */
+    animation: fadeIn 2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .home-content {
+        padding: 0 15px; /* Ajuster le padding pour éviter que le contenu touche les bords */
+        width: 100%; /* Occupation de la largeur totale de l'écran */
+        box-sizing: border-box; /* Inclure le padding dans la largeur totale */
+    }
+
+    .home-title {
+        font-size: 30px; /* Réduire la taille de la police pour les petits écrans */
+        margin-top: -90px; /* Ajuster la marge supérieure pour compenser la réduction de taille */
+        line-height: 1.4; /* Ajuster la hauteur de ligne pour un meilleur espacement */
+    }
+
+    .home-desc {
+        font-size: 15px; /* Réduire la taille de la police pour les petits écrans */
+        max-width: 80%; /* Utiliser toute la largeur disponible */
+        margin: 0 auto 20px; /* Assurer que le paragraphe est centré et a de l'espace en bas */
+    }
+
+    .quote {
+        font-size: 12px; /* Réduire la taille de la citation pour les petits écrans */
+        padding: 12px 20px; /* Ajuster le padding pour une meilleure utilisation de l'espace */
+        max-width: 90%; /* Utiliser toute la largeur disponible */
+        margin: 20px auto; /* Réduire la marge pour mieux s'adapter aux petits écrans */
+    }
+
+    .devise {
+        font-size: 1.5rem; /* Réduire la taille de la police pour les petits écrans */
+    }
+
+    .btn {
+        font-size: 0.8rem; /* Réduire la taille de la police des boutons */
+        padding: 0.5rem 1rem; /* Ajuster le padding pour les petits écrans */
+    }
+}
+
+
+
+/* STYLE DE FOOTER */
+.footer {
+    display: flex;
+    flex-direction: column;
+    min-height: 80px;
+}
+
+.footer-content {
+    flex: 1; /* Permet au contenu principal de prendre tout l'espace disponible */
+    background: url("../images/footer/footer.2b2d4bcb946e.jpg") no-repeat center center;
+    background-size: cover;
+    position: relative;
+    color: #fff;
+    padding: 2rem 0;
+    overflow: hidden; /* Assure que les éléments n'éclaboussent pas le footer */
+}
+
+.footer-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 66, 75, 0.9); /* Opacité de fond */
+}
+
+.footer .container {
+    position: relative;
+    z-index: 1; /* Assure que le contenu est au-dessus du ::before */
+}
+
+.footer-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.footer-title .footer-icon {
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    background-color: rgb(27, 170, 84); /* Couleur verte */
+    color: #fff; /* Texte blanc pour contraste */
+    text-align: center;
+    padding: 1rem 0; /* Ajustez le padding si nécessaire */
+}
+
+.social-icon i {
+    font-size: 1.2rem; /* Ajustez la taille des icônes des réseaux sociaux si nécessaire */
+}
+
+.footer p {
+    margin-bottom: 0;
+}
+
+.footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer ul li i {
+    margin-right: 0.5rem;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #fff; /* Couleur des liens dans le footer */
+    transition: color 0.3s ease-in-out;
+}
+
+.footer a:hover {
+    text-decoration: none;
+    color: #1baa54 !important; /* Couleur des liens au survol */
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+    border: 1px solid #fff;
+    padding: 7px; /* Augmenté pour un espace plus symétrique */
+    border-radius: 7px;
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Ajustez la largeur pour votre besoin */
+    height: 40px; /* Ajustez la hauteur pour votre besoin */
+    margin-right: 10px; /* Ajout d'une marge entre les icônes */
+
+}
+
+.social-icon.facebook:hover {
+    color: #1baa54 !important;
+    background: transparent;
+    border: 1px solid #1baa54;
+}
+
+.social-icon.twitter:hover {
+    color: #1baa54 !important;
+    background: transparent;
+    border: 1px solid #1baa54;
+}
+
+.social-icon.instagram:hover {
+    color: #1baa54 !important;
+    background: transparent;
+    border: 1px solid #1baa54;
+}
+
+.social-icon.linkedin:hover {
+    color: #1baa54 !important;
+    background: transparent;
+    border: 1px solid #1baa54;
+    }
+
+@media (max-width: 768px) {
+
+    .footer .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+    .footer-bottom p {
+     font-size: 12px;
+    }
+}
+

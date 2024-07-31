@@ -1,5 +1,8 @@
 from admin_website.models import Annale, Evenement, Actualite, Testimonial
 from django.shortcuts import get_object_or_404
+import os
+from django.conf import settings
+from django.shortcuts import render
 
 
 def home(request):
@@ -86,12 +89,6 @@ def temoignage_detail(request, pk):
     """ Affiche les détails d'un témoignage spécifique """
     testimonial = get_object_or_404(Testimonial, pk=pk)
     return render(request, 'accueil/temoignage_detail.html', {'testimonial': testimonial})
-
-
-# views.py
-import os
-from django.conf import settings
-from django.shortcuts import render
 
 
 def gallerie(request):

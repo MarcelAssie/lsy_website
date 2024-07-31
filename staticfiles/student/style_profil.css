@@ -30,14 +30,9 @@ body {
     font-weight: bold;
 }
 
-.img-thumbnail {
-    border-radius: 50%;
-    border: 2px solid #007bff;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    transition: transform 0.2s ease;
-    margin-top: 15px;
+.school-info {
+    border-left: 2px solid #5d5d5d; /* Bordure gauche */
+    padding-left: 10px;
 }
 
 .card-body {
@@ -78,7 +73,8 @@ body {
     margin-top: -30px;
     height: 100vh;
     width: 250px;
-    background: rgba(38, 38, 38, 1);
+    background: #424344;
+    border-radius: 0px 0px 10px 10px;
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -116,11 +112,6 @@ body {
     left: 15px;
     z-index: 1001;
 }
-.sidebar-divider {
-    border: 1px solid #ddd;
-    margin-top: 45%;
-    width: 100%;
-}
 
 /* Navbar */
 .navbar {
@@ -132,8 +123,9 @@ body {
 .navbar-brand {
     font-size: 24px;
     font-weight: bold;
+    text-align: center; /* Centrer le texte */
+    flex: 1;
 }
-
 .navbar-nav .nav-item .nav-link {
     color: #333;
     font-size: 16px;
@@ -153,6 +145,10 @@ body {
     }
     .navbar img {
         margin-left: 50px;
+    }
+    .navbar-brand {
+        text-align: center; /* Centrer le texte sur les petits écrans */
+        margin-left: 0; /* Enlever les marges inutiles */
     }
     .card {
         font-size: 11px;

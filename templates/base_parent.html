@@ -12,9 +12,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <style>
+        .badge {
+            position: relative;
+            top: -10px;
+            right: -10px;
+            font-size: 0.75rem;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar horizontale -->
@@ -41,7 +48,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'parent-profile' %}"><i class="fas fa-id-badge"></i> Mon profil
+                            <a class="nav-link" href="{% url 'children-details' %}">
+                                <i class="fas fa-user-graduate"></i> Mon enfant
                             </a>
                         </li>
                         <li class="nav-item">
@@ -51,7 +59,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'parent-notifications' %}">
-                                <i class="fas fa-bell"></i> Notifications
+                                <i class="fas fa-bell"></i>
+                                <span id="notification-badge-parent" class="badge badge-danger" style="display: none;"></span>
+                                Notifications
                             </a>
                         </li>
                         <li class="nav-item">
@@ -65,7 +75,7 @@
                             </a>
                         </li>
                     </ul>
-                    <hr class="sidebar-divider">
+                    <hr style="border: 1px solid #aaaaaa;">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link btn btn-danger text-center" href="{% url 'logout' %}">Se déconnecter</a>
@@ -80,6 +90,26 @@
     </div>
     <script>
         $(document).ready(function(){
+            function updateParentNotifications() {
+                $.ajax({
+                    url: '{% url "unread-notifications-count-parent" %}',
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.unread_notifications_count > 0) {
+                            $('#notification-badge-parent').text(data.unread_notifications_count).show();
+                        } else {
+                            $('#notification-badge-parent').hide();
+                        }
+                    }
+                });
+            }
+
+            // Update notifications count for parents every 1 second
+            setInterval(updateParentNotifications, 1000);
+
+            // Initial check on page load
+            updateParentNotifications();
+
             $('.sidebar-toggle').click(function(){
                 $('#sidebar').toggleClass('active');
             });

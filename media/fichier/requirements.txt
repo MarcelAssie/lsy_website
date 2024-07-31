@@ -1,4 +1,0 @@
-Django==5.0.6
-django_countries==7.6.1
-xhtml2pdf==0.2.16
-python-bidi==0.4.2

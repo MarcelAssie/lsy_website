@@ -1,23 +1,27 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import update_session_auth_hash
 from authentication.models import Teacher, Class, Student
-from administration.models import Note, Subject, TeacherSchedule
+from administration.models import Note, Subject, TeacherSchedule, Information
 from messagerie.models import Message
 from administration.forms import NoteFormForTeacher, AbsenceForm
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Avg
+from django.http import JsonResponse
 
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_profile(request):
     teacher = Teacher.objects.get(user=request.user)
-    return render(request, 'teacher/teacher_profile.html', {'teacher': teacher})
+    informations = Information.objects.all().order_by('-created_at')
+    return render(request, 'teacher/teacher_profile.html', {'teacher': teacher, 'informations': informations})
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_classes_view(request):
     teacher = get_object_or_404(Teacher, user=request.user)
     classes = teacher.classes.all()
@@ -25,6 +29,7 @@ def teacher_classes_view(request):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def class_students_view(request, class_id):
     teacher = get_object_or_404(Teacher, user=request.user)
     classe = get_object_or_404(Class, id=class_id)
@@ -55,6 +60,7 @@ def class_students_view(request, class_id):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def add_note_view(request, student_id, subject_id):
     student = get_object_or_404(Student, id=student_id)
     subject = get_object_or_404(Subject, id=subject_id)
@@ -74,6 +80,7 @@ def add_note_view(request, student_id, subject_id):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def edit_note_view(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     if request.method == 'POST':
@@ -87,6 +94,7 @@ def edit_note_view(request, note_id):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def delete_note_view(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     student_id = note.student.id
@@ -97,6 +105,7 @@ def delete_note_view(request, note_id):
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -104,15 +113,16 @@ def teacher_change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Met à jour la session de l'utilisateur pour éviter la déconnexion
             messages.success(request, 'Votre mot de passe a été mis à jour avec succès.')
-            return redirect('teacher-profile')  # Fonction de redirection en fonction de l'utilisateur
+            return redirect('teacher-change-password')  # Fonction de redirection en fonction de l'utilisateur
         else:
-            messages.error(request, 'Veuillez corriger les erreurs ci-dessous.')
+            messages.error(request, 'Echec ! Mot de passe inchangé.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'teacher/teacher_change_password.html', {'form': form})
 
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def add_absence_view(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     if request.method == 'POST':
@@ -127,19 +137,29 @@ def add_absence_view(request, student_id):
     return render(request, 'teacher/teacher_add_absence.html', {'form': form, 'student': student})
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_notifications(request):
     teacher = get_object_or_404(Teacher, user=request.user)
     received_messages = teacher.user.received_messages.order_by('-timestamp')
+    unread_notifications_count = received_messages.filter(is_read=False).count()
     received_messages.filter(is_read=False).update(is_read=True)
-    return render(request, 'teacher/teacher_notifications.html', {'received_messages': received_messages})
-
+    return render(request, 'teacher/teacher_notifications.html', {'received_messages': received_messages,'unread_notifications_count': unread_notifications_count})
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
+def unread_notifications_count_teacher(request):
+    teacher = get_object_or_404(Teacher, user=request.user)
+    count = Message.objects.filter(recipients=teacher.user,is_read=False).count()
+    return JsonResponse({'unread_notifications_count': count})
+
+@login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_sent_messages(request):
     sent_messages = Message.objects.filter(sender=request.user).order_by('-timestamp')
     return render(request, 'teacher/teacher_sent_messages.html', {'sent_messages': sent_messages})
 
 @login_required
+@user_passes_test(lambda user: user.is_teacher)
 def teacher_schedule(request):
     teacher = request.user.teacher
     schedules = TeacherSchedule.objects.filter(teacher=teacher).order_by('start_time')

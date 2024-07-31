@@ -19,9 +19,9 @@
                     <h2 class="text-center">Inscription réussie</h2>
                 </div>
                 <div class="card-body">
-                    <p>Nom d'utilisateur: <strong>{{ username }}</strong></p>
-                    <p>Nom complet: <strong>{{ full_name }}</strong></p>
-                    <p>Mot de passe: <strong>{{ password }}</strong></p>
+                    <p>Nom complet : <strong>{{ full_name }}</strong></p>
+                    <p>Identifiant : <strong>{{ username }}</strong></p>
+                    <p>Mot de passe : <strong>{{ password }}</strong></p>
                     <a href="{% url 'generate-pdf-parent' username=username full_name=full_name password=password %}" class="btn btn-outline-primary">Télécharger la fiche d'informations personnelles</a>
                     <p><strong> Veuillez noter que cette fiche est STRICTEMENT PERSONNELLE !</strong></p>
                     <a href="{% url 'login' %}" class="btn btn-success mt-3">Se connecter</a>

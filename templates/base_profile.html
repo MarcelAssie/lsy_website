@@ -11,10 +11,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
 </head>
 <body>
     <!-- Navbar horizontale -->
@@ -63,7 +61,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'student-notifications' %}">
-                                <i class="fas fa-bell"></i> Notifications
+                                <i class="fas fa-bell"></i>
+                                <span id="notification-badge-student" class="badge badge-danger" style="display: none;"></span>
+                                Notifications
                             </a>
                         </li>
                         <li class="nav-item">
@@ -100,7 +100,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'teacher-notifications' %}">
-                                <i class="fas fa-bell"></i> Notifications
+                                <i class="fas fa-bell"></i>
+                                <span id="notification-badge-teacher" class="badge badge-danger" style="display: none;"></span>
+                                Notifications
                             </a>
                         </li>
                         <li class="nav-item">
@@ -110,7 +112,7 @@
                         </li>
                         {% endif %}
                     </ul>
-                    <hr class="sidebar-divider">
+                    <hr style="border: 1px solid #aaaaaa;">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link btn btn-danger text-center" href="{% url 'logout' %}">Se déconnecter</a>
@@ -125,6 +127,40 @@
     </div>
     <script>
         $(document).ready(function(){
+            function updateNotifications(url, badgeId) {
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.unread_notifications_count > 0) {
+                            $(badgeId).text(data.unread_notifications_count).show();
+                        } else {
+                            $(badgeId).hide();
+                        }
+                    }
+                });
+            }
+
+            // Update notifications count for students every 1 second
+            {% if user.is_student %}
+            setInterval(function() {
+                updateNotifications('{% url "unread-notifications-count-student" %}', '#notification-badge-student');
+            }, 1000);
+
+            // Initial check on page load
+            updateNotifications('{% url "unread-notifications-count-student" %}', '#notification-badge-student');
+            {% endif %}
+
+            // Update notifications count for teachers every 1 second
+            {% if user.is_teacher %}
+            setInterval(function() {
+                updateNotifications('{% url "unread-notifications-count-teacher" %}', '#notification-badge-teacher');
+            }, 1000);
+
+            // Initial check on page load
+            updateNotifications('{% url "unread-notifications-count-teacher" %}', '#notification-badge-teacher');
+            {% endif %}
+
             $('.sidebar-toggle').click(function(){
                 $('#sidebar').toggleClass('active');
             });

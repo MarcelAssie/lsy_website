@@ -12,12 +12,9 @@ body {
 .card-header {
     background-color: #28a745; /* Couleur de l'en-tête */
 }
-.welcome-message h3 {
-    font-size: 45px;
-    color: #333;
-}
+
 .school-info {
-    border-left: 4px solid #218838; /* Bordure gauche */
+    border-left: 2px solid #218838; /* Bordure gauche */
     padding-left: 10px;
 }
 .student-id-form {
@@ -48,7 +45,8 @@ body {
     margin-top: -30px;
     height: 100vh;
     width: 250px;
-    background: rgba(38, 38, 38, 1);
+    background: #424344;
+    border-radius: 0px 0px 10px 10px;
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -86,11 +84,7 @@ body {
     left: 15px;
     z-index: 1001;
 }
-.sidebar-divider {
-    border: 1px solid #ddd;
-    margin-top: 70%;
-    width: 100%;
-}
+
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: rgba(0, 0, 0, 0.8);
@@ -98,6 +92,8 @@ body {
 .navbar-brand {
     font-size: 24px;
     font-weight: bold;
+    text-align: center; /* Centrer le texte */
+    flex: 1;
 }
 .navbar-nav .nav-item .nav-link {
     color: #333;
@@ -119,6 +115,10 @@ body {
     }
     .navbar img {
         margin-left: 50px;
+    }
+    .navbar-brand {
+        text-align: center; /* Centrer le texte sur les petits écrans */
+        margin-left: 0; /* Enlever les marges inutiles */
     }
     .card {
         font-size: 11px;
@@ -210,18 +210,14 @@ tbody tr:hover {
 
 .table-bordered td:nth-child(1),
 .table-bordered td:nth-child(4) {
-    font-weight: bold;
     color: black;
 }
 
-.table-bordered td:nth-child(4) {
-    color: red;
-}
+
 
 tfoot td:last-child {
     font-size: 1.3em;
     background-color: rgba(34, 97, 136, 0.5);
-    font-weight: bold;
 }
 
 .table-footer td {

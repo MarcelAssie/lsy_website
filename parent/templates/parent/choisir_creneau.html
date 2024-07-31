@@ -86,7 +86,7 @@
             // Add event listener for modal hide
             const confirmationModalElement = document.getElementById('confirmationModal');
             confirmationModalElement.addEventListener('hidden.bs.modal', function () {
-                window.location.href = "{% url 'parent-profile' %}";
+                window.location.href = "{% url 'parent-dashboard' %}";
             });
         }
     });
