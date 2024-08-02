@@ -13,36 +13,40 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#env = environ.Env()
-#env.read_env()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")  #For deployment
-#SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"     #For deployment
 
-#DEBUG = True
+# DEPLOYMENT ENVIRONMENT SETTINGS
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ") #For deployment
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+
+
 
 
 # Languages
-
 LANGUAGE_CODE = 'fr-FR'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,20 +66,6 @@ INSTALLED_APPS = [
     'parent',
     'admin_website',
 ]
-
-"""
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-
-
-EMAIL_HOST_USER = 'marceldevtest@gmail.com'
-EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
-CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
-"""
-# For deployement
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
 
 
 
@@ -111,25 +101,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lsy_website.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-#For deployment
-"""
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -163,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 
 TIME_ZONE = 'UTC'
 
