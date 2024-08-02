@@ -38,7 +38,6 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
 
 
 
-
 # Languages
 LANGUAGE_CODE = 'fr-FR'
 
@@ -126,13 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'authentication.validators.PasswordComplexityValidator',
     }
 ]
-EMAIL_HOST = os.environ.get("EMAIL_HOST")
-EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
-
-
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
