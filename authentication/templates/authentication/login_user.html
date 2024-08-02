@@ -1,10 +1,125 @@
 {% extends 'base_authentification.html' %}
 {% load static %}
 {% block content %}
-<div class="background-container d-flex align-items-center justify-content-center">
+<style>
+/* Conteneur principal pour centrer le formulaire */
+.form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Remplit toute la hauteur de la fenêtre */
+    width: 100%;
+    position: relative;
+}
+
+/* Styles du fond flou */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static 'images/lsy_1.jpeg' %}') no-repeat center center;
+    background-size: cover;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+/* Conteneur du formulaire de connexion */
+.form-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* Titre du formulaire */
+.form-container h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Styles du formulaire */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style des groupes de champs du formulaire */
+.form-container .form-group {
+    margin-bottom: 20px;
+}
+
+
+/* Style des champs du formulaire */
+.form-container .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* Style du bouton de soumission */
+.form-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Style du message d'erreur */
+.form-container .message {
+    color: #e74c3c;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style des liens */
+.form-container .text-right {
+    text-align: right;
+}
+
+/* Réactivité */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 20px;
+        width: 80%;
+    }
+
+    .form-container h2 {
+        font-size: 20px;
+    }
+
+    .form-container button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+</style>
+
+<div class="form-wrapper">
     <div class="form-container">
-        <h2 class="text-center font-weight-bold">Se connecter</h2>
-        <br>
+        <h2 class="font-weight-bold">Se connecter</h2>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
@@ -18,9 +133,9 @@
             {% if message %}
                 <p class="message">{{ message }}</p>
             {% endif %}
-            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+            <button type="submit">Se connecter</button>
             <div class="text-right mt-3">
-                <small><a href="#">Mot de passe oublié ?</a></small>
+                <small><a href="{% url 'password-reset-request' %}">Mot de passe oublié ?</a></small>
             </div>
         </form>
     </div>

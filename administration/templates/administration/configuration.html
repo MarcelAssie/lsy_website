@@ -119,6 +119,26 @@
                 </div>
             </div>
         </div>
+        <!-- Paramètres -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Paramètres</h5>
+                    <p class="card-text">Gérez les paramètres globaux du site.</p>
+                    <a href="/admin/" class="btn btn-info"><i class="fas fa-cogs"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
+        <!-- Mot de passe -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mot de passe</h5>
+                    <p class="card-text">Gérez les mots de passe des utilisateurs.</p>
+                    <a href="{% url 'password_reset' %}" class="btn btn-info"><i class="fas fa-key"></i> Voir +</a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 {% endblock %}

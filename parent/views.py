@@ -123,7 +123,6 @@ def children_details(request):
                           'coefficients': coefficients,
                           'student_rank': student_rank,  # Passer le rang à la template
                       })
-
     return render(request, 'parent/children_details.html', {'student': student, 'notes': notes, 'absences': absences})
 
 

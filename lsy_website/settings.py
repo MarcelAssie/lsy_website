@@ -63,6 +63,22 @@ INSTALLED_APPS = [
     'admin_website',
 ]
 
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+"""
+EMAIL_HOST_USER = 'marceldevtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
+CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
+"""
+# For deployement
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -180,4 +196,6 @@ LOGIN_URL = 'login'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 

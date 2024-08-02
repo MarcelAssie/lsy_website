@@ -1,0 +1,65 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_lycee.css' %}">
+<style>
+/* Conteneur de confirmation */
+.confirmation-container {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 250, 0, 0.8);
+}
+
+.confirmation-container p {
+    color: #155724;
+    font-size: 26px;
+}
+
+.confirmation-container p {
+    color: #155724;
+    font-size: 16px;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 600px) {
+    .container {
+        width: 80%;
+    }
+    .confirmation-container {
+        max-width: 90%;
+        padding: 20px;
+        margin: 20px auto;
+        border-width: 1px;
+    }
+
+    .confirmation-container p {
+        font-size: 14px;
+    }
+    .infra h2 {
+        font-size: 1.3rem;
+    }
+    .confirmation-container p {
+        font-size: 15px;
+    }
+}
+</style>
+
+<section class="py-2">
+    <div class="container infra">
+        <h2 class="section-title text-center">Contactez-nous</h2>
+        <div class="line text-center">
+            <span></span>
+        </div>
+        <div class="confirmation-container">
+            <p style="color: black; font-size: 19px;"><strong>😊 Merci {{ name }}, nous avons reçu votre message !</strong></p>
+            <hr>
+            <p>Nous vous répondrons sous peu à l'adresse e-mail suivante :<br> <i>{{ email }}</i></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

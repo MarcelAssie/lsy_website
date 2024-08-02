@@ -9,6 +9,12 @@
             font-size: 0.8rem;
             padding: 0.4rem 0.8rem;
         }
+        .head th {
+            font-size: 13px;
+        }
+        .body td {
+            font-size: 12px;
+        }
     }
     .table-container {
         margin-top: 20px;
@@ -33,15 +39,15 @@
     <h2 class="text-center">Liste des Rendez-vous</h2>
     <div class="table-container">
         <table class="table">
-            <thead>
+            <thead class="head">
                 <tr>
                     <th>Date</th>
                     <th>Heure</th>
                     <th>Motif</th>
-                    <th>Nom du Parent</th>
+                    <th>Nom</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="body">
                 {% for rendezvous in rendezvous %}
                     <tr>
                         <td>{{ rendezvous.creneau.date }}</td>

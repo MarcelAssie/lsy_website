@@ -59,9 +59,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'parent-notifications' %}">
-                                <i class="fas fa-bell"></i>
                                 <span id="notification-badge-parent" class="badge badge-danger" style="display: none;"></span>
-                                Notifications
+                                <i class="fas fa-bell"></i> Notifications
                             </a>
                         </li>
                         <li class="nav-item">
@@ -88,8 +87,16 @@
             </div>
         </div>
     </div>
+
     <script>
         $(document).ready(function(){
+            // Demander la permission pour les notifications de bureau
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+
+            let lastParentNotificationCount = 0;
+
             function updateParentNotifications() {
                 $.ajax({
                     url: '{% url "unread-notifications-count-parent" %}',
@@ -97,19 +104,36 @@
                     success: function(data) {
                         if (data.unread_notifications_count > 0) {
                             $('#notification-badge-parent').text(data.unread_notifications_count).show();
+
+                            // Afficher la notification de bureau uniquement si le nombre de notifications a augmenté
+                            if (data.unread_notifications_count > lastParentNotificationCount) {
+                                showDesktopNotification("Portail LSY", {
+                                    body: "Vous avez une nouvelle notification",
+                                    icon: "{% static 'images/lsy_icon.png' %}"
+                                });
+                            }
                         } else {
                             $('#notification-badge-parent').hide();
                         }
+                        lastParentNotificationCount = data.unread_notifications_count;
                     }
                 });
             }
 
-            // Update notifications count for parents every 1 second
-            setInterval(updateParentNotifications, 1000);
+            // Fonction pour afficher les notifications de bureau
+            function showDesktopNotification(title, options) {
+                if (Notification.permission === "granted") {
+                    new Notification(title, options);
+                }
+            }
 
-            // Initial check on page load
+
+            setInterval(updateParentNotifications, 10000);
+
+            // Vérification initiale au chargement de la page
             updateParentNotifications();
 
+            // Toggle de la barre latérale
             $('.sidebar-toggle').click(function(){
                 $('#sidebar').toggleClass('active');
             });

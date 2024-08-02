@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 {% load static %}
 <html lang="fr">
 <head>
@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Styles personnalisés -->
     <link rel="stylesheet" href="{% static 'accueil/style_accueil.css' %}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -27,8 +26,8 @@
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{% url 'accueil' %}"><strong>Accueil</strong></a></li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <strong>Le Lycée</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Le Lycée</strong><i class="fas fa-chevron-down custom-icon"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'lycee-histoire' %}">Histoire du lycée</a>
                             <a class="dropdown-item" href="{% url 'lycee-mission-vision' %}">Mission et vision</a>
@@ -37,8 +36,8 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <strong>Ressources</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Ressources</strong><i class="fas fa-chevron-down custom-icon"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'reglements-interieurs' %}">Règlements intérieurs</a>
                             <a class="dropdown-item" href="{% url 'admission' %}">Admission</a>
@@ -46,16 +45,16 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <strong>Alumni</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Alumni</strong><i class="fas fa-chevron-down custom-icon"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'alumni-network' %}">2ALSY</a>
                             <a class="dropdown-item" href="{% url 'alumni-activities' %}">Activités</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <strong>News</strong><i class="fas fa-chevron-down custom-icon"></i></a>
+                        <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>News</strong><i class="fas fa-chevron-down custom-icon"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'news' %}">Actualités</a>
                             <a class="dropdown-item" href="{% url 'events' %}">Evénements</a>
@@ -63,11 +62,11 @@
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><strong>Contact</strong></a></li>
-                    </ul>
-                    <ul class="navbar-nav mb-2 mb-lg-0 custom-margin-right">
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0 custom-margin-right">
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="J'ai pas encore activé :)" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
             </div>

@@ -58,11 +58,21 @@ urlpatterns = [
     path('temoignages/', accueil.views.temoignage_list, name='temoignages'),
     path('temoignages/<int:pk>/', accueil.views.temoignage_detail, name='temoignage-detail'),
     path('galerie/', accueil.views.gallerie, name='gallerie'),
-    path('contact/', accueil.views.contact, name='contact'),
+    path('confirmation/', accueil.views.confirmation_view, name='confirmation'),
+    path('contact/', accueil.views.contact_view, name='contact'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('portail/', authentication.views.welcome, name='welcome'),
     path('login/', authentication.views.LoginPage.as_view(), name='login'),
     path('logout/', authentication.views.logout_user, name='logout'),
+    path('password-reset-request/',  authentication.views.password_reset_request_view, name='password-reset-request'),
+
+    path('password_reset/', authentication.views.custom_password_reset_request_view, name='password_reset'),
+    path('password_reset/done/', authentication.views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', authentication.views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', authentication.views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+
+    path('password-reset-request/confirmation/',  authentication.views.confirmation_password, name='confirmation-password-request'),
     path('register/student/', authentication.views.student_register, name='student_register'),
     path('register/student/pdf/<str:username>/<str:full_name>/<str:classe>/<str:password>/',
          authentication.views.generate_pdf_student, name='generate-pdf-student'),

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,18 +19,17 @@
 </head>
 <style>
     .badge {
-    position: relative;
-    top: -10px;
-    right: -10px;
-    font-size: 0.75rem;
-}
-
+        position: relative;
+        top: -10px;
+        right: -10px;
+        font-size: 0.75rem;
+    }
 </style>
 <body>
     <!-- Navbar horizontale -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <button class="navbar-toggler sidebar-toggle" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-             <i class="fas fa-bars"></i>
+            <i class="fas fa-bars"></i>
         </button>
         <img src="{% static 'images/lsy_icon.png' %}" alt="" class="mr-3" style="width: 40px; height: 40px; border-radius: 50%;">
         <a class="navbar-brand" href="#">Portail Administrateur</a>
@@ -46,7 +45,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'admin-profile' %}">
-                                <i class="fas fa-tachometer-alt"></i> Tableau de bord
+                                <i class="fas fa-tachometer-alt"></i>Tableau de bord
                             </a>
                         </li>
                         <li class="nav-item">
@@ -59,14 +58,14 @@
                                 <i class="fas fa-user-graduate"></i> Elèves
                             </a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'manage-parents' %}">
                                 <i class="fas fa-user-friends"></i>Parents
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'configuration' %}">
-                                <i class="fas fa-cog"></i> Configuration
+                                <i class="fas fa-cogs"></i>Gestions
                             </a>
                         </li>
                         <li class="nav-item">
@@ -76,9 +75,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'admin-notifications' %}">
-                                <i class="fas fa-bell"></i>
                                 <span id="notification-badge" class="badge badge-danger" style="display: none;"></span>
-                                Notifications
+                                <i class="fas fa-bell"></i> Notifications
                             </a>
                         </li>
                         <li class="nav-item">
@@ -98,8 +96,17 @@
                 {% block content %}{% endblock %}
          </div>
     </div>
-  <script>
+
+
+    <script>
         $(document).ready(function(){
+            // Demander la permission pour les notifications de bureau
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+
+            let lastNotificationCount = 0;
+
             function updateNotifications() {
                 $.ajax({
                     url: '{% url "unread-notifications-count" %}',
@@ -107,20 +114,34 @@
                     success: function(data) {
                         if (data.unread_notifications_count > 0) {
                             $('#notification-badge').text(data.unread_notifications_count).show();
+                            if (data.unread_notifications_count > lastNotificationCount) {
+                                showDesktopNotification("Portail LSY", {
+                                    body: "Vous avez une nouvelle notification",
+                                    icon: "{% static 'images/lsy_icon.png' %}"
+                                });
+                            }
                         } else {
                             $('#notification-badge').hide();
                         }
+                        lastNotificationCount = data.unread_notifications_count;
                     }
                 });
             }
 
-            // Update notifications count every 1 second
-            setInterval(updateNotifications, 1000);
+            // Fonction pour afficher les notifications de bureau
+            function showDesktopNotification(title, options) {
+                if (Notification.permission === "granted") {
+                    new Notification(title, options);
+                }
+            }
 
-            // Initial check on page load
+            // Mettre à jour le nombre de notifications toutes les 10 secondes
+            setInterval(updateNotifications, 10000);
+
+            // Vérification initiale au chargement de la page
             updateNotifications();
 
-            // Sidebar toggle
+            // Toggle de la barre latérale
             $('.sidebar-toggle').click(function(){
                 $('#sidebar').toggleClass('active');
             });

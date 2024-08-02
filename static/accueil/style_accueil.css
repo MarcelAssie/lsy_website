@@ -36,6 +36,10 @@ body {
 
 
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
     background: #343a40;
     margin-bottom: -70px;
 }
@@ -399,4 +403,10 @@ main {
      font-size: 12px;
     }
 }
+
+
+
+
+
+
 

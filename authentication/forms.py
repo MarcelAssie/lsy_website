@@ -3,7 +3,7 @@ from authentication.models import User, Student, Teacher, Parent
 from administration.models import Subject, Class
 import string
 import random
-
+from django.core.exceptions import ValidationError
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=12, label="Identifiant")
@@ -128,4 +128,36 @@ class ParentSignUpForm(forms.ModelForm):
         password = ''.join(random.choice(characters) for _ in range(length))
         return password
 
+
+class PasswordResetRequestForm(forms.Form):
+    first_name = forms.CharField(label='Prénom', max_length=30)
+    last_name = forms.CharField(label='Nom', max_length=30)
+    role = forms.ChoiceField(
+        label='Vous êtes :',
+        choices=[('parent', 'Parent d\'élève'), ('student', 'Élève'), ('teacher', 'Enseignant')]
+    )
+    class_for_student = forms.CharField(label='Classe', max_length=20, required=False)
+    subject_for_teacher = forms.CharField(label='Matière', max_length=50, required=False)
+    has_email = forms.ChoiceField(
+        label='Avez-vous un email ?',
+        choices=[('yes', 'Oui'), ('no', 'Non')],
+        widget=forms.RadioSelect
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        role = cleaned_data.get('role')
+        has_email = cleaned_data.get('has_email')
+
+        if role == 'student' and not cleaned_data.get('class_for_student'):
+            self.add_error('class_for_student', 'La classe est requise pour les élèves.')
+        if role == 'teacher' and not cleaned_data.get('subject_for_teacher'):
+            self.add_error('subject_for_teacher', 'La matière est requise pour les enseignants.')
+        return cleaned_data
+
+
+
+class CustomPasswordResetRequestForm(forms.Form):
+    username = forms.CharField(max_length=150, label='Nom d\'utilisateur')
+    email = forms.EmailField(label='Adresse e-mail')
 

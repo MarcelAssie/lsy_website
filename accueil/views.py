@@ -1,8 +1,15 @@
+from django.http import HttpRequest
 from admin_website.models import Annale, Evenement, Actualite, Testimonial
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 import os
 from django.conf import settings
-from django.shortcuts import render
+from django.core.mail import send_mail
+from django.urls import reverse
+import logging
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 
 def home(request):
@@ -26,9 +33,6 @@ def excellence_education(request):
 
 def lycee_mission_vision(request):
     return render(request, 'accueil/lycee_mission_vision.html')
-
-def contact(request):
-    return render(request, 'accueil/contact.html')
 
 def lycee_administration(request):
     return render(request, 'accueil/administration.html')
@@ -99,3 +103,88 @@ def gallerie(request):
                    filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
     # Passer les chemins relatifs des images au template
     return render(request, 'accueil/gallerie.html', {'images': image_files})
+
+
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        telephone = request.POST.get('telephone')
+        objet = request.POST.get('objet')
+        message_content = request.POST.get('message')
+
+        # Informations de l'email
+        to_emails = settings.CONTACT_EMAIL
+        subject = f"Message de {name}"
+        body = f"""
+        <html>
+        <head>
+            <style>
+                .email-container {{
+                    font-family: 'Arial', sans-serif;
+                    color: #333;
+                    padding: 20px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 10px;
+                    background: #f9f9f9;
+                    max-width: 600px;
+                    margin: auto;
+                }}
+                .email-container h2 {{
+                    text-align: center;
+                    color: #007bff;
+                }}
+                .email-container p {{
+                    font-size: 16px;
+                    line-height: 1.5;
+                }}
+                .email-container .label {{
+                    font-weight: bold;
+                    color: #555;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="email-container">
+                <h2>Message de {name}</h2>
+                <p><span class="label">Nom :</span> {name}</p>
+                <p><span class="label">Email :</span> {email}</p>
+                <p><span class="label">Téléphone :</span> {telephone}</p>
+                <p><span class="label">Objet :</span> {objet}</p>
+                <p><span class="label">Message :</span><br>{message_content}</p>
+            </div>
+        </body>
+        </html>
+        """
+
+        # Création du message
+        message = MIMEMultipart("alternative")
+        message['From'] = settings.EMAIL_HOST_USER
+        message['To'] = ', '.join(to_emails)
+        message['Subject'] = subject
+
+        message.attach(MIMEText(body, 'html'))
+
+        try:
+            with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+                server.starttls()
+                server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                server.sendmail(settings.EMAIL_HOST_USER, to_emails, message.as_string())
+            print('Email envoyé avec succès!')
+        except Exception as e:
+            print(f'Une erreur est survenue : {e}')
+
+        return redirect(reverse('confirmation') + f'?name={name}&email={email}')
+
+    return render(request, 'accueil/contact.html')
+
+
+
+
+def confirmation_view(request: HttpRequest):
+    name = request.GET.get('name')
+    email = request.GET.get('email')
+    context = {'name': name, 'email': email}
+    return render(request, 'accueil/confirmation.html', context)

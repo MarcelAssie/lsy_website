@@ -337,8 +337,6 @@ def schedule_teacher_edit(request, schedule_id):
         form = ScheduleTeacherForm(instance=schedule)
     return render(request, 'administration/teacher_schedule_form.html', {'form': form, 'teacher': teacher})
 
-
-
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def information_list(request):
