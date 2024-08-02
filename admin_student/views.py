@@ -1,13 +1,14 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test, login_required
 from authentication.models import Student
-from administration.models import MATIERE_CHOICES, Note, Absence, Coefficient, Class
+from administration.models import MATIERE_CHOICES, Note, Absence, Coefficient, Class, Subject
 from django.contrib import messages
 from administration.forms import NoteForm, AbsenceForm
 from itertools import groupby
 from django.db import models
 from django.utils import timezone
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -101,6 +102,12 @@ def delete_confirm_student(request, student_id):
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
+def notes_classes(request):
+    classes = Class.objects.all()
+    return render(request, 'admin_student/notes_classes.html', {'classes': classes})
+
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def add_note(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     if request.method == "POST":
@@ -181,4 +188,38 @@ def delete_absence(request, absence_id):
         absence.delete()
         return redirect('student-details', student_id=student_id)
     return render(request, 'admin_student/confirm_delete_absence.html', {'absence': absence})
+
+
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
+def add_notes_to_class(request, class_id):
+    classe = get_object_or_404(Class, pk=class_id)
+    students = Student.objects.filter(classe=classe).order_by('user__last_name', 'user__first_name')
+
+    if request.method == 'POST':
+        subject_id = request.POST.get('subject')
+        date = request.POST.get('date')
+        notes = request.POST.getlist('notes')
+
+        if not subject_id or not date:
+            messages.error(request, "La matière et la date sont obligatoires.")
+            return render(request, 'admin_student/add_notes.html', {'classe': classe, 'students': students})
+
+        subject = get_object_or_404(Subject, pk=subject_id)
+
+        for student in students:
+            score = request.POST.get(f'note_{student.id}')
+            if score:
+                Note.objects.update_or_create(
+                    student=student,
+                    subject=subject,
+                    date=date,
+                    defaults={'score': score}
+                )
+
+        messages.success(request, "Les notes ont été ajoutées avec succès.")
+        return redirect('add-notes-to-class', class_id=class_id)
+
+    subjects = Subject.objects.all()
+    return render(request, 'admin_student/add_notes.html', {'classe': classe, 'students': students, 'subjects': subjects})
 

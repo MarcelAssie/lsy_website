@@ -65,13 +65,10 @@ urlpatterns = [
     path('login/', authentication.views.LoginPage.as_view(), name='login'),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('password-reset-request/',  authentication.views.password_reset_request_view, name='password-reset-request'),
-
     path('password_reset/', authentication.views.custom_password_reset_request_view, name='password_reset'),
     path('password_reset/done/', authentication.views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', authentication.views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', authentication.views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
-
     path('password-reset-request/confirmation/',  authentication.views.confirmation_password, name='confirmation-password-request'),
     path('register/student/', authentication.views.student_register, name='student_register'),
     path('register/student/pdf/<str:username>/<str:full_name>/<str:classe>/<str:password>/',
@@ -105,6 +102,7 @@ urlpatterns = [
     path('teacher/note/edit/<int:note_id>/', teacher.views.edit_note_view, name='teacher-edit-note'),
     path('teacher/note/delete/<int:note_id>/', teacher.views.delete_note_view, name='teacher-delete-note'),
     path('teacher/add-absence/<int:student_id>/', teacher.views.add_absence_view, name='teacher-add-absence'),
+    path('add-notes/<int:class_id>/', teacher.views.add_notes_class, name='add-notes-class'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('parent-dashboard/', parent.views.parent_dashboard, name='parent-dashboard'),
     path('parent/change-password/', parent.views.parent_change_password, name='parent-change-password'),
@@ -212,6 +210,8 @@ urlpatterns = [
     path('admin-profile/student/<int:student_id>/add-absence/', admin_student.views.add_absence, name='add-absence'),
     path('admin-profile/student/absence/<int:absence_id>/delete/', admin_student.views.delete_absence,
          name='delete-absence'),
+    path('admin-profile/student/notes-classes/', admin_student.views.notes_classes, name='notes-classes'),
+    path('admin-profile/student/notes-classes/s/<int:class_id>/add-notes/', admin_student.views.add_notes_to_class, name='add-notes-to-class'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/manage-teachers/', admin_teacher.views.manage_teachers, name='manage-teachers'),
     path('admin-profile/search-teachers/', admin_teacher.views.search_teachers, name='search-teachers'),
@@ -241,7 +241,6 @@ urlpatterns = [
     path('messages/admin-student/<int:student_id>/send-message/', messagerie.views.admin_to_unique_student,
          name='admin-to-unique-student'),
     path('messages/student-admin/send-message/', messagerie.views.student_to_admin, name='student-to-admin'),
-    path('messages/classes/', messagerie.views.message_classes, name='message-classes'),
     path('messages/admin-classe/<int:class_id>/send-message/', messagerie.views.admin_to_students_by_class,
          name='admin-to-class'),
     path('messages/admin-students/send-message/', messagerie.views.admin_to_all_students, name='admin-to-all-students'),

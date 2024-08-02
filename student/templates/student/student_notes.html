@@ -73,7 +73,7 @@
                                         <th scope="col" class="text-center">
                                         {% for key, value in subject_averages.items %}
                                             {% if key == subject_name %}
-                                                Moyenne : {{ value }}
+                                                Moyenne : {{ value|floatformat:2  }}
                                             {% endif %}
                                         {% endfor %}
                                         </th>

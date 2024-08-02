@@ -186,3 +186,33 @@ def teacher_schedule(request):
         'days': days,
     }
     return render(request, 'teacher/teacher_schedule.html', context)
+
+
+@login_required
+@user_passes_test(lambda user: user.is_teacher)
+def add_notes_class(request, class_id):
+    classe = get_object_or_404(Class, pk=class_id)
+    students = Student.objects.filter(classe=classe).order_by('user__last_name', 'user__first_name')
+    teacher = get_object_or_404(Teacher, user=request.user)  # Récupérer l'enseignant courant
+    subject = teacher.matiere  # Matière de l'enseignant
+
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        if not date:
+            messages.error(request, "La date est obligatoire.")
+            return render(request, 'teacher/add_notes_class.html', {'classe': classe, 'students': students, 'subject': subject})
+
+        for student in students:
+            score = request.POST.get(f'note_{student.id}')
+            if score:
+                Note.objects.update_or_create(
+                    student=student,
+                    subject=subject,
+                    date=date,
+                    defaults={'score': score}
+                )
+
+        messages.success(request, "Les notes ont été ajoutées avec succès.")
+        return redirect('add-notes-class', class_id=class_id)
+
+    return render(request, 'teacher/add_notes_class.html', {'classe': classe, 'students': students, 'subject': subject})

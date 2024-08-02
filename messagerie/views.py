@@ -27,11 +27,6 @@ def student_to_admin(request):
         form = MessageForm()
     return render(request, 'messagerie/student_to_admin.html', {'form': form, 'sent_messages': sent_messages})
 
-@login_required
-@user_passes_test(lambda user: user.is_superuser)
-def message_classes(request):
-    classes = Class.objects.all()
-    return render(request, 'messagerie/message_classes.html', {'classes': classes})
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)

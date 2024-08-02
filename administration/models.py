@@ -106,6 +106,7 @@ class Note(models.Model):
 
     def __str__(self):
         return f"{self.student.user.get_full_name()} - {self.subject.name}: {self.score}"
+
 class Coefficient(models.Model):
     school_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
