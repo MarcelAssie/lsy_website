@@ -275,18 +275,19 @@ def password_reset_request_view(request):
 
             message.attach(MIMEText(body, 'html'))
 
-            try:
-                with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
-                    server.starttls()
-                    server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-                    server.sendmail(settings.EMAIL_HOST_USER, to_emails, message.as_string())
-                print('Email envoyé avec succès!')
-            except Exception as e:
-                print(f'Une erreur est survenue : {e}')
-            if has_email == 'yes':
-                return redirect(reverse('password_reset'))  # Redirige vers la page de réinitialisation
+            if has_email == 'no':
+                try:
+                    with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+                        server.starttls()
+                        server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+                        server.sendmail(settings.EMAIL_HOST_USER, to_emails, message.as_string())
+                    print('Email envoyé avec succès!')
+                except Exception as e:
+                    print(f'Une erreur est survenue : {e}')
+                return redirect(
+                    reverse('confirmation-password-request') + f'?first_name={first_name}&last_name={last_name}')
             else:
-                return redirect(reverse('confirmation-password-request') + f'?first_name={first_name}&last_name={last_name}')  # Change 'confirmation' selon ton URL de confirmation
+                return redirect(reverse('password_reset'))
 
     else:
         form = PasswordResetRequestForm()
