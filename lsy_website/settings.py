@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import dj_database_url
 import environ
+
+
 #env = environ.Env()
 #env.read_env()
 
@@ -27,14 +29,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 
+# LOCAL ENVIRONMENT SETTINGS
+
+
+
 # DEPLOYMENT ENVIRONMENT SETTINGS
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
-
-
-
 
 
 
@@ -125,11 +128,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'authentication.validators.PasswordComplexityValidator',
     }
 ]
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
-CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
+EMAIL_HOST_USER = 'marceldevtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
