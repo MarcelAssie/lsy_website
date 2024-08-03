@@ -128,21 +128,29 @@ def contact_view(request):
                     padding: 20px;
                     border: 1px solid #e0e0e0;
                     border-radius: 10px;
-                    background: #f9f9f9;
+                    background: #ffffff;
                     max-width: 600px;
                     margin: auto;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 }}
                 .email-container h2 {{
                     text-align: center;
                     color: #007bff;
+                    font-size: 24px;
                 }}
                 .email-container p {{
                     font-size: 16px;
-                    line-height: 1.5;
+                    line-height: 1.6;
+                    margin: 10px 0;
                 }}
                 .email-container .label {{
                     font-weight: bold;
                     color: #555;
+                }}
+                .email-container .message-content {{
+                    padding: 15px;
+                    background: #f9f9f9;
+                    border-left: 4px solid #007bff;
                 }}
             </style>
         </head>
@@ -153,7 +161,10 @@ def contact_view(request):
                 <p><span class="label">Email :</span> {email}</p>
                 <p><span class="label">Téléphone :</span> {telephone}</p>
                 <p><span class="label">Objet :</span> {objet}</p>
-                <p><span class="label">Message :</span><br>{message_content}</p>
+                <p><span class="label">Message :</span></p>
+                <div class="message-content">
+                    {message_content}
+                </div>
             </div>
         </body>
         </html>

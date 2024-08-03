@@ -4,7 +4,6 @@ from .forms import StudentSignUpForm, TeacherSignUpForm, ParentSignUpForm
 from . import forms
 from .models import User
 from django.urls import reverse_lazy
-from django.views.generic import View
 from django.http import HttpResponse, HttpRequest
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -14,9 +13,7 @@ from email.mime.text import MIMEText
 import smtplib
 from django.conf import settings
 from .forms import PasswordResetRequestForm
-from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
-from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.views import View
@@ -405,7 +402,7 @@ def custom_password_reset_request_view(request):
                         <p>Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.</p>
                     </div>
                     <div class="email-footer">
-                        <p>Merci,<br>L'équipe informatique du Lycée Scientifique de Yamoussoukro</p>
+                    <p>Lycée Scientifique de Yamoussoukro</p>
                     </div>
                 </div>
             </body>
