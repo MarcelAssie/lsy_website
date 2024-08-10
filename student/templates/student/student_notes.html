@@ -94,7 +94,7 @@
             {% endfor %}
             <div class="col-md-12 text-center mt-4">
                 <div class="general-average">
-                    <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }} <br> Rang : {{ student_rank }} / {{ student.classe.student_set.count }}</strong></h4>
+                    <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }} <br> <br> Rang : {% if student_rank == 1 %} {{ student_rank }}<sup>er</sup>  {% else %} {{ student_rank }}<sup>ème</sup>  {% endif %} / {{ student.classe.student_set.count }}</strong></h4>
                 </div>
             </div>
         {% else %}

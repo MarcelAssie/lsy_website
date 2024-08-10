@@ -208,7 +208,6 @@ def custom_500_view(request):
 # views.py
 
 
-
 def password_reset_request_view(request):
     if request.method == 'POST':
         form = PasswordResetRequestForm(request.POST)
@@ -220,59 +219,59 @@ def password_reset_request_view(request):
             subject_for_teacher = form.cleaned_data.get('subject_for_teacher', '')
             has_email = form.cleaned_data['has_email']
 
-            # Préparation du contenu de l'e-mail
-            to_emails = settings.CONTACT_EMAIL
-            subject = f"Demande de réinitialisation de mot de passe de {first_name} {last_name}"
-            body = f"""
-            <html>
-            <head>
-                <style>
-                    .email-container {{
-                        font-family: 'Arial', sans-serif;
-                        color: #333;
-                        padding: 20px;
-                        border: 1px solid #e0e0e0;
-                        border-radius: 10px;
-                        background: #f9f9f9;
-                        max-width: 600px;
-                        margin: auto;
-                    }}
-                    .email-container h2 {{
-                        text-align: center;
-                        color: #007bff;
-                    }}
-                    .email-container p {{
-                        font-size: 16px;
-                        line-height: 1.5;
-                    }}
-                    .email-container .label {{
-                        font-weight: bold;
-                        color: #555;
-                    }}
-                </style>
-            </head>
-            <body>
-                <div class="email-container">
-                    <h2>Demande de réinitialisation de mot de passe</h2>
-                    <p><span class="label">Prénom :</span> {first_name}</p>
-                    <p><span class="label">Nom :</span> {last_name}</p>
-                    <p><span class="label">Rôle :</span> {role.capitalize()}</p>
-                    {f"<p><span class='label'>Classe :</span> {class_for_student}</p>" if role == 'student' else ""}
-                    {f"<p><span class='label'>Matière :</span> {subject_for_teacher}</p>" if role == 'teacher' else ""}
-                </div>
-            </body>
-            </html>
-            """
-
-            # Création du message
-            message = MIMEMultipart("alternative")
-            message['From'] = settings.EMAIL_HOST_USER
-            message['To'] = ', '.join(to_emails)
-            message['Subject'] = subject
-
-            message.attach(MIMEText(body, 'html'))
-
             if has_email == 'no':
+                # Préparation du contenu de l'e-mail
+                to_emails = settings.CONTACT_EMAIL
+                subject = f"Demande de réinitialisation de mot de passe de {first_name} {last_name}"
+                body = f"""
+                <html>
+                <head>
+                    <style>
+                        .email-container {{
+                            font-family: 'Arial', sans-serif;
+                            color: #333;
+                            padding: 20px;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 10px;
+                            background: #f9f9f9;
+                            max-width: 600px;
+                            margin: auto;
+                        }}
+                        .email-container h2 {{
+                            text-align: center;
+                            color: #007bff;
+                        }}
+                        .email-container p {{
+                            font-size: 16px;
+                            line-height: 1.5;
+                        }}
+                        .email-container .label {{
+                            font-weight: bold;
+                            color: #555;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="email-container">
+                        <h2>Demande de réinitialisation de mot de passe</h2>
+                        <p><span class="label">Prénom :</span> {first_name}</p>
+                        <p><span class="label">Nom :</span> {last_name}</p>
+                        <p><span class="label">Rôle :</span> {role.capitalize()}</p>
+                        {f"<p><span class='label'>Classe :</span> {class_for_student}</p>" if role == 'student' else ""}
+                        {f"<p><span class='label'>Matière :</span> {subject_for_teacher}</p>" if role == 'teacher' else ""}
+                    </div>
+                </body>
+                </html>
+                """
+
+                # Création du message
+                message = MIMEMultipart("alternative")
+                message['From'] = settings.EMAIL_HOST_USER
+                message['To'] = ', '.join(to_emails)
+                message['Subject'] = subject
+
+                message.attach(MIMEText(body, 'html'))
+
                 try:
                     with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
                         server.starttls()
@@ -281,16 +280,15 @@ def password_reset_request_view(request):
                     print('Email envoyé avec succès!')
                 except Exception as e:
                     print(f'Une erreur est survenue : {e}')
+
                 return redirect(
                     reverse('confirmation-password-request') + f'?first_name={first_name}&last_name={last_name}')
             else:
                 return redirect(reverse('password_reset'))
-
     else:
         form = PasswordResetRequestForm()
 
     return render(request, 'authentication/password_reset_request.html', {'form': form})
-
 
 def confirmation_password(request: HttpRequest):
     first_name = request.GET.get('first_name')

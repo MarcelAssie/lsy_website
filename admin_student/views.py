@@ -72,7 +72,10 @@ def student_details(request, student_id):
         student_averages.append((st, student_average))
     student_averages.sort(key=lambda x: x[1], reverse=True)
     student_rank = next((index for index, (st, avg) in enumerate(student_averages) if st == student), None) + 1
-
+    if student_rank == 1:
+        print(f"{student_rank}ᵉʳ")
+    else:
+        print(f"{student_rank}ᵉᵐᵉ")
     return render(request, 'admin_student/student_details.html', {
         'student': student,
         'grouped_notes': grouped_notes,
