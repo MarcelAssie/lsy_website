@@ -1,0 +1,83 @@
+{% extends 'base_accueil.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'accueil/style_accueil.css' %}">
+<style>
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Assure un espacement uniforme */
+    margin-top: 2rem;
+}
+.gallery-item {
+    flex: 1 1 calc(33.333% - 20px); /* Trois éléments par ligne avec un espacement de 10px */
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+.gallery-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 768px) {
+    .gallery-item {
+        margin: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .gallery-item {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 400px;
+    }
+    .infra h2 {
+        font-size: 1.3rem;
+    }
+    .infra p {
+        font-size: 0.8rem;
+    }
+}
+</style>
+
+<section class="py-2">
+    <div class="container infra">
+        <h2 class="section-title text-center">Galerie Photos</h2>
+        <div class="line text-center">
+            <span></span>
+            <p class="text-center gallery-description">Découvrez les moments forts de notre lycée en images</p>
+        </div>
+
+        <div class="gallery-container">
+            {% for image in images %}
+                <div class="gallery-item">
+                    <img src="{% static image %}" alt="Photo">
+                </div>
+            {% empty %}
+                <p>Aucune image disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

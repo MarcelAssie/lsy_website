@@ -57,7 +57,7 @@ urlpatterns = [
     path('evenement/<int:pk>/', accueil.views.event_detail, name='event-detail'),
     path('temoignages/', accueil.views.temoignage_list, name='temoignages'),
     path('temoignages/<int:pk>/', accueil.views.temoignage_detail, name='temoignage-detail'),
-    path('galerie/', accueil.views.gallerie, name='gallerie'),
+    path('galerie/', accueil.views.galerie, name='gallerie'),
     path('confirmation/', accueil.views.confirmation_view, name='confirmation'),
     path('contact/', accueil.views.contact_view, name='contact'),
     #--------------------------------------------------------------------------------------------------------------------------

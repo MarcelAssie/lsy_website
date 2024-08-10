@@ -95,14 +95,14 @@ def temoignage_detail(request, pk):
     return render(request, 'accueil/temoignage_detail.html', {'testimonial': testimonial})
 
 
-def gallerie(request):
+def galerie(request):
     # Construire le chemin du répertoire des images
     gallery_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'galleries')
     # Lire les fichiers du répertoire
     image_files = [os.path.join('images', 'galleries', filename) for filename in os.listdir(gallery_dir) if
                    filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
     # Passer les chemins relatifs des images au template
-    return render(request, 'accueil/gallerie.html', {'images': image_files})
+    return render(request, 'accueil/galerie.html', {'images': image_files})
 
 
 

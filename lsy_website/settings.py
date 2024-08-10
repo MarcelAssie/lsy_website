@@ -34,7 +34,6 @@ SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'marceldevtest@gmail.com'
