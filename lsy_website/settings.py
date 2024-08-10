@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-"""
+
 # LOCAL ENVIRONMENT SETTINGS
 SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
 DEBUG = True
@@ -62,7 +62,7 @@ CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
+"""
 
 # Languages
 LANGUAGE_CODE = 'fr-FR'
