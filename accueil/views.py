@@ -17,7 +17,7 @@ def home(request):
     Lancement de la page d'accueil
     """
     testimonials = Testimonial.objects.all().order_by('-id')[:2]
-    actualites = Actualite.objects.all().order_by('-id')[:2]
+    actualites = Actualite.objects.all().order_by('-id')[:3]
     return render(request, 'accueil/accueil.html', {'testimonials': testimonials, 'actualites' : actualites})
 
 def director_speech(request):
