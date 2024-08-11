@@ -10,6 +10,9 @@ from django.contrib import messages
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def manage_teachers(request):
+    """
+    Affiche la page de gestion des enseignants pour les administrateurs.
+    """
     user = request.user
     return render(request, 'admin_teacher/manage_teachers.html',{'user': user})
 @login_required

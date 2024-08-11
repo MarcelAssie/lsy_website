@@ -17,6 +17,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def list_students_by_class(request, class_id):
+    """
+    Affiche la liste des étudiants pour une classe donnée.
+    """
     classe = get_object_or_404(Class, pk=class_id)
     students = Student.objects.filter(classe=classe)
     return render(request, 'admin_student/students_by_class.html', {'students': students, 'classe': classe})
@@ -24,6 +27,9 @@ def list_students_by_class(request, class_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def student_details(request, student_id):
+    """
+    Affiche les détails d'un étudiant, y compris les notes, moyennes, les absences et le classement.
+    """
     student = get_object_or_404(Student, id=student_id)
     notes = Note.objects.filter(student=student).order_by('subject__name', '-date')
     absences = student.absences.all()
@@ -89,6 +95,9 @@ def student_details(request, student_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_student(request, student_id):
+    """
+    Supprime un étudiant après confirmation. Redirige vers la liste des classes.
+    """
     student = get_object_or_404(Student, id=student_id)
     user = student.user
     if request.method == "POST":
@@ -100,18 +109,27 @@ def delete_student(request, student_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_confirm_student(request, student_id):
+    """
+    Affiche une confirmation avant de supprimer un étudiant.
+    """
     student = get_object_or_404(Student, id=student_id)
     return render(request, 'admin_student/delete_confirm_student.html', {'student': student})
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def notes_classes(request):
+    """
+    Affiche la liste des classes pour la gestion des notes.
+    """
     classes = Class.objects.all()
     return render(request, 'admin_student/notes_classes.html', {'classes': classes})
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def add_note(request, student_id):
+    """
+    Affiche un formulaire pour ajouter une note à un étudiant. Enregistre la note si la requête est un POST.
+    """
     student = get_object_or_404(Student, id=student_id)
     if request.method == "POST":
         form = NoteForm(request.POST)
@@ -128,6 +146,9 @@ def add_note(request, student_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def edit_note(request, note_id):
+    """
+    Affiche un formulaire pour modifier une note existante. Enregistre les modifications si la requête est un POST.
+    """
     note = get_object_or_404(Note, pk=note_id)
     if request.method == 'POST':
         form = NoteForm(request.POST, instance=note)
@@ -142,6 +163,9 @@ def edit_note(request, note_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_note(request, note_id):
+    """
+    Supprime une note après confirmation. Redirige vers les détails de l'étudiant.
+    """
     note = get_object_or_404(Note, pk=note_id)
     student_id = note.student.id
     if request.method == 'POST':
@@ -152,12 +176,18 @@ def delete_note(request, note_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def manage_students(request):
+    """
+    Affiche la page de gestion des étudiants pour les administrateurs.
+    """
     user = request.user
     return render(request, 'admin_student/manage_students.html',{'user': user})
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def search_students(request):
+    """
+    Permet de rechercher des étudiants par nom dans l'interface admin.
+    """
     name = request.GET.get('recherche')
     if request.method == "GET":
         if name:
@@ -170,6 +200,9 @@ def search_students(request):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def add_absence(request, student_id):
+    """
+    Affiche un formulaire pour ajouter une absence à un étudiant. Enregistre l'absence si la requête est un POST.
+    """
     student = get_object_or_404(Student, id=student_id)
     if request.method == 'POST':
         form = AbsenceForm(request.POST)
@@ -185,6 +218,9 @@ def add_absence(request, student_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_absence(request, absence_id):
+    """
+    Supprime une absence après confirmation. Redirige vers les détails de l'étudiant.
+    """
     absence = get_object_or_404(Absence, id=absence_id)
     student_id = absence.student.id
     if request.method == 'POST':
@@ -196,6 +232,9 @@ def delete_absence(request, absence_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def add_notes_to_class(request, class_id):
+    """
+    Affiche un formulaire pour ajouter des notes pour tous les étudiants d'une classe. Enregistre les notes si la requête est un POST.
+    """
     classe = get_object_or_404(Class, pk=class_id)
     students = Student.objects.filter(classe=classe).order_by('user__last_name', 'user__first_name')
 

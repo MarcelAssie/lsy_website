@@ -114,7 +114,7 @@
 }
 
 .actualite-text {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6;
     color: #555;
     margin-bottom: 10px;
@@ -124,6 +124,7 @@
     font-size: 16px;
     color: #777;
     margin-bottom: 10px;
+    text-align: right;
 }
 
 .actualite-button-container {
@@ -131,6 +132,7 @@
     margin-top: 20px;
     z-index: 1001;
 }
+
 
 
 .testimonial-section {
@@ -197,7 +199,7 @@
 }
 
 .testimonial-text {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6;
     color: #555;
 }
@@ -487,7 +489,7 @@
                             {% endif %}
                             <div>
                                 <h3 class="actualite-title">{{ actualite.titre }}</h3>
-                                <p class="actualite-text">{{ actualite.description|slice:":100" }}...</p>
+                                <p class="actualite-text" style="border-left: 2px solid #00d000; padding-left: 5px; text-align: left; border-height: 15px;">{{ actualite.description|slice:":100" }}...</p>
                                 <div class="actualite-date">
                                     <small>{{ actualite.date_publiée|date:"d M. Y" }}</small>
                                 </div>
@@ -525,7 +527,7 @@
                             {% endif %}
                             <div>
                                 <p class="testimonial-text">{{ testimonial.text|slice:":150" }}...</p>
-                                <div class="testimonial-name">
+                                <div class="testimonial-name" style="border-left: 2px solid #00d000; padding: 0 0 0 5px; text-align: left; border-height: 15px;">
                                     <strong>{{ testimonial.name }}</strong>
                                     <br>
                                     <span>{{ testimonial.promotion }}</span>

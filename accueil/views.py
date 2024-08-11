@@ -14,46 +14,85 @@ from email.mime.text import MIMEText
 
 def home(request):
     """
-    Lancement de la page d'accueil
+    Affiche la page d'accueil.
+    Cette vue récupère les deux derniers témoignages et les trois dernières actualités
+    pour les afficher sur la page d'accueil.
     """
     testimonials = Testimonial.objects.all().order_by('-id')[:2]
     actualites = Actualite.objects.all().order_by('-id')[:3]
     return render(request, 'accueil/accueil.html', {'testimonials': testimonials, 'actualites' : actualites})
 
 def director_speech(request):
+    """
+   Affiche la page du discours du directeur.
+   """
     return render(request, 'accueil/director_speech.html')
 
 def lycee_histoire(request):
+    """
+    Affiche la page de l'histoire du lycée.
+    """
     return render(request, 'accueil/lycee_histoire.html')
 
 def foundation_and_vision(request):
+    """
+    Affiche la page des fondations et de la vision.
+    """
     return render(request, 'accueil/foundation_and_vision.html')
 
 def excellence_education(request):
+    """
+    Affiche la page de l'excellence en éducation.
+    """
     return render(request, 'accueil/excellence_education.html')
 
 def lycee_mission_vision(request):
+    """
+    Affiche la page de la mission et de la vision du lycée.
+    """
     return render(request, 'accueil/lycee_mission_vision.html')
 
 def lycee_administration(request):
+    """
+    Affiche la page de l'administration du lycée.
+    """
     return render(request, 'accueil/administration.html')
 
 def lycee_infras_equipements(request):
+    """
+    Affiche la page des infrastructures et équipements du lycée.
+    Cette vue rend un template pour montrer les infrastructures et équipements disponibles au lycée.
+    """
     return render(request, 'accueil/infras_equipements.html')
 
 def reglements_interieurs(request):
+    """
+    Affiche la page des règlements intérieurs du lycée.
+    """
     return render(request, 'accueil/reglements_interieurs.html')
 
 def admission(request):
+    """
+    Affiche la page d'admission.
+    """
     return render(request, 'accueil/admission.html')
 
 def criteres_admission(request):
+    """
+    Affiche la page des critères d'admission.
+    """
     return render(request, 'accueil/criteres_admission.html')
 
 def procedure_candidature(request):
+    """
+    Affiche la page de la procédure de candidature.
+    """
     return render(request, 'accueil/procedure_candidature.html')
 
 def annales_list(request):
+    """
+    Affiche la liste des annales disponibles.
+    """
     query = request.GET.get('recherche', '')
     if query:
         annales = Annale.objects.filter(title__icontains=query) | Annale.objects.filter(description__icontains=query)
@@ -63,40 +102,65 @@ def annales_list(request):
     return render(request, 'accueil/annales_list.html', {'annales': annales, 'query': query})
 
 def alumni_network(request):
+    """
+    Affiche la page du réseau des anciens élèves.
+    """
     return render(request, 'accueil/alumni_network.html')
 
 def alumni_activities(request):
+    """
+    Affiche la page des activités des anciens élèves.
+    """
     return render(request, 'accueil/alumni_activities.html')
 
 def news(request):
+    """
+    Affiche la liste complète des actualités.
+    """
     actualites = Actualite.objects.all().order_by('-date_publiée')
     return render(request, 'accueil/news.html', {'actualites': actualites})
 
 def news_detail(request, pk):
+    """
+    Affiche les détails d'une actualité spécifique.
+    """
     actualite = get_object_or_404(Actualite, pk=pk)
     return render(request, 'accueil/news_detail.html', {'actualite': actualite})
 
 def events(request):
+    """
+    Affiche la liste complète des événements.
+    """
     evenements = Evenement.objects.all().order_by('-date')
     return render(request, 'accueil/events.html', {'evenements': evenements})
 
 def event_detail(request, pk):
+    """
+    Affiche les détails d'un événement spécifique.
+    """
     evenement = get_object_or_404(Evenement, pk=pk)
     return render(request, 'accueil/event_detail.html', {'evenement': evenement})
 
 
 def temoignage_list(request):
-    """ Affiche la liste de tous les témoignages """
+    """
+    Affiche la liste de tous les témoignages.
+    """
     testimonials = Testimonial.objects.all().order_by('-id')
     return render(request, 'accueil/temoignage_list.html', {'testimonials': testimonials})
 
 def temoignage_detail(request, pk):
-    """ Affiche les détails d'un témoignage spécifique """
+    """
+    Affiche les détails d'un témoignage spécifique.
+    """
     testimonial = get_object_or_404(Testimonial, pk=pk)
     return render(request, 'accueil/temoignage_detail.html', {'testimonial': testimonial})
 
 
 def galerie(request):
+    """
+    Affiche la galerie d'images.
+    """
     # Construire le chemin du répertoire des images
     gallery_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'galleries')
     # Lire les fichiers du répertoire
@@ -109,6 +173,21 @@ def galerie(request):
 
 
 def contact_view(request):
+    """
+    Gère le formulaire de contact et l'envoi d'un email.
+
+    Si la requête est un POST (l'utilisateur a soumis le formulaire),
+    cette vue extrait les informations du formulaire,
+    crée un email formaté en HTML avec ces informations, et tente de l'envoyer
+    à l'adresse email définie dans les paramètres de l'application.
+
+    En cas de succès, l'utilisateur est redirigé vers une page de confirmation,
+    avec son nom et son email en paramètres d'URL.
+    Si l'envoi échoue, une exception est attrapée et un message d'erreur est imprimé.
+
+    Si la requête est un GET (l'utilisateur accède simplement à la page de contact),
+    cette vue rend le template du formulaire de contact.
+    """
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -196,6 +275,12 @@ def contact_view(request):
 
 
 def confirmation_view(request: HttpRequest):
+    """
+    Affiche une page de confirmation après l'envoi réussi d'un email via le formulaire de contact.
+
+    Cette vue récupère le nom et l'email de l'utilisateur à partir des paramètres d'URL
+    pour personnaliser le message de confirmation affiché sur la page.
+    """
     name = request.GET.get('name')
     email = request.GET.get('email')
     context = {'name': name, 'email': email}
