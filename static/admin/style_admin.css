@@ -1,0 +1,5 @@
+/* static/css/custom_admin.css */
+.login-logo img {
+    max-width: 150px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+}
