@@ -25,3 +25,8 @@ class CoefficientAdmin(admin.ModelAdmin):
     list_display = ('school_class', 'subject', 'coefficient')
     list_filter = ('school_class', 'subject')
 
+from django.utils.translation import gettext_lazy as _
+
+admin.site.site_header = _("Marcel ASSIE")
+admin.site.site_title = _("Portail Administrateur")
+admin.site.index_title = _("Bienvenue sur ma zone d'administration")
