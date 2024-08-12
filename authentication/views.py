@@ -25,10 +25,16 @@ from django.contrib.auth.views import PasswordResetCompleteView
 
 
 def welcome(request):
+    """
+    Affiche la page d'accueil pour la connexion de l'utilisateur.
+    """
     return render(request, 'authentication/dashboard.html')
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_student(request, username, full_name, classe, password):
+    """
+    Génère un PDF pour l'enregistrement d'un étudiant avec les détails fournis.
+    """
     template_path = 'authentication/student_registration_pdf.html'
     context = {
         'username': username,
@@ -51,6 +57,10 @@ def generate_pdf_student(request, username, full_name, classe, password):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def student_register(request):
+    """
+    Permet l'enregistrement d'un nouvel étudiant. Affiche un formulaire d'inscription
+    et génère un mot de passe pour l'étudiant.
+    """
     if request.method == 'POST':
         form = StudentSignUpForm(request.POST, request.FILES)
         if form.is_valid():
@@ -72,6 +82,9 @@ def student_register(request):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_teacher(request, username, full_name, matiere, classes, password):
+    """
+    Génère un PDF pour l'enregistrement d'un enseignant avec les détails fournis.
+    """
     template_path = 'authentication/teacher_registration_pdf.html'
     context = {
         'username': username,
@@ -95,6 +108,10 @@ def generate_pdf_teacher(request, username, full_name, matiere, classes, passwor
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def teacher_register(request):
+    """
+    Permet l'enregistrement d'un nouvel enseignant. Affiche un formulaire d'inscription
+    et génère un mot de passe pour l'enseignant.
+    """
     if request.method == 'POST':
         form = TeacherSignUpForm(request.POST, request.FILES)
         if form.is_valid():
@@ -120,6 +137,9 @@ def teacher_register(request):
     return render(request, 'authentication/teacher_register.html', {'form': form})
 
 class LoginPage(View):
+    """
+    Gère la page de connexion pour les utilisateurs. Redirige l'utilisateur en fonction de son rôle après connexion.
+    """
     template_name = 'authentication/login_user.html'
     login_form = forms.LoginForm
     def get(self, request):
@@ -156,6 +176,9 @@ class LoginPage(View):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def generate_pdf_parent(request, username, full_name, password):
+    """
+    Génère un PDF pour l'enregistrement d'un parent avec les détails fournis.
+    """
     template_path = 'authentication/parent_registration_pdf.html'
     context = {
         'username': username,
@@ -176,6 +199,10 @@ def generate_pdf_parent(request, username, full_name, password):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def parent_register(request):
+    """
+    Permet l'enregistrement d'un nouveau parent. Affiche un formulaire d'inscription
+    et génère un mot de passe pour le parent.
+    """
     if request.method == 'POST':
         form = ParentSignUpForm(request.POST)
         if form.is_valid():
@@ -194,21 +221,26 @@ def parent_register(request):
 
 def logout_user(request):
     """
-    Lancement de la page de deconnexion pour l'utilisateur
+    Déconnecte l'utilisateur et redirige vers la page d'accueil.
     """
     logout(request)
     return redirect('welcome')
 
 def custom_404_view(request, exception=None):
+    """
+    Affiche une page d'erreur 404 personnalisée.
+    """
     return render(request, 'authentication/404.html', status=404)
 def custom_500_view(request):
+    """
+    Affiche une page d'erreur 500 personnalisée.
+    """
     return render(request, 'authentication/500.html', status=500)
 
-
-# views.py
-
-
 def password_reset_request_view(request):
+    """
+    Permet à un utilisateur de faire une demande de réinitialisation de mot de passe par e-mail ou via le formulaire.
+    """
     if request.method == 'POST':
         form = PasswordResetRequestForm(request.POST)
         if form.is_valid():
@@ -291,6 +323,9 @@ def password_reset_request_view(request):
     return render(request, 'authentication/password_reset_request.html', {'form': form})
 
 def confirmation_password(request: HttpRequest):
+    """
+    Affiche la page de confirmation après une demande de réinitialisation de mot de passe.
+    """
     first_name = request.GET.get('first_name')
     last_name = request.GET.get('last_name')
     context = {'first_name': first_name, 'last_name': last_name}
@@ -298,6 +333,9 @@ def confirmation_password(request: HttpRequest):
 
 
 def custom_password_reset_request_view(request):
+    """
+    Permet à un utilisateur de demander une réinitialisation de mot de passe en utilisant son identifiant et e-mail.
+    """
     if request.method == 'POST':
         form = CustomPasswordResetRequestForm(request.POST)
         if form.is_valid():
@@ -433,14 +471,23 @@ def custom_password_reset_request_view(request):
     return render(request, 'authentication/password_reset_form.html', {'form': form})
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
+    """
+    Affiche la page de confirmation après que l'utilisateur a demandé une réinitialisation de mot de passe.
+    """
     template_name = 'authentication/password_reset_done.html'
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    """
+    Affiche la page de confirmation pour la réinitialisation du mot de passe après que l'utilisateur a cliqué sur le lien.
+    """
     template_name = 'authentication/password_reset_confirm.html'
     success_url = reverse_lazy('password_reset_complete')
 
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    """
+    Affiche la page de confirmation après que l'utilisateur a réinitialisé son mot de passe avec succès.
+    """
     template_name = 'authentication/password_reset_complete.html'

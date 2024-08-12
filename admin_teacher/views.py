@@ -18,6 +18,9 @@ def manage_teachers(request):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def teachers_by_subject(request, subject_id):
+    """
+    Affiche les détails d'un enseignant spécifique.
+    """
     subject = get_object_or_404(Subject, id=subject_id)
     teachers = Teacher.objects.filter(matiere=subject)
     return render(request, 'admin_teacher/teachers_by_subject.html', {'subject': subject, 'teachers': teachers})
@@ -30,6 +33,9 @@ def teacher_details(request, teacher_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def search_teachers(request):
+    """
+    Permet de rechercher des enseignants par nom dans l'interface admin.
+    """
     name = request.GET.get('recherche')
     if request.method == "GET":
         if name:
@@ -42,6 +48,9 @@ def search_teachers(request):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_teacher(request, teacher_id):
+    """
+    Supprime un enseignant après confirmation. Redirige vers la liste des matières.
+    """
     teacher = get_object_or_404(Teacher, id=teacher_id)
     user = teacher.user
     if request.method == "POST":
@@ -52,6 +61,9 @@ def delete_teacher(request, teacher_id):
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
 def delete_confirm_teacher(request, teacher_id):
+    """
+    Affiche une confirmation avant de supprimer un enseignant.
+    """
     teacher = get_object_or_404(Teacher, id=teacher_id)
     return render(request, 'admin_teacher/delete_confirm_teacher.html', {'teacher': teacher})
 
