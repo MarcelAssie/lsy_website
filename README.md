@@ -1,6 +1,6 @@
 # 🌟 Projet : Modernisation du Lycée Scientifique de Yamoussoukro  
 
-Bienvenue dans le dépôt de notre projet visant à moderniser la gestion administrative et pédagogique du **Lycée Scientifique de Yamoussoukro**, tout en offrant des ressources éducatives gratuites au grand public.  
+Bienvenue dans le dépôt de mon projet visant à moderniser la gestion administrative et pédagogique du **Lycée Scientifique de Yamoussoukro**, tout en offrant des ressources éducatives gratuites au grand public.  
 
 ---
 
