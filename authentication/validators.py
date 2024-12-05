@@ -25,3 +25,6 @@ class MaxLengthValidator:
     def get_help_text(self):
         return f"Votre mot de passe ne peut pas dépasser {self.max_length} caractères."
 
+    
+
+

@@ -1,12 +1,9 @@
 from django.http import HttpRequest
 from admin_website.models import Annale, Evenement, Actualite, Testimonial
 from django.shortcuts import get_object_or_404, redirect, render
-import os
 from django.conf import settings
-from django.core.mail import send_mail
 from django.urls import reverse
-import logging
-import smtplib
+import smtplib, os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 

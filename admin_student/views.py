@@ -1,5 +1,3 @@
-from django.shortcuts import redirect, get_object_or_404, render
-from django.contrib.auth.decorators import user_passes_test, login_required
 from authentication.models import Student
 from administration.models import MATIERE_CHOICES, Note, Absence, Coefficient, Class, Subject
 from django.contrib import messages

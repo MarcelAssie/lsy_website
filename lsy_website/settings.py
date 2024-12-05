@@ -7,7 +7,7 @@ For more information on this file, see
 https://docs.djangoproject.com/en/5.0/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/5.0/ref/settings/
+https://docs.djangoproject.com/en/5.0/ref/settings/ 
 """
 
 from pathlib import Path
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-"""
+
 # LOCAL ENVIRONMENT SETTINGS
 SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
 DEBUG = True
@@ -60,7 +60,7 @@ CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
+"""
 
 
 # Languages
@@ -196,24 +196,24 @@ JAZZMIN_SETTINGS = {
     "site_header": "Marcel Assie",
     "site_brand": "Marcel Assie",
     "welcome_sign": "Bienvenue dans l'administration du Portail du LSY",
-    "site_logo": "images/admin.png",  # Ajoutez le chemin à votre logo
-    "site_logo_classes": "img-circle",  # Pour un logo circulaire
-    "site_icon": "images/favicon.ico",  # Ajoutez un favicon
+    "site_logo": "images/admin.png",
+    "site_logo_classes": "img-circle",
+    "site_icon": "images/favicon.ico",
     "copyright": "©  Lycée Scientifique de Yamoussoukro",
     "user_avatar": None,
     "custom_css": "admin/style_admin.css",
     "icons": {
-        "auth.User": "fas fa-user",  # Exemple d'icône personnalisée pour un modèle
+        "auth.User": "fas fa-user",
         "auth.Group": "fas fa-users",
     },
 }
 
 JAZZMIN_UI_TWEAKS = {
-    "theme": "cosmo",  # Thème de base, essayez d'autres comme "flatly", "journal", etc.
-    "navbar": "navbar-dark bg-primary",  # Barre de navigation en haut
+    "theme": "cosmo",
+    "navbar": "navbar-dark bg-primary",
     "navbar_fixed": True,
-    "sidebar": "sidebar-dark-primary",  # Barre latérale
-    "sidebar_nav_compact_style": True,  # Pour un style plus compact
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_compact_style": True,
     "sidebar_fixed": True,
     "button_classes": {
         "primary": "btn-primary",
@@ -223,6 +223,6 @@ JAZZMIN_UI_TWEAKS = {
         "warning": "btn-warning",
         "danger": "btn-danger",
     },
-    "actions_sticky_top": True,  # Pour que les actions restent en haut lorsque vous faites défiler la page
+    "actions_sticky_top": True,
 }
 
