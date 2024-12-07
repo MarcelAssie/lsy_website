@@ -24,45 +24,6 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# LOCAL ENVIRONMENT SETTINGS
-SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
-DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'marceldevtest@gmail.com'
-EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
-CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-"""
-# DEPLOYMENT ENVIRONMENT SETTINGS
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'marceldevtest@gmail.com'
-EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
-CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
-"""
-
-
 # Languages
 LANGUAGE_CODE = 'fr-FR'
 
@@ -87,6 +48,52 @@ INSTALLED_APPS = [
     'parent',
     'admin_website',
 ]
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+
+# LOCAL ENVIRONMENT SETTINGS
+SECRET_KEY = 'django-insecure-k0th%jqik@rn*e@$hoqpwfpe_jj)rv4=3$$l3$w68&x!8a2&8b'
+DEBUG = True
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'marceldevtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
+CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lsy',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+"""
+# DEPLOYMENT ENVIRONMENT SETTINGS
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","").split(" ")
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'marceldevtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'fszomdfgibjvkjya'
+CONTACT_EMAIL = ['josemarcelassie@gmail.com', 'marceldevtest@gmail.com']
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+"""
+
+
+
 
 
 
