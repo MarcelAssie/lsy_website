@@ -8,6 +8,8 @@ from itertools import groupby
 from django.shortcuts import render, get_object_or_404, redirect
 from authentication.models import Student
 from django.http import JsonResponse
+from django.db import connections
+import json
 
 @login_required
 @user_passes_test(lambda user: user.is_student)
@@ -110,6 +112,23 @@ def student_notes(request, student_id):
     student_averages.sort(key=lambda x: x[1], reverse=True)
     student_rank = next((index for index, (st, avg) in enumerate(student_averages) if st == student), None) + 1
 
+    # Récupérer les recommendations de l'IA
+    db_connection = connections["default"]
+    with db_connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT summary, recommendations, recommandations_generales
+            FROM students_performances
+            WHERE id_student = %s
+        """, [student.id_student])
+        row = cursor.fetchone()
+
+    ai_feedback = None
+    if row:
+        ai_feedback = {
+            'summary': row[0],
+            'recommendations': json.loads(row[1]),
+            'recommandations_generales': row[2]
+        }
     return render(request, 'student/student_notes.html', {
         'student': student,
         'grouped_notes': grouped_notes,
@@ -117,6 +136,7 @@ def student_notes(request, student_id):
         'general_average': general_average,
         'coefficients': coefficients,
         'student_rank': student_rank,
+        "ai_feedback": ai_feedback,
     })
 
 

@@ -162,6 +162,8 @@ urlpatterns = [
          name='information-edit'),
     path('admin-profile/configuration/informations/delete/<int:pk>/', administration.views.information_delete,
          name='information-delete'),
+    path('admin_profile/configuration/ai-suggestions/', administration.views.ai_suggestions, name='ai-suggestions'),
+    path('admin_profile/configuration/get-ai_suggestions/', administration.views.get_ai_suggestions, name='ai-api_suggestions'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('admin-profile/configuration/actualites/', admin_website.views.actualites, name='actualites'),
     path('admin-profile/configuration/actualites/<int:pk>/', admin_website.views.actualite_detail,
