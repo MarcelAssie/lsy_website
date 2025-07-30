@@ -1,153 +1,301 @@
 {% extends 'base_administration.html' %}
 {% block content %}
 <style>
+    :root {
+        --bleu-nuit: #0a1a2f;
+        --bleu-moyen: #1a3a6e;
+        --bleu-clair: #3a6fc8;
+        --bleu-pale: #e6f0ff;
+        --texte-clair: #f8f9fa;
+    }
+
+
+    .title {
+        margin-bottom: 2.5rem;
+    }
+
+    .title h3 {
+        color: var(--bleu-nuit);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .title p.lead {
+        color: var(--bleu-moyen);
+        font-size: 1.1rem;
+    }
+
+    .admin-card {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+        height: 100%;
+        box-shadow: 0 5px 15px rgba(10, 26, 47, 0.1);
+        border-top: 4px solid var(--bleu-clair);
+    }
+    .row-app {
+        margin-bottom:1rem;
+    }
+    .admin-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(10, 26, 47, 0.2);
+    }
+
+    .card-body {
+        padding: 1.75rem;
+    }
+
+    .card-title {
+        color: var(--bleu-nuit);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        color: #555;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .btn-admin {
+        background-color: var(--bleu-nuit);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem 1.25rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-admin:hover {
+        background-color: var(--bleu-moyen);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(10, 26, 47, 0.2);
+    }
+
+    .btn-admin i {
+        margin-right: 8px;
+        font-size: 0.9rem;
+    }
+
     @media (max-width: 768px) {
-        .title p {
-            font-size: 16px;
+        .title h3 {
+            font-size: 1.5rem;
+        }
+
+        .title p.lead {
+            font-size: 1rem;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
         }
     }
 </style>
+
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 title">
-    <div class="row">
-        <div class="col-12 text-center mb-4">
-            <h3 class="display-5">GESTION DE L'ETABLISSEMENT</h3>
-            <p class="lead">Choisissez une option de gestion</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center title">
+                <h3 class="display-5">GESTION DE L'ÉTABLISSEMENT</h3>
+                <p class="lead">Interface d'administration complète</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <!-- Gestion des classes et matières-->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Classes et matières</h5>
-                    <p class="card-text">Gérez les classes et les matières de l'école.</p>
-                    <a href="{% url 'list-classes-subjects' %}" class="btn btn-info"><i class="fas fa-chalkboard"></i> Voir +</a>
+
+        <div class="row row-app">
+            <!-- Première ligne -->
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Classes et matières</h5>
+                        <p class="card-text">Gestion des classes, niveaux et matières enseignées dans l'établissement</p>
+                        <a href="{% url 'list-classes-subjects' %}" class="btn btn-admin">
+                            <i class="fas fa-chalkboard"></i> Accéder
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Coefficients</h5>
+                        <p class="card-text">Configuration des coefficients par matière et niveau d'étude</p>
+                        <a href="{% url 'coefficients-matieres' %}" class="btn btn-admin">
+                            <i class="fas fa-cog"></i> Configurer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Emploi du temps élèves</h5>
+                        <p class="card-text">Gestion complète des emplois du temps par classe</p>
+                        <a href="{% url 'schedule-class-list' %}" class="btn btn-admin">
+                            <i class="fas fa-calendar-alt"></i> Gérer
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Coefficients des matières -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Coefficients</h5>
-                    <p class="card-text">Gérez les coefficients des matières.</p>
-                    <a href="{% url 'coefficients-matieres' %}" class="btn btn-info"><i class="fas fa-cog"></i> Voir +</a>
+
+        <div class="row row-app">
+            <!-- Deuxième ligne -->
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Emploi du temps enseignants</h5>
+                        <p class="card-text">Planification des cours par enseignant</p>
+                        <a href="{% url 'schedule-teacher-list' %}" class="btn btn-admin">
+                            <i class="fas fa-calendar-alt"></i> Planifier
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Annales</h5>
+                        <p class="card-text">Publication d'anciens devoirs et sujets d'examens </p>
+                        <a href="{% url 'admin-annales-manage' %}" class="btn btn-admin">
+                            <i class="fas fa-file-alt"></i> Consulter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Évènements</h5>
+                        <p class="card-text">Gestion du calendrier des évènements scolaires</p>
+                        <a href="{% url 'evenements' %}" class="btn btn-admin">
+                            <i class="fas fa-calendar-week"></i> Organiser
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Emploi du temps des élèves -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Emploi du temps des élèves</h5>
-                    <p class="card-text">Gérez les différents emplois du temps.</p>
-                    <a href="{% url 'schedule-class-list' %}" class="btn btn-info"><i class="fas fa-calendar-alt"></i> Voir +</a>
+
+        <div class="row row-app">
+            <!-- Troisième ligne -->
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Actualités</h5>
+                        <p class="card-text">Publication des actualités de l'établissement</p>
+                        <a href="{% url 'actualites' %}" class="btn btn-admin">
+                            <i class="fas fa-newspaper"></i> Publier
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Témoignages</h5>
+                        <p class="card-text">Gestion des témoignages d'élèves et anciens élèves</p>
+                        <a href="{% url 'testimonials' %}" class="btn btn-admin">
+                            <i class="fas fa-comments"></i> Modérer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Rendez-vous parents</h5>
+                        <p class="card-text">Gestion des rencontres parents-administration</p>
+                        <a href="{% url 'gestion-creneaux' %}" class="btn btn-admin">
+                            <i class="fas fa-calendar-check"></i> Gérer
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <!-- Emploi du temps des enseignants -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Emploi du temps des enseignants</h5>
-                    <p class="card-text">Gérez les différents emplois du temps.</p>
-                    <a href="{% url 'schedule-teacher-list' %}" class="btn btn-info"><i class="fas fa-calendar-alt"></i> Voir +</a>
+
+        <div class="row row-app">
+            <!-- Quatrième ligne -->
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Informations</h5>
+                        <p class="card-text">Gestion des informations institutionnelles</p>
+                        <a href="{% url 'information-list' %}" class="btn btn-admin">
+                            <i class="fas fa-info-circle"></i> Mettre à jour
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Paramètres</h5>
+                        <p class="card-text">Configuration globale du système</p>
+                        <a href="/admin/" class="btn btn-admin">
+                            <i class="fas fa-cogs"></i> Configurer
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Mots de passe</h5>
+                        <p class="card-text">Gestion des accès utilisateurs</p>
+                        <a href="{% url 'password_reset' %}" class="btn btn-admin">
+                            <i class="fas fa-key"></i> Administrer
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Ajout d'annales -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Annales</h5>
-                    <p class="card-text">Gérez les annales du site internet.</p>
-                    <a href="{% url 'admin-annales-manage' %}" class="btn btn-info"><i class="fas fa-file-alt"></i> Voir +</a>
+
+        <div class="row justify-content-center">
+            <!-- Ligne spéciale IA -->
+            <div class="col-md-4">
+                <div class="admin-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Violences</h5>
+                        <p class="card-text">Gestions des violences signalées</p>
+                        <a href="{% url 'students-violences' %}" class="btn btn-admin">
+                            <i class="fas fa-shield-alt"></i> Gérer
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Ajout d'évènements -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Evènements</h5>
-                    <p class="card-text">Gérez les évènements du site internet.</p>
-                    <a href="{% url 'evenements' %}" class="btn btn-info"><i class="fas fa-calendar-week"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <!-- Ajout d'actualités -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Actualités</h5>
-                    <p class="card-text">Gérez les actualités du site internet.</p>
-                    <a href="{% url 'actualites' %}" class="btn btn-info"><i class="fas fa-newspaper"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <!-- Ajout de témoignages -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Témoignages</h5>
-                    <p class="card-text">Gérez les témoignages du site internet.</p>
-                    <a href="{% url 'testimonials' %}" class="btn btn-info"><i class="fas fa-comments"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <!-- Gestion des rendez-vous -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Rendez-vous parent d'élèves</h5>
-                    <p class="card-text">Gérez les rendez-vous pris par les parents.</p>
-                    <a href="{% url 'gestion-creneaux' %}" class="btn btn-info"><i class="fas fa-calendar-check"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <!-- Ajout d'informations -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Informations</h5>
-                    <p class="card-text">Gérez les informations cruciales de l'école.</p>
-                    <a href="{% url 'information-list' %}" class="btn btn-info"><i class="fas fa-info-circle"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <!-- Paramètres -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Paramètres</h5>
-                    <p class="card-text">Gérez les paramètres globaux du site.</p>
-                    <a href="/admin/" class="btn btn-info"><i class="fas fa-cogs"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <!-- Mot de passe -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Mot de passe</h5>
-                    <p class="card-text">Gérez les mots de passe des utilisateurs.</p>
-                    <a href="{% url 'password_reset' %}" class="btn btn-info"><i class="fas fa-key"></i> Voir +</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Intelligence Artificielle</h5>
-                    <p class="card-text">Apportez des suggestions aux élèves via l'IA</p>
-                    <a href="{% url 'ai-suggestions' %}" class="btn btn-info"><i class="fas fa-brain"></i> Voir +</a>
+            <div class="col-md-4">
+                <div class="admin-card" style="border-top-color: #6a5acd;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Intelligence Artificielle</h5>
+                        <p class="card-text">Suggestions pédagogiques personnalisées</p>
+                        <a href="{% url 'ai-suggestions' %}" class="btn btn-admin" style="background-color: #6a5acd;">
+                            <i class="fas fa-brain"></i> Explorer
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
 {% endblock %}

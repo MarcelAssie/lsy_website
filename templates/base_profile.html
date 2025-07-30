@@ -38,7 +38,7 @@
                 <div class="">
                     <ul class="nav flex-column">
                         <li class="nav-item my-3 text-center">
-                            {% if user.is_student %}<i class="fas fa-user-graduate fa-5x text-success"></i>{% endif %}
+                                {% if user.is_student %}<i class="fas fa-user-graduate fa-5x text-success"></i>{% endif %}
                             {% if user.is_teacher %}<i class="fas fa-chalkboard-teacher fa-5x text-info"></i>{% endif %}
                         </li>
                         {% if user.is_student %}
@@ -65,6 +65,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'student-to-admin' %}">
                                 <i class="fas fa-envelope"></i> Messages
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'student-violence' %}">
+                                <i class="fas fa-hands-helping"></i> Assistance Sociale
                             </a>
                         </li>
                         <li class="nav-item">

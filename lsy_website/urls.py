@@ -78,10 +78,10 @@ urlpatterns = [
     path('register/teacher/pdf/<str:username>/<str:full_name>/<str:matiere>/<str:classes>/<str:password>/',
          authentication.views.generate_pdf_teacher, name='generate-pdf-teacher'),
     path('register/parent/', authentication.views.parent_register, name='parent_register'),
-    path('register/parent/pdf/<str:username>/<str:full_name>/<str:password>/', authentication.views.generate_pdf_parent,
-         name='generate-pdf-parent'),
+    path('register/parent/pdf/<str:username>/<str:full_name>/<str:password>/', authentication.views.generate_pdf_parent, name='generate-pdf-parent'),
     #--------------------------------------------------------------------------------------------------------------------------
     path('student-profile/', student.views.student_profile, name='student-profile'),
+    path('student-violence/', student.views.student_violence, name='student-violence'),
     path('student/absences/', student.views.student_absences, name='student-absences'),
     path('student/notifications/', student.views.student_notifications, name='student-notifications'),
     path('student/notifications/unread/', student.views.unread_notifications_count_student,
@@ -162,6 +162,7 @@ urlpatterns = [
          name='information-edit'),
     path('admin-profile/configuration/informations/delete/<int:pk>/', administration.views.information_delete,
          name='information-delete'),
+    path('admin_profile/configuration/students-violences/', administration.views.students_violences, name='students-violences'),
     path('admin_profile/configuration/ai-suggestions/', administration.views.ai_suggestions, name='ai-suggestions'),
     path('admin_profile/configuration/get-ai_suggestions/', administration.views.get_ai_suggestions, name='ai-api_suggestions'),
     #--------------------------------------------------------------------------------------------------------------------------

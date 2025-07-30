@@ -27,11 +27,7 @@ class ChoixMotifForm(forms.Form):
         label="Choisissez un motif",
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    autre_motif = forms.CharField(
-        max_length=30,  # Limite le nombre de caractères à 30
-        required=False,
-        label="Ou spécifiez un autre motif",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Max 30 caractères...'})
+    autre_motif = forms.CharField( max_length=30, required=False, label="Ou spécifiez un autre motif", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Max 30 caractères...'})
     )
 
     def clean(self):

@@ -25,6 +25,9 @@ body {
     padding: 15px;
 }
 
+
+
+
 .custom-card .form-group {
     margin-bottom: 15px;
 }
@@ -334,4 +337,5 @@ body {
     max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de son conteneur */
     height: auto; /* Conserve les proportions de l'image */
 }
+
 

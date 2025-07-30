@@ -1,35 +1,7 @@
 {% extends 'base_profile.html' %}
 {% block content %}
 <style>
-    .card-custom {
-        width: 100%;
-        margin-top: 5px;
-        margin-bottom: 0;
-    }
-    .card-title {
-        margin-bottom: 0.5rem;
-        font-size: 18px;
-        text-align: center;
-    }
-    .card-header {
-        background-color: transparent;
-        padding: 8px 2px;
-    }
-    .general-average {
-        background-color: #3a3a3a;
-        opacity: 0.7;
-        padding: 10px;
-        color: wheat;
-        width: 30%;
-        border-radius: 10px;
-        margin: 0 auto;
-        font-family: 'Open Sans', sans-serif;
-        text-align: center;
-    }
-    .moyenne {
-        color: #1c3d7a;
-        margin-top: 20px; /* Espacement du haut */
-    }
+
     :root {
         --dark-green: #2b4d3a;
         --medium-green: #3a6650;
@@ -38,6 +10,96 @@
         --medium-gray: #4a5568;
         --light-gray: #f8f9fa;
         --border-gray: #e2e8f0;
+        --primary-color: #2b4d3a; /* Vert foncé */
+        --secondary-color: #5d8b6f; /* Vert moyen */
+        --light-color: #f5f9f7; /* Vert très clair */
+        --text-color: #333333; /* Gris foncé */
+        --border-color: #e0e6e2; /* Gris clair */
+    }
+    .grades-container {
+        font-family: 'Segoe UI', 'Open Sans', sans-serif;
+        color: var(--text-color);
+    }
+
+    /* Carte de matière */
+    .subject-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        margin-bottom: 24px;
+        overflow: hidden;
+    }
+
+    .subject-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .subject-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .subject-title {
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    /* Tableau de notes */
+    .grades-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .grades-table thead {
+        background-color: var(--light-color);
+    }
+
+    .grades-table th {
+        padding: 12px;
+        text-align: center;
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .grades-table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .grades-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Moyenne */
+    .subject-average {
+        background-color: var(--light-color);
+        padding: 12px;
+        text-align: center;
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    /* Moyenne générale */
+    .overall-average {
+        background: var(--primary-color);
+        color: white;
+        padding: 16px;
+        border-radius: 10px;
+        margin: 32px auto;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(43, 77, 58, 0.15);
+    }
+
+    .overall-average h4 {
+        margin: 0;
+        font-weight: 500;
+        line-height: 1.6;
     }
 
     /* Styles généraux */
@@ -206,14 +268,16 @@
         animation: fadeIn 0.5s ease-out forwards;
     }
     @media (max-width: 768px) {
-        .card-title {
-            font-size: 16px;
+
+        .grades-table th,
+        .grades-table td {
+            padding: 8px;
         }
-        .card-custom {
-            margin-bottom: 10px;
-        }
-        .general-average h4{
-            font-size: 19px;
+
+        .overall-average {
+            width: 90%;
+            margin: 24px auto;
+            padding: 12px;
         }
         .ai-card-body {
             padding: 1.25rem;
@@ -229,59 +293,53 @@
         }
     }
 </style>
-<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+<div class="col-md-9 ml-sm-auto col-lg-12 px-md-4 grades-container">
     <div class="row">
         {% if grouped_notes %}
             {% for subject_name, notes in grouped_notes.items %}
-            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
-                <div class="card card-custom">
-                    <div class="card-header custom bg-primary text-white">
-                        <h3 class="card-title">{{ subject_name }}</h3>
+            <div class="col-md-6 col-lg-4">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <h3 class="subject-title">{{ subject_name }}</h3>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">Note / 20</th>
-                                        <th scope="col" class="text-center">Date d'évaluation</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for note in notes %}
-                                    <tr>
-                                        <td class="text-center">{{ note.score }}</td>
-                                        <td class="text-center">{{ note.date|date:"d/m/Y" }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                                <tfoot>
-                                    <tr class='moyenne'>
-                                        <th scope="col" class="text-center">
-                                        {% for key, value in subject_averages.items %}
-                                            {% if key == subject_name %}
-                                                Moyenne : {{ value|floatformat:2  }}
-                                            {% endif %}
-                                        {% endfor %}
-                                        </th>
-                                        <th scope="col" class="text-center">
-                                        {% for key, value in coefficients.items %}
-                                            {% if key == subject_name %}
-                                                Coefficient : {{ value }}
-                                            {% endif %}
-                                        {% endfor %}
-                                        </th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Note / 20</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for note in notes %}
+                            <tr>
+                                <td>{{ note.score }}</td>
+                                <td>{{ note.date|date:"d/m/Y" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="subject-average">
+                        {% for key, value in subject_averages.items %}
+                            {% if key == subject_name %}
+                                Moyenne : {{ value|floatformat:2 }} | Coef :
+                                {% for k, v in coefficients.items %}
+                                    {% if k == subject_name %}{{ v }}{% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             {% endfor %}
-            <div class="col-md-12 text-center mt-4">
-                <div class="general-average">
-                    <h4><strong>Moyenne Trimestrielle : {{ general_average|floatformat:2 }} <br> <br> Rang : {% if student_rank == 1 %} {{ student_rank }}<sup>er</sup>  {% else %} {{ student_rank }}<sup>ème</sup>  {% endif %} / {{ student.classe.student_set.count }}</strong></h4>
+
+            <div class="col-12">
+                <div class="overall-average text-center">
+                    <h4>
+                        Moyenne Trimestrielle : <strong>{{ general_average|floatformat:2 }}</strong><br>
+                        Rang : <strong>{% if student_rank == 1 %}{{ student_rank }}<sup>er</sup>{% else %}{{ student_rank }}<sup>ème</sup>{% endif %}</strong> / {{ student.classe.student_set.count }}
+                    </h4>
                 </div>
             </div>
             <hr>
@@ -358,8 +416,12 @@
                 {% endif %}
             </div>
 
-        {% else %}
-            <!-- Votre message "pas de notes" existant -->
+       {% else %}
+            <div class="col-12 text-center py-5">
+                <i class="far fa-folder-open fa-3x mb-3" style="color: var(--border-color);"></i>
+                <h4 style="color: var(--text-color);">Aucune note disponible</h4>
+                <p style="color: var(--secondary-color);">Revenez après votre prochaine évaluation</p>
+            </div>
         {% endif %}
     </div>
 </div>

@@ -1,0 +1,345 @@
+{% extends 'base_profile.html' %}
+{% block content %}
+<style>
+    /* Style général */
+    .violence-report {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* Grille responsive */
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+
+    /* Style des champs */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+    }
+
+
+    /* Bouton de soumission */
+    .submit-btn {
+        background: linear-gradient(135deg, #34734d, #024906);
+        color: white;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        display: block;
+        margin: 40px auto 0;
+        transition: all 0.3s;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Indicateur de champ requis */
+    .required:after {
+        content: " *";
+        color: #d32f2f;
+    }
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-20px);
+        transition: all 0.3s;
+    }
+
+    .modal-overlay.active .modal-content {
+        transform: translateY(0);
+    }
+
+    .modal-icon {
+        font-size: 50px;
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .modal-message {
+        margin-bottom: 25px;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    .modal-close {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    details.form-toggle summary {
+        list-style: none;
+        font-size: 22px;
+        font-weight: 600;
+        padding: 10px 0;
+        border-bottom: 2px solid #f5f5f5;
+        color: #34734d;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    details.form-toggle[open] summary::after {
+        content: "▲";
+        margin-left: auto;
+        color: #999;
+        font-size: 14px;
+    }
+
+    details.form-toggle summary::after {
+        content: "▼";
+        margin-left: auto;
+        color: #999;
+        font-size: 14px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        background-color: #eee;
+    }
+    .reported {background-color: #FFF9C4; color: #6B5900;}
+    .investigating {background-color: #BBDEFB; color: #0D47A1;}
+    .resolved {background-color: #C8E6C9; color: #2E7D32;}
+    .archived {background-color: #FFCDD2; color: #B71C1C;}
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .full-width {
+            grid-column: span 1;
+        }
+
+        .violence-report {
+            padding: 20px;
+        }
+    }
+</style>
+
+<main class="col-md-9 ml-sm-auto col-lg-12 px-md-4 py-4">
+    <div class="violence-report">
+        <details class="form-toggle">
+            <summary style="cursor: pointer;">
+                Formulaire de Signalement de Violence
+            </summary>
+
+        <form method="post" style="margin-top: 20px;">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <!-- Ligne 1 - Date et Heure -->
+                <div class="form-group">
+                    <label for="id_date" class="required">Date de l'incident</label>
+                    {{ form.date }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_time" class="required">Heure de l'incident</label>
+                    {{ form.time }}
+                </div>
+
+                <!-- Ligne 2 - Lieu -->
+                <div class="form-group">
+                    <label for="id_place" class="required">Lieu</label>
+                    {{ form.place }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_other_place">Autre lieu (si non listé)</label>
+                    {{ form.other_place }}
+                </div>
+
+                <!-- Ligne 3 - Motif -->
+                <div class="form-group">
+                    <label for="id_reason" class="required">Motif</label>
+                    {{ form.reason }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_other_reason">Autre motif (si non listé)</label>
+                    {{ form.other_reason }}
+                </div>
+
+                <!-- Ligne 4 - Gravité et Signalé par -->
+                <div class="form-group">
+                    <label for="id_severity" class="required">Gravité</label>
+                    {{ form.severity }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_reported_by">Signalé par</label>
+                    {{ form.reported_by }}
+                </div>
+
+                <!-- Ligne 5 - Auteur et Témoins -->
+                <div class="form-group">
+                    <label for="id_perpetrator">Auteur présumé</label>
+                    {{ form.perpetrator }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_witnesses">Témoins éventuels</label>
+                    {{ form.witnesses }}
+                </div>
+
+                <!-- Ligne 6 - Description (pleine largeur) -->
+                <div class="form-group full-width">
+                    <label for="id_description">Description des faits</label>
+                    {{ form.description }}
+                </div>
+
+                <!-- Ligne 7 - Actions entreprises (pleine largeur) -->
+                <div class="form-group full-width">
+                    <label for="id_action_taken">Actions entreprises</label>
+                    {{ form.action_taken }}
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane mr-2"></i> Soumettre le signalement
+            </button>
+        </form>
+        </details>
+                <!-- Liste des signalements soumis -->
+        <div class="violence-list" style="margin-top: 50px; max-width: 1000px; margin-left: auto; margin-right: auto;">
+
+            <h3 style="color: #34734d; margin-bottom: 20px; border-bottom: 2px solid #f5f5f5; padding-bottom: 10px; font-weight: 600; font-size: 22px;">
+                Mes Signalements de Violence
+            </h3>
+
+            {% if violences %}
+            <table style="width: 100%; border-collapse: collapse; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+                <thead style="background-color: #f5f5f5; color: #333;">
+                    <tr>
+                        <th style="padding: 12px 15px; text-align: left;">Date</th>
+                        <th style="padding: 12px 15px; text-align: left;">Type</th>
+                        <th style="padding: 12px 15px; text-align: left;">Lieu</th>
+                        <th style="padding: 12px 15px; text-align: left;">Gravité</th>
+                        <th style="padding: 12px 15px; text-align: left;">Statut</th>
+                        <th style="padding: 12px 15px; text-align: center;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for violence in violences %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px 15px;">{{ violence.date|date:"d/m/Y" }}<br>{{ violence.time|time:"H:i" }}</td>
+                        <td style="padding: 10px 15px;">{{ violence.get_reason_display }}</td>
+                        <td style="padding: 10px 15px;">{{ violence.get_place_display }}</td>
+                        <td style="padding: 10px 15px;">{{ violence.get_severity_display }}</td>
+                        <td style="padding: 10px 15px;">
+                            <span class="status-badge {{ violence.status }}" >{{ violence.get_status_display }}
+                            </span>
+                        </td>
+                        <td style="padding: 10px 15px; text-align: center;">
+                            <button type="button" onclick="toggleDescription({{ violence.id }})" style="background: #34734d; color: white; border:none; padding: 5px 12px; border-radius: 5px; cursor:pointer; font-size: 13px;">
+                                Voir
+                            </button>
+                            <div id="desc-{{ violence.id }}" style="display: none; margin-top: 8px; font-size: 14px; color: #555; max-width: 300px; margin-left: auto; margin-right: auto;">
+                                {{ violence.description|linebreaksbr|default:"Aucune description" }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="color: #666; font-style: italic;">Vous n'avez encore soumis aucun signalement.</p>
+            {% endif %}
+        </div>
+
+        {% if success %}
+        <div class="modal-overlay active" id="confirmationModal">
+            <div class="modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="modal-title">Signalement reçu</h3>
+                <p class="modal-message">
+                    Votre signalement a bien été pris en compte et sera traité dans les plus brefs délais.
+                </p>
+                <p></p>
+                    <a href=" {% url 'student-profile' %}"><button onclick="document.getElementById('confirmationModal').classList.remove('active')"
+                        class="modal-close">
+                    Retour à l'accueil
+                </button></a>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</main>
+<script>
+function toggleDescription(id) {
+    const desc = document.getElementById('desc-' + id);
+    if (desc.style.display === 'none' || desc.style.display === '') {
+        desc.style.display = 'block';
+    } else {
+        desc.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

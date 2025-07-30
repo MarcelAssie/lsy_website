@@ -194,3 +194,4 @@ class InformationForm(forms.ModelForm):
                 'class': 'form-control'
             }),
         }
+

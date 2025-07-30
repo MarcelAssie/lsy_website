@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import user_passes_test, login_required
 from administration.models import Note, MATIERE_CHOICES, Coefficient, Schedule, Information
 from messagerie.models import Message
+from .forms import ViolenceForm
 from itertools import groupby
 from django.shortcuts import render, get_object_or_404, redirect
 from authentication.models import Student
@@ -172,3 +173,22 @@ def unread_notifications_count_student(request):
     student = get_object_or_404(Student, user=request.user)
     count = Message.objects.filter(recipients=student.user,is_read=False).count()
     return JsonResponse({'unread_notifications_count': count})
+
+@login_required
+@user_passes_test(lambda user: user.is_student)
+def student_violence(request):
+    student = get_object_or_404(Student, user=request.user)
+    violences = student.violences.all()
+    success = False
+    if request.method == "POST":
+        form = ViolenceForm(request.POST)
+        if form.is_valid():
+            violence = form.save(commit=False)
+            violence.student = student
+            violence.save()
+            form = ViolenceForm()
+            success = True
+    else:
+        form = ViolenceForm()
+
+    return render(request, 'student/student_violence.html', {'form': form, 'success': success,'violences' : violences})

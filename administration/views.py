@@ -2,6 +2,7 @@ from django.shortcuts import redirect,get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .models import Subject, Coefficient, Class, Schedule,TeacherSchedule, Information
 from authentication.models import Student, Parent, Teacher
+from student.models import Violence, STATUS, GRAVITE, MOTIFS
 from messagerie.models import Message
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -9,6 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Count
 from django.db import connections
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 import json
 import os
 import re
@@ -325,6 +327,64 @@ def schedule_students_view(request, class_id):
 
 @login_required
 @user_passes_test(lambda user: user.is_superuser)
+def students_violences(request):
+    if request.method == 'POST' and 'new_status' in request.POST:
+        violence_id = request.POST.get('violence_id')
+        new_status = request.POST.get('new_status')
+
+        try:
+            violence = Violence.objects.get(id=violence_id)
+            violence.status = new_status
+            violence.save()
+            messages.success(request, "Le statut a été mis à jour avec succès.")
+        except Violence.DoesNotExist:
+            messages.error(request, "Signalement introuvable.")
+
+        return redirect('students-violences')
+
+        # Filtres et statistiques (comme avant)
+    status_filter = request.GET.get('status')
+    severity_filter = request.GET.get('severity')
+
+    violences = Violence.objects.all().order_by('-date', '-time')
+
+    if status_filter:
+        violences = violences.filter(status=status_filter)
+    if severity_filter:
+        violences = violences.filter(severity=severity_filter)
+    # Statistiques
+    total_reports = Violence.objects.count()
+    reported_count = Violence.objects.filter(status='reported').count()
+    investigating_count = Violence.objects.filter(status='investigating').count()
+    resolved_count = Violence.objects.filter(status='resolved').count()
+
+    # Stats par type de violence
+    reasons_stats = {
+        label: Violence.objects.filter(reason=value).count()
+        for value, label in MOTIFS
+    }
+
+    # Pagination
+    paginator = Paginator(violences, 5)
+    page_number = request.GET.get('page')
+    violences = paginator.get_page(page_number)
+
+    context = {
+        'violences': violences,
+        'total_reports': total_reports,
+        'reported_count': reported_count,
+        'investigating_count': investigating_count,
+        'resolved_count': resolved_count,
+        'reasons_stats': reasons_stats,
+        'status_choices': STATUS,
+        'severity_choices': GRAVITE,
+    }
+
+    return render(request, 'administration/students_violences.html', context)
+
+
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
 def schedule_students_edit(request, schedule_id):
     """
     Permet de modifier un emploi du temps spécifique d'une classe.
@@ -467,6 +527,7 @@ def information_delete(request, pk):
         information.delete()
         return redirect('information-list')
     return redirect('information-list')
+
 
 
 def ai_suggestions(request):
